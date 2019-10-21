@@ -22,6 +22,8 @@ public class mainFrame {
     int lc =1;
 
 
+    
+
     public mainFrame()
     {
         server server = new server(taHistory);

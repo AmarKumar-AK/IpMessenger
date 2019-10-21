@@ -35,9 +35,7 @@ public class mainFrame {
 //        ips.addElement("192.168.1.15");
 
         //String ips[] ={"192.168.1.11","192.168.1.13","192.168.1.12","192.168.1.14","192.168.1.15"};
-        listIp.setModel(ips);
-
-
+        listIp.setModel(ips);   
 
 
         btnSearchIp.addActionListener(new ActionListener() {

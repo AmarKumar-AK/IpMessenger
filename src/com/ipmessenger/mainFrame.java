@@ -8,15 +8,22 @@ import java.net.Socket;
 
 public class mainFrame {
     private JPanel panel1;
+    //area where we get message
     private JTextArea taHistory;
+    //button for sending message
     private JButton btnSend;
+    //area where we type ip to search
     private JTextField tfNewIp;
+    //button for searching ip
     private JButton btnSearchIp;
+    //area where list of ip is shown
     private JList<String> listIp;
     private JSplitPane sp;
     private JPanel rpanel;
     private JPanel lpanel;
+    //name of person with whom you are chatting
     private JLabel labelName;
+    //area where we type message
     private JTextArea taSendMsg;
     Socket lastClient=null;
     int lc =1;

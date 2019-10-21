@@ -36,8 +36,10 @@ public class clientConnect extends Thread {
     public Socket getSocket() {
         return socket;
     }
+    public DataOutputStream getOut() {
+        return out;
+    }
 
-    
     public long getPid() {
         return pid;
     }
@@ -48,38 +50,36 @@ public class clientConnect extends Thread {
             pid = Thread.currentThread().getId();
             System.out.println("first time\n");
             socket = new Socket(address, port);
+            System.out.println("CCCsocket = "+socket);
             System.out.println("Connected"+Thread.currentThread().getId());
 
-            // takes input from terminal
-            //input  = new DataInputStream(taMsgSend.);
+            try {
+                out    = new DataOutputStream(socket.getOutputStream());
+            }
+            catch(IOException e2)
+            {}
+
             sendButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent)  {
                     String msg=taMsgSend.getText();
-                    taMsgSend.setText("");
-                    System.out.println("send b clicked");
-                    taHistory.append("[You] :"+msg+"\n");
-                    System.out.println("pid:"+Thread.currentThread().getId());
-                    // sends output to the socket
-                    try {
+                    if(!msg.equals(null))
+                    {
+                        taMsgSend.setText("");
+                        System.out.println("send b clicked");
+                        taHistory.append("[You] :"+msg+"\n");
+                        System.out.println("pid:"+Thread.currentThread().getId());
+                        try {
+                            out.writeUTF(msg);
 
-                        out    = new DataOutputStream(socket.getOutputStream());
-                    }
-                    catch(IOException e2)
-                    {}
-                    try {
-                        out.writeUTF(msg);
-                    }
-                    catch (IOException e1)
-                    {e1.printStackTrace();
-                        Thread.currentThread().stop();
+                        }
+                        catch (IOException e1)
+                        {e1.printStackTrace();
+                            Thread.currentThread().stop();
+                        }
                     }
                 }
             });
-
-
-
-
 
         }
         catch(UnknownHostException u)
@@ -91,33 +91,17 @@ public class clientConnect extends Thread {
             System.out.println(i);
         }
 
-//        // string to read message from input
-//        String line = "";
-//
-//        // keep reading until "Over" is input
-//        while (!line.equals("Over"))
-//        {
-//            try
-//            {
-//                line = input.readLine();
-//                out.writeUTF(line);
-//            }
-//            catch(IOException i)
-//            {
-//                System.out.println(i);
-//            }
-//        }
-
         // close the connection
-        try
-        {
-            //input.close();
-            out.close();
-            socket.close();
-        }
-        catch(IOException i)
-        {
-            // System.out.println(i);
-        }
+        //list click action
+//        try
+//        {
+//            //input.close();
+//            out.close();
+//            socket.close();
+//        }
+//        catch(IOException i)
+//        {
+//            // System.out.println(i);
+//        }
     }
 }

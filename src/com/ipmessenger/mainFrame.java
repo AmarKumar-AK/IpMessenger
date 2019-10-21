@@ -21,6 +21,7 @@ public class mainFrame {
     Socket lastClient=null;
     int lc =1;
 
+
     public mainFrame()
     {
         server server = new server(taHistory);

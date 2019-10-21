@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fb4cc6b7-0502-480a-acc6-957c40a3742e" name="Default Changelist" comment="testing" />
+    <list default="true" id="fb4cc6b7-0502-480a-acc6-957c40a3742e" name="Default Changelist" comment="testing">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/ClientHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/ClientHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/clientConnect$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/clientConnect$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/clientConnect.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/clientConnect.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/mainFrame$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/mainFrame$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/mainFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/mainFrame.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/server.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/server.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/ipmessenger/mainFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/ipmessenger/mainFrame.java" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,6 +30,7 @@
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH" value="240" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../saumya" />
     <property name="project.structure.last.edited" value="Project" />
@@ -73,7 +84,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>

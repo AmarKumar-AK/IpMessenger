@@ -37,6 +37,7 @@ public class clientConnect extends Thread {
         return socket;
     }
 
+    
     public long getPid() {
         return pid;
     }

@@ -9,9 +9,12 @@ import java.net.Socket;
 public class mainFrame {
     private JPanel panel1;
     private JTextArea taHistory;
+    //button for sending message
     private JButton btnSend;
     private JTextField tfNewIp;
+    //button for searching ip
     private JButton btnSearchIp;
+    //area where list of ip is shown
     private JList<String> listIp;
     private JSplitPane sp;
     private JPanel rpanel;

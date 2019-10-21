@@ -2,21 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fb4cc6b7-0502-480a-acc6-957c40a3742e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/ClientHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/ClientHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/clientConnect$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/clientConnect$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/clientConnect.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/clientConnect.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/mainFrame$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/mainFrame$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/mainFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/mainFrame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/server.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/server.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/ipmessenger/mainFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/ipmessenger/mainFrame.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CoverageViewManager">
+    <option name="myElementSize" value="202" />
   </component>
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
@@ -98,6 +96,11 @@
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
     <option name="FILTER_TARGETS" value="false" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/IpMessenger$mainFrame.ic" NAME="mainFrame Coverage Results" MODIFIED="1571665722842" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.ipmessenger.*</FILTER>
+    </SUITE>
   </component>
   <component name="masterDetails">
     <states>

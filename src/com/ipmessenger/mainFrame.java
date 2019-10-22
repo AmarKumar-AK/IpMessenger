@@ -55,19 +55,21 @@ public class mainFrame {
                 if(lc==0)
                 {
                     try{
-
+                        System.out.println("lastsocket = "+lastClient);
+                        if(lastOut!=null)
                          lastClient.close();
                     }
                     catch (IOException i){
-
+                        System.out.println(i);
                     };
                     try{
-
+                        if(lastOut!=null)
                         lastOut.close();
                     }
                     catch (IOException i){
 
                     };
+
                     for( ActionListener al : btnSend.getActionListeners() ) {
                         btnSend.removeActionListener( al );
                     }
@@ -82,21 +84,22 @@ public class mainFrame {
                     String a= ips.get(i);
                     if(a.equals(temp))
                     {
-                        taHistory.append(ips.get(i));
+                        //taHistory.append(ips.get(i));
                         flag=1;
                         listIp.setSelectedIndex(i);
                         break;
                     }
                 }
-                if(flag==0)
-                {
-                    ips.addElement(temp);
-                }
+
                 tfNewIp.setText("");
                 System.out.println(temp);
                 listIp.setModel(ips);
                 clientConnect client = new clientConnect(temp,5000,taSendMsg,taHistory,btnSend);
-                client.start();
+                try {
+                    client.start();
+                } catch (UnknownError eee) {
+                    eee.printStackTrace();
+                }
                 try {
                     client.join();
                 } catch (InterruptedException ee) {
@@ -106,6 +109,10 @@ public class mainFrame {
                 System.out.println("socket = "+lastClient);
                 lastOut=client.getOut();
                 System.out.println("out = "+lastOut);
+                if(lastOut!=null && flag!=1)
+                {
+                    ips.addElement(temp);
+                }
 
 
                 lc=0;

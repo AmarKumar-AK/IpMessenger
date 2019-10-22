@@ -3,22 +3,31 @@ package com.ipmessenger;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
 public class mainFrame {
     private JPanel panel1;
+    //area where we get message
     private JTextArea taHistory;
+    //button for sending message
     private JButton btnSend;
+    //area where we type ip to search
     private JTextField tfNewIp;
+    //button for searching ip
     private JButton btnSearchIp;
+    //area where list of ip is shown
     private JList<String> listIp;
     private JSplitPane sp;
     private JPanel rpanel;
     private JPanel lpanel;
+    //name of person with whom you are chatting
     private JLabel labelName;
+    //area where we type message
     private JTextArea taSendMsg;
     Socket lastClient=null;
+    DataOutputStream lastOut=null;
     int lc =1;
 
 
@@ -35,7 +44,7 @@ public class mainFrame {
 //        ips.addElement("192.168.1.15");
 
         //String ips[] ={"192.168.1.11","192.168.1.13","192.168.1.12","192.168.1.14","192.168.1.15"};
-        listIp.setModel(ips);
+        //listIp.setModel(ips);
 
 
 
@@ -46,11 +55,23 @@ public class mainFrame {
                 if(lc==0)
                 {
                     try{
+
                          lastClient.close();
                     }
                     catch (IOException i){
 
                     };
+                    try{
+
+                        lastOut.close();
+                    }
+                    catch (IOException i){
+
+                    };
+                    for( ActionListener al : btnSend.getActionListeners() ) {
+                        btnSend.removeActionListener( al );
+                    }
+
                 }
 
 
@@ -73,10 +94,20 @@ public class mainFrame {
                 }
                 tfNewIp.setText("");
                 System.out.println(temp);
+                listIp.setModel(ips);
                 clientConnect client = new clientConnect(temp,5000,taSendMsg,taHistory,btnSend);
-                lastClient=client.getSocket();
-
                 client.start();
+                try {
+                    client.join();
+                } catch (InterruptedException ee) {
+                    ee.printStackTrace();
+                }
+                lastClient=client.getSocket();
+                System.out.println("socket = "+lastClient);
+                lastOut=client.getOut();
+                System.out.println("out = "+lastOut);
+
+
                 lc=0;
             }
         });

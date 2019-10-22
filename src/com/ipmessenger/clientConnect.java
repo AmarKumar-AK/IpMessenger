@@ -6,8 +6,7 @@ import java.awt.event.ActionListener;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.Socket;
-import java.net.UnknownHostException;
+import java.net.*;
 
 public class clientConnect extends Thread {
 
@@ -49,7 +48,8 @@ public class clientConnect extends Thread {
         {
             pid = Thread.currentThread().getId();
             System.out.println("first time\n");
-            socket = new Socket(address, port);
+            socket = new Socket();
+            socket.connect(new InetSocketAddress(address, port), 1000);
             System.out.println("CCCsocket = "+socket);
             System.out.println("Connected"+Thread.currentThread().getId());
 

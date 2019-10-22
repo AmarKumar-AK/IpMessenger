@@ -26,7 +26,7 @@ public class server extends Thread {
         {
             ServerSocket ss = new ServerSocket(5000);
 
-            Socket s;
+            Socket s = null;
 
             // running infinite loop for getting
             // client request
@@ -81,7 +81,7 @@ class ClientHandler implements Runnable
     final DataInputStream dis;
     final DataOutputStream dos;
     private JTextArea taMsgRecv;
-    Socket s;
+    Socket s = null;
     boolean isloggedin;
     boolean exit =false;
 

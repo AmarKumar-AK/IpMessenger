@@ -1,11 +1,10 @@
 package com.ipmessenger;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.*;
 
 public class clientConnect extends Thread {
@@ -19,17 +18,21 @@ public class clientConnect extends Thread {
     private JTextArea taMsgSend;
     private JTextArea taHistory;
     private JButton sendButton;
-
+    private JButton btnMediaButton;
+    private JPanel panel1;
     private long pid;
+    private JFileChooser fc=null;
 
 
     // constructor to put ip address and port
-    public clientConnect(String adr, int prt,JTextArea taMsgSend,JTextArea taHistory,JButton sendButton) {
+    public clientConnect(String adr, int prt,JTextArea taMsgSend,JTextArea taHistory,JButton sendButton, JButton btnMediaButton, JPanel panel1) {
         address = adr;
         port = prt;
         this.taMsgSend=taMsgSend;
         this.sendButton=sendButton;
         this.taHistory=taHistory;
+        this.btnMediaButton=btnMediaButton;
+        this.panel1 = panel1;
     }
 
     public Socket getSocket() {
@@ -73,13 +76,80 @@ public class clientConnect extends Thread {
                         System.out.println("pid:"+Thread.currentThread().getId());
                         try {
                             out.writeUTF(msg);
-
                         }
                         catch (IOException e1)
                         {e1.printStackTrace();
                             Thread.currentThread().stop();
                         }
                     }
+                    if(fc!=null)
+                    {
+                        try {
+                            out.writeUTF("Attachment");
+                            out.writeUTF(String.valueOf(fc.getSelectedFile()));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        FileInputStream fis = null;
+                        BufferedInputStream bis = null;
+                        OutputStream os = null;
+
+                        try {
+                            while (true) {
+                                try {
+                                    // send file
+                                    File FILE_TO_SEND = fc.getSelectedFile();
+                                    File myFile = new File (String.valueOf(FILE_TO_SEND));
+                                    byte [] mybytearray  = new byte [(int)myFile.length()];
+                                    fis = new FileInputStream(myFile);
+                                    bis = new BufferedInputStream(fis);
+                                    bis.read(mybytearray,0,mybytearray.length);
+                                    os = socket.getOutputStream();
+                                    System.out.println("Sending " + FILE_TO_SEND + "(" + mybytearray.length + " bytes)");
+                                    os.write(mybytearray,0,mybytearray.length);
+                                    try {
+                                        os.flush();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    System.out.println("Done.");
+                                    taHistory.append("[You] :"+String.valueOf(fc.getSelectedFile())+"sent.\n");
+                                } catch (FileNotFoundException e) {
+                                    e.printStackTrace();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                } finally {
+                                    if (bis != null) {
+                                        try {
+                                            bis.close();
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                    if (os != null) {
+                                        try {
+                                            os.close();
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        finally {
+                        }
+                    }
+
+                }
+            });
+
+            btnMediaButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    fc = new JFileChooser();
+                    fc.showOpenDialog(panel1);
+                    System.out.println("FC "+fc.getSelectedFile());
+                    //SendMedia sm = new SendMedia(fc.getSelectedFile());
                 }
             });
 

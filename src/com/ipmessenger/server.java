@@ -1,11 +1,10 @@
 package com.ipmessenger;
 
 import javax.swing.*;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Date;
 import java.util.Scanner;
 import java.util.Vector;
 
@@ -84,6 +83,8 @@ class ClientHandler implements Runnable
     Socket s = null;
     boolean isloggedin;
     boolean exit =false;
+    public static String FILE_TO_RECEIVED = null;
+    public final static int FILE_SIZE = 26022386; // file size temporary hard code
 
     // constructor
     public ClientHandler(Socket s, String name,
@@ -106,6 +107,42 @@ class ClientHandler implements Runnable
             {
                 // receive the string
                 received = dis.readUTF();
+                if(received.equals("Attachment")){
+                    received = dis.readUTF();
+                    FILE_TO_RECEIVED = received.toLowerCase();
+                    int bytesRead;
+                    int current = 0;
+                    FileOutputStream fos = null;
+                    BufferedOutputStream bos = null;
+                    Socket sock = null;
+                    try {
+                        System.out.println("Connecting...");
+
+                        // receive file
+                        byte [] mybytearray  = new byte [FILE_SIZE];
+                        InputStream is = sock.getInputStream();
+                        fos = new FileOutputStream(FILE_TO_RECEIVED);
+                        bos = new BufferedOutputStream(fos);
+                        bytesRead = is.read(mybytearray,0,mybytearray.length);
+                        current = bytesRead;
+
+                        do {
+                            bytesRead =
+                                    is.read(mybytearray, current, (mybytearray.length-current));
+                            if(bytesRead >= 0) current += bytesRead;
+                        } while(bytesRead > -1);
+
+                        bos.write(mybytearray, 0 , current);
+                        bos.flush();
+                        System.out.println("File " + FILE_TO_RECEIVED
+                                + " downloaded (" + current + " bytes read)");
+                    }
+                    finally {
+                        if (fos != null) fos.close();
+                        if (bos != null) bos.close();
+                        if (sock != null) sock.close();
+                    }
+                }
 
                 System.out.println(received);
                 taMsgRecv.append("[+] "+received+"\n");

@@ -26,6 +26,7 @@ public class mainFrame {
     private JLabel labelName;
     //area where we type message
     private JTextArea taSendMsg;
+    private JButton btnMediaButton;
     Socket lastClient=null;
     DataOutputStream lastOut=null;
     int lc =1;
@@ -94,7 +95,7 @@ public class mainFrame {
                 tfNewIp.setText("");
                 System.out.println(temp);
                 listIp.setModel(ips);
-                clientConnect client = new clientConnect(temp,5000,taSendMsg,taHistory,btnSend);
+                clientConnect client = new clientConnect(temp,5000,taSendMsg,taHistory,btnSend,btnMediaButton,panel1);
                 try {
                     client.start();
                 } catch (UnknownError eee) {

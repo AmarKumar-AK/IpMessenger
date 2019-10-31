@@ -8,6 +8,8 @@ import java.io.DataOutputStream;
 import java.io.EOFException;
 import java.io.IOException;
 import java.net.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class clientConnect extends Thread {
 
@@ -67,6 +69,8 @@ public class clientConnect extends Thread {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent)  {
                     String msg=taMsgSend.getText();
+                    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM HH:mm");
+                    LocalDateTime now = LocalDateTime.now();
                     if(!msg.equals(null))
                     {
                         taMsgSend.setText("");
@@ -79,7 +83,7 @@ public class clientConnect extends Thread {
                             String ack;
                             ack=In.readUTF();
                             if(ack.equals("ackOK"))
-                                taHistory.append("[You] :"+msg+"\n");
+                                taHistory.append("[You @ "+dtf.format(now)+"]: "+msg+"\n");
 
                         }
                         catch (IOException e1)

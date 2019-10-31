@@ -120,6 +120,7 @@ class ClientHandler implements Runnable
 
                         // receive file
                         byte [] mybytearray  = new byte [FILE_SIZE];
+                        assert sock != null;
                         InputStream is = sock.getInputStream();
                         fos = new FileOutputStream(FILE_TO_RECEIVED);
                         bos = new BufferedOutputStream(fos);

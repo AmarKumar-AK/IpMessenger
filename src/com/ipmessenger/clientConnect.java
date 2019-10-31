@@ -86,7 +86,8 @@ public class clientConnect extends Thread {
                     {
                         try {
                             out.writeUTF("Attachment");
-                            out.writeUTF(String.valueOf(fc.getSelectedFile()));
+                            String[] arrOfStr = String.valueOf(fc.getSelectedFile()).split("/");
+                            out.writeUTF(String.valueOf(arrOfStr[arrOfStr.length -1]));
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -99,6 +100,7 @@ public class clientConnect extends Thread {
                                 try {
                                     // send file
                                     File FILE_TO_SEND = fc.getSelectedFile();
+                                    System.out.println(fc.getSelectedFile());
                                     File myFile = new File (String.valueOf(FILE_TO_SEND));
                                     byte [] mybytearray  = new byte [(int)myFile.length()];
                                     fis = new FileInputStream(myFile);

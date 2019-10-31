@@ -114,14 +114,13 @@ class ClientHandler implements Runnable
                     int current = 0;
                     FileOutputStream fos = null;
                     BufferedOutputStream bos = null;
-                    Socket sock = null;
+//                    Socket sock = null;
                     try {
                         System.out.println("Connecting...");
 
                         // receive file
                         byte [] mybytearray  = new byte [FILE_SIZE];
-                        assert sock != null;
-                        InputStream is = sock.getInputStream();
+                        InputStream is = s.getInputStream();
                         fos = new FileOutputStream(FILE_TO_RECEIVED);
                         bos = new BufferedOutputStream(fos);
                         bytesRead = is.read(mybytearray,0,mybytearray.length);

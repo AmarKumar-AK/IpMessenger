@@ -5,6 +5,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/ipmessenger/clientConnect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/ipmessenger/clientConnect.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/ipmessenger/mainFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/ipmessenger/mainFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/ipmessenger/server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/ipmessenger/server.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -35,7 +36,7 @@
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">

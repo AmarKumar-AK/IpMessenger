@@ -29,14 +29,15 @@ public class mainFrame {
     Socket lastClient=null;
     DataOutputStream lastOut=null;
     int lc =1;
+    DefaultListModel<String> ips = new DefaultListModel<>();
 
 
     public mainFrame()
     {
-        server server = new server(taHistory);
+        server server = new server(taHistory,ips,listIp);
         server.start();
 
-        DefaultListModel<String> ips = new DefaultListModel<>();
+
 //        ips.addElement("192.168.1.11");
 //        ips.addElement("192.168.1.12");
 //        ips.addElement("192.168.1.13");

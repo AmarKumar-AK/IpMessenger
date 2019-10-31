@@ -12,12 +12,19 @@ import java.util.Vector;
 public class server extends Thread {
     static Vector<ClientHandler> ar = new Vector<>();
     private JTextArea taMsgRecv;
-    static  int i=0;                                 // counter for clients
+    static  int i=0;
+    DefaultListModel<String> ips = new DefaultListModel<>();// counter for clients
+    JList<String > listip;
+    public DefaultListModel<String> getIps() {
+        return ips;
+    }
 
     // constructor with port
-    public server(JTextArea taMsgRecv)
+    public server(JTextArea taMsgRecv,DefaultListModel<String> ips,JList<String> listip)
     {
         this.taMsgRecv=taMsgRecv;
+        this.ips = ips;
+        this.listip = listip;
     }
     public void run()
     {
@@ -36,6 +43,23 @@ public class server extends Thread {
                 System.out.println("server waiting! \n");
                 s = ss.accept();
 
+                int flag = 0;
+                for (int i=0;i<ips.size();i++)
+                {
+                    String a= ips.get(i);
+                    if(a.equals(s.getInetAddress().getHostAddress()))
+                    {
+                        //taHistory.append(ips.get(i));
+                        flag=1;
+                        break;
+                    }
+                }
+                if(flag==0)
+                    ips.addElement(s.getInetAddress().getHostAddress());
+                for(int i=0;i<ips.size();i++)
+                {
+                    System.out.println(ips.get(i));
+                }
 
                 System.out.println("New client request received : " + s);
 
@@ -46,7 +70,7 @@ public class server extends Thread {
                 System.out.println("Creating a new handler for this client...");
 
                 // Create a new handler object for handling this request.
-                ClientHandler mtch = new ClientHandler(s,"client " + i, dis, dos,taMsgRecv);
+                ClientHandler mtch = new ClientHandler(s,"client " + i, dis, dos,taMsgRecv,ips,listip);
 
 
                 // Create a new Thread with this object.
@@ -84,21 +108,32 @@ class ClientHandler implements Runnable
     Socket s;
     boolean isloggedin;
     boolean exit =false;
-
+    DefaultListModel<String> ips = new DefaultListModel<>();
+    JList<String>listip;
     // constructor
     public ClientHandler(Socket s, String name,
-                         DataInputStream dis, DataOutputStream dos,JTextArea taMsgRecv) {
+                         DataInputStream dis, DataOutputStream dos,JTextArea taMsgRecv,DefaultListModel<String>ips,JList<String> listip) {
         this.dis = dis;
         this.dos = dos;
         this.name = name;
         this.s = s;
         this.isloggedin=true;
         this.taMsgRecv=taMsgRecv;
+        this.ips = ips;
+        this.listip=listip;
     }
 
     @Override
     public void run() {
+        listip.setModel(ips);
+        for(int i=0;i<ips.size();i++)
+        {
+            if(ips.get(i).equals(s.getInetAddress().getHostAddress()))
+            {
 
+                break;
+            }
+        }
         String received;
         while (true)
         {
@@ -106,9 +141,11 @@ class ClientHandler implements Runnable
             {
                 // receive the string
                 received = dis.readUTF();
+                String ack = "ackOK";
+                dos.writeUTF(ack);
 
                 System.out.println(received);
-                taMsgRecv.append("[+] "+received+"\n");
+                taMsgRecv.append("["+s.getInetAddress().getHostAddress()+"] "+received+"\n");
 
                 if(received.equals("logout")){
                     this.isloggedin=false;

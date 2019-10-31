@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.EOFException;
 import java.io.IOException;
 import java.net.*;
 
@@ -19,6 +20,7 @@ public class clientConnect extends Thread {
     private JTextArea taMsgSend;
     private JTextArea taHistory;
     private JButton sendButton;
+    private DataInputStream In=null;
 
     private long pid;
 
@@ -55,6 +57,8 @@ public class clientConnect extends Thread {
 
             try {
                 out    = new DataOutputStream(socket.getOutputStream());
+                In = new DataInputStream(socket.getInputStream());
+
             }
             catch(IOException e2)
             {}
@@ -67,16 +71,23 @@ public class clientConnect extends Thread {
                     {
                         taMsgSend.setText("");
                         System.out.println("send b clicked");
-                        taHistory.append("[You] :"+msg+"\n");
+
+
                         System.out.println("pid:"+Thread.currentThread().getId());
                         try {
                             out.writeUTF(msg);
+                            String ack;
+                            ack=In.readUTF();
+                            if(ack.equals("ackOK"))
+                                taHistory.append("[You] :"+msg+"\n");
 
                         }
                         catch (IOException e1)
-                        {e1.printStackTrace();
+                        {
+                            e1.printStackTrace();
                             Thread.currentThread().stop();
                         }
+
                     }
                 }
             });

@@ -106,10 +106,12 @@ class ClientHandler implements Runnable
             try
             {
                 // receive the string
+                long recvfilesize=0;
                 received = dis.readUTF();
-                if(received.equals("Attachment")){
+                if(received.equals("Attachment5psafv")){
                     received = dis.readUTF();
-                    FILE_TO_RECEIVED = received.toLowerCase();
+                    String path = "media/";
+                    FILE_TO_RECEIVED = path+received.toLowerCase();
                     int bytesRead;
                     int current = 0;
                     FileOutputStream fos = null;
@@ -117,40 +119,37 @@ class ClientHandler implements Runnable
 //                    Socket sock = null;
                     try {
                         System.out.println("Connecting...");
-
-                        // receive file
+                        recvfilesize = dis.readLong();
+                        System.out.println("recvfilesize: "+recvfilesize);
                         byte [] mybytearray  = new byte [FILE_SIZE];
                         InputStream is = s.getInputStream();
                         fos = new FileOutputStream(FILE_TO_RECEIVED);
                         bos = new BufferedOutputStream(fos);
-                        bytesRead = is.read(mybytearray,0,mybytearray.length);
-                        current = bytesRead;
-
                         do {
-                            bytesRead =
-                                    is.read(mybytearray, current, (mybytearray.length-current));
+                            bytesRead = is.read(mybytearray, current, (mybytearray.length-current));
+                            System.out.println("bytesRead: "+bytesRead);
+                            System.out.println("current: "+current);
                             if(bytesRead >= 0) current += bytesRead;
-                        } while(bytesRead > -1);
-
+                        } while(current<recvfilesize);
                         bos.write(mybytearray, 0 , current);
                         bos.flush();
-                        System.out.println("File " + FILE_TO_RECEIVED
-                                + " downloaded (" + current + " bytes read)");
+                        received=null;
+                        System.out.println("File " + FILE_TO_RECEIVED + " downloaded (" + current + " bytes read)");
                     }
                     finally {
                         if (fos != null) fos.close();
                         if (bos != null) bos.close();
-                        if (sock != null) sock.close();
                     }
-                }
+                } else {
 
-                System.out.println(received);
-                taMsgRecv.append("[+] "+received+"\n");
+                    System.out.println(received);
+                    taMsgRecv.append("[+] " + received + "\n");
 
-                if(received.equals("logout")){
-                    this.isloggedin=false;
-                    this.s.close();
-                    break;
+                    if (received.equals("logout")) {
+                        this.isloggedin = false;
+                        this.s.close();
+                        break;
+                    }
                 }
             } catch (IOException e) {
                 try
@@ -162,7 +161,7 @@ class ClientHandler implements Runnable
                 }catch(IOException e1){
                     //e1.printStackTrace();
                 }
-                //e.printStackTrace();
+                e.printStackTrace();
             }
 
         }

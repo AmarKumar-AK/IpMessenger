@@ -64,11 +64,12 @@ public class clientConnect extends Thread {
 
             sendButton.addActionListener(new ActionListener() {
                 @Override
-                public void actionPerformed(ActionEvent actionEvent)  {
+                public void actionPerformed(ActionEvent actionEvent) {
                     System.out.println("Printing Action Event");
                     System.out.println(actionEvent);
-                    String msg=taMsgSend.getText();
-                    if(!msg.equals(null))
+                    String msg = taMsgSend.getText();
+                    System.out.println("Message: "+msg);
+                    if(!msg.equals(null) && msg!=null && !msg.equals(""))
                     {
                         taMsgSend.setText("");
                         System.out.println("send b clicked");
@@ -82,12 +83,11 @@ public class clientConnect extends Thread {
                             Thread.currentThread().stop();
                         }
                     }
-                    if(fc!=null)
-                    {
+                    if (fc != null && fc.getSelectedFile()!=null) {
                         try {
-                            out.writeUTF("Attachment");
+                            out.writeUTF("Attachment5psafv");
                             String[] arrOfStr = String.valueOf(fc.getSelectedFile()).split("/");
-                            out.writeUTF(String.valueOf(arrOfStr[arrOfStr.length -1]));
+                            out.writeUTF(String.valueOf(arrOfStr[arrOfStr.length - 1]));
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -96,49 +96,39 @@ public class clientConnect extends Thread {
                         OutputStream os = null;
 
                         try {
-                            while (true) {
+                            // send file
+                            File FILE_TO_SEND = fc.getSelectedFile();
+                            System.out.println(fc.getSelectedFile());
+                            File myFile = new File(String.valueOf(FILE_TO_SEND));
+                            byte[] mybytearray = new byte[(int) myFile.length()];
+                            fis = new FileInputStream(myFile);
+                            bis = new BufferedInputStream(fis);
+                            System.out.println(myFile.length());
+                            out.writeLong(myFile.length());
+                            bis.read(mybytearray, 0, mybytearray.length);
+                            os = socket.getOutputStream();
+                            System.out.println("Sending " + FILE_TO_SEND + "(" + mybytearray.length + " bytes)");
+                            os.write(mybytearray, 0, mybytearray.length);
+                            try {
+                                os.flush();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            System.out.println("Done.");
+                            taHistory.append("[You] :" + String.valueOf(fc.getSelectedFile()) + " sent.\n");
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } finally {
+                            if (bis != null) {
                                 try {
-                                    // send file
-                                    File FILE_TO_SEND = fc.getSelectedFile();
-                                    System.out.println(fc.getSelectedFile());
-                                    File myFile = new File (String.valueOf(FILE_TO_SEND));
-                                    byte [] mybytearray  = new byte [(int)myFile.length()];
-                                    fis = new FileInputStream(myFile);
-                                    bis = new BufferedInputStream(fis);
-                                    bis.read(mybytearray,0,mybytearray.length);
-                                    os = socket.getOutputStream();
-                                    System.out.println("Sending " + FILE_TO_SEND + "(" + mybytearray.length + " bytes)");
-                                    os.write(mybytearray,0,mybytearray.length);
-                                    try {
-                                        os.flush();
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
-                                    }
-                                    System.out.println("Done.");
-                                    taHistory.append("[You] :"+String.valueOf(fc.getSelectedFile())+"sent.\n");
-                                } catch (FileNotFoundException e) {
-                                    e.printStackTrace();
+                                    bis.close();
+                                    fc=null;
                                 } catch (IOException e) {
                                     e.printStackTrace();
-                                } finally {
-                                    if (bis != null) {
-                                        try {
-                                            bis.close();
-                                        } catch (IOException e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-                                    if (os != null) {
-                                        try {
-                                            os.close();
-                                        } catch (IOException e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
                                 }
                             }
-                        }
-                        finally {
                         }
                     }
 
@@ -151,7 +141,6 @@ public class clientConnect extends Thread {
                     fc = new JFileChooser();
                     fc.showOpenDialog(panel1);
                     System.out.println("FC "+fc.getSelectedFile());
-                    //SendMedia sm = new SendMedia(fc.getSelectedFile());
                 }
             });
 
@@ -164,18 +153,5 @@ public class clientConnect extends Thread {
         {
             System.out.println(i);
         }
-
-        // close the connection
-        //list click action
-//        try
-//        {
-//            //input.close();
-//            out.close();
-//            socket.close();
-//        }
-//        catch(IOException i)
-//        {
-//            // System.out.println(i);
-//        }
     }
 }

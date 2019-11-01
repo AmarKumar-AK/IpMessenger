@@ -52,13 +52,15 @@ public class server extends Thread {
                         break;
                     }
                 }
-                if(flag==0)
+
+                if(flag==0) {
                     ips.addElement(s.getInetAddress().getHostAddress());
+                }
+
                 for(int i=0;i<ips.size();i++)
                 {
                     System.out.println(ips.get(i));
                 }
-
                 System.out.println("New client request received : " + s);
 
                 // obtain input and output streams

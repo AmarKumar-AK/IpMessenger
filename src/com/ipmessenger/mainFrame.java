@@ -34,16 +34,28 @@ public class mainFrame {
     private JLabel labelName;
     //area where we type message
     private JTextArea taSendMsg;
+    private JButton attachButton;
+    private JButton moreButton;
     Socket lastClient=null;
     DataOutputStream lastOut=null;
     int lc =1;
     int bc=1;
+    private Socket currentClient = null;
+
     DefaultListModel<String> ips = new DefaultListModel<>();
 
     public mainFrame()
     {
         server server = new server(taHistory,ips,listIp);
         server.start();
+
+        ip IpAddr=new ip();
+        try
+        {
+            IpAddr.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         tfNewIp.addKeyListener(new KeyAdapter() {
             @Override
@@ -112,7 +124,9 @@ public class mainFrame {
                 listIp.setModel(ips);
                 clientConnect client = new clientConnect(temp,5000,taSendMsg,taHistory,btnSend);
                 try {
+                    currentClient = client.getSocket();
                     client.start();
+                    System.out.println("client = "+currentClient);
                     if(lastClient!=null)
                         labelName.setText(temp);
                 } catch (UnknownError eee) {
@@ -178,7 +192,10 @@ public class mainFrame {
 
                     clientConnect client = new clientConnect(temp1,5000,taSendMsg,taHistory,btnSend);
                     try {
+                        currentClient = client.getSocket();
                         client.start();
+
+                        System.out.println("client = "+currentClient);
                         if(lastClient!=null)
                             labelName.setText(temp1);
                     } catch (UnknownError eee) {
@@ -189,10 +206,18 @@ public class mainFrame {
                     } catch (InterruptedException ee) {
                         ee.printStackTrace();
                     }
+
                     lastClient=client.getSocket();
                     System.out.println("socket = "+lastClient);
                     bc=0;
                 }
+            }
+        });
+        moreButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+//                String ip = currentClient.getInetAddress().getHostAddress();
+                JOptionPane.showMessageDialog(panel1,"kaksdkkal");
             }
         });
     }

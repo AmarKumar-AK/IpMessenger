@@ -9,8 +9,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.Scanner;
 
 public class mainFrame {
     private JPanel panel1;
@@ -79,6 +82,17 @@ public class mainFrame {
                 }
 
                 String temp = tfNewIp.getText();
+                String filename=temp;
+                taHistory.setText("");
+                try
+                {
+                    File file=new File("database/"+filename.replace(".","_")+".txt");
+                    Scanner sc=new Scanner(file);
+                    sc.useDelimiter("\\Z");
+                    taHistory.setText(sc.next());
+                } catch (FileNotFoundException ex) {
+                    ex.printStackTrace();
+                }
                 int flag = 0;
                 for (int i=0;i<ips.size();i++)
                 {
@@ -146,6 +160,18 @@ public class mainFrame {
                         };
                     }
                     String temp1=listIp.getSelectedValue();
+                    String filename=temp1;
+                    taHistory.setText("");
+                    try
+                    {
+                        File file=new File("database/"+filename.replace(".","_")+".txt");
+                        Scanner sc=new Scanner(file);
+                        sc.useDelimiter("\\Z");
+                        String msgsave=sc.next()+"\n";
+                        taHistory.setText(msgsave);
+                    } catch (FileNotFoundException ex) {
+                        ex.printStackTrace();
+                    }
                     System.out.println("selected ip = "+temp1);
                     System.out.println(temp1);
                     //listIp.setModel(ips);

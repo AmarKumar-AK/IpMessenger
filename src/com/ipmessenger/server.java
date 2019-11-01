@@ -1,9 +1,7 @@
 package com.ipmessenger;
 
 import javax.swing.*;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
@@ -143,13 +141,22 @@ class ClientHandler implements Runnable
                 received = dis.readUTF();
                 String ack = "ackOK";
                 dos.writeUTF(ack);
-
+                String filename=s.getInetAddress().getHostName();
+                System.out.println("fn"+filename);
                 System.out.println(received);
                 if(!received.equals(""))
                 {
                     taMsgRecv.setText(taMsgRecv.getText()+"["+s.getInetAddress().getHostAddress()+"] "+received+"\n");
                 }
 
+                File file=new File("database/"+filename.replace(".","_")+".txt");
+                file.setWritable(true,false);
+                FileWriter fr=new FileWriter(file,true);
+                BufferedWriter br=new BufferedWriter(fr);
+                br.write("["+s.getInetAddress().getHostAddress()+"]"+received+"\n");
+                br.close();
+                fr.close();
+                file.setReadOnly();
                 if(received.equals("logout")){
                     this.isloggedin=false;
                     this.s.close();

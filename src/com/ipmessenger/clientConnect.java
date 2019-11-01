@@ -3,10 +3,7 @@ package com.ipmessenger;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.EOFException;
-import java.io.IOException;
+import java.io.*;
 import java.net.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -76,15 +73,25 @@ public class clientConnect extends Thread {
                         taMsgSend.setText("");
                         System.out.println("send b clicked");
 
-
+                        String filename=socket.getInetAddress().getHostName();
                         System.out.println("pid:"+Thread.currentThread().getId());
                         try {
                             out.writeUTF(msg);
                             String ack;
                             ack=In.readUTF();
                             if(ack.equals("ackOK") && !msg.equals(""))
+                            {
                                 taHistory.setText(taHistory.getText()+"[You @ "+dtf.format(now)+"]: "+msg+"\n");
-
+                                System.out.println("filename"+filename.replace('.','_'));
+                                File file=new File("database/"+filename.replace(".","_")+".txt");
+                                file.setWritable(true,false);
+                                FileWriter fr=new FileWriter(file,true);
+                                BufferedWriter br=new BufferedWriter(fr);
+                                br.write("[You @ "+dtf.format(now)+"]"+msg+"\n");
+                                br.close();
+                                fr.close();
+                                file.setReadOnly();
+                            }
                         }
                         catch (IOException e1)
                         {

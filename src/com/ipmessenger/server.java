@@ -110,6 +110,8 @@ class ClientHandler implements Runnable
     boolean exit =false;
     DefaultListModel<String> ips = new DefaultListModel<>();
     JList<String>listip;
+    public  static  String FILE_TO_RECEIVED=null;
+    public final static int FILE_SIZE=1073741820;   //1GB
     // constructor
     public ClientHandler(Socket s, String name,
                          DataInputStream dis, DataOutputStream dos,JTextPane taMsgRecv,DefaultListModel<String>ips,JList<String> listip) {
@@ -140,30 +142,74 @@ class ClientHandler implements Runnable
             try
             {
                 // receive the string
+                long recvfilesize=0;
                 received = dis.readUTF();
                 String ack = "ackOK";
                 dos.writeUTF(ack);
                 String filename=s.getInetAddress().getHostName();
                 System.out.println("fn"+filename);
-                System.out.println(received);
-                if(!received.equals(""))
+
+                if(received.equals("Attachment5psafv"))
                 {
-                    taMsgRecv.setText(taMsgRecv.getText()+"["+s.getInetAddress().getHostAddress()+"] "+received+"\n");
+                    received=dis.readUTF();
+                    String path="media/";
+                    FILE_TO_RECEIVED=path+received.toLowerCase();
+                    int bytesRead;
+                    int current=0;
+                    FileOutputStream fos=null;
+                    BufferedOutputStream bos=null;
+                    try
+                    {
+                        System.out.println("Connecting...........");
+                        recvfilesize=dis.readLong();
+                        System.out.println("recvFilesize: "+recvfilesize);
+
+                        byte [] mybytearray=new byte[FILE_SIZE];
+                        InputStream is=s.getInputStream();
+                        fos=new FileOutputStream(FILE_TO_RECEIVED);
+                        bos=new BufferedOutputStream(fos);
+                        do {
+                            bytesRead=is.read(mybytearray,current,(mybytearray.length-current));
+                            System.out.println("bytesread : "+bytesRead);
+                            System.out.println("current : "+current);
+                        }while(current<recvfilesize);
+                        System.out.println(received);
+                        if(!received.equals(""))
+                        {
+                            taMsgRecv.setText(taMsgRecv.getText()+"["+s.getInetAddress().getHostAddress()+"] "+received+"\n");
+                        }
+                        bos.write(mybytearray,0,current);
+                        bos.flush();
+                        received=null;
+                        System.out.println("file "+FILE_TO_RECEIVED+" downloaded ("+current+" bytes read)");
+                    }
+                    finally {
+                        if(fos!=null)  fos.close();
+                        if(bos!=null)  bos.close();
+                    }
+                }else {
+
+                    if (received.equals("logout")) {
+                        this.isloggedin = false;
+                        this.s.close();
+                        break;
+                    }
+
+                    System.out.println(received);
+                    if (!received.equals("")) {
+                        taMsgRecv.setText(taMsgRecv.getText() + "[" + s.getInetAddress().getHostAddress() + "] " + received + "\n");
+                    }
+
+                    File file = new File("database/" + filename.replace(".", "_") + ".txt");
+                    file.setWritable(true, false);
+                    FileWriter fr = new FileWriter(file, true);
+                    BufferedWriter br = new BufferedWriter(fr);
+                    br.write("[" + s.getInetAddress().getHostAddress() + "]" + received + "\n");
+                    br.close();
+                    fr.close();
+                    file.setReadOnly();
                 }
 
-                File file=new File("database/"+filename.replace(".","_")+".txt");
-                file.setWritable(true,false);
-                FileWriter fr=new FileWriter(file,true);
-                BufferedWriter br=new BufferedWriter(fr);
-                br.write("["+s.getInetAddress().getHostAddress()+"]"+received+"\n");
-                br.close();
-                fr.close();
-                file.setReadOnly();
-                if(received.equals("logout")){
-                    this.isloggedin=false;
-                    this.s.close();
-                    break;
-                }
             } catch (IOException e) {
                 try
                 {

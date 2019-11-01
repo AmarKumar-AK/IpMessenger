@@ -34,7 +34,7 @@ public class mainFrame {
     private JLabel labelName;
     //area where we type message
     private JTextArea taSendMsg;
-    private JButton attachButton;
+    private JButton btnMediaButton;
     private JButton moreButton;
     Socket lastClient=null;
     DataOutputStream lastOut=null;
@@ -122,7 +122,7 @@ public class mainFrame {
                 tfNewIp.setText("");
                 System.out.println(temp);
                 listIp.setModel(ips);
-                clientConnect client = new clientConnect(temp,5000,taSendMsg,taHistory,btnSend);
+                clientConnect client = new clientConnect(temp,5000,taSendMsg,taHistory,btnSend,btnMediaButton,panel1);
                 try {
                     currentClient = client.getSocket();
                     client.start();
@@ -190,7 +190,7 @@ public class mainFrame {
                     System.out.println(temp1);
                     //listIp.setModel(ips);
 
-                    clientConnect client = new clientConnect(temp1,5000,taSendMsg,taHistory,btnSend);
+                    clientConnect client = new clientConnect(temp1,5000,taSendMsg,taHistory,btnSend,btnMediaButton,panel1);
                     try {
                         currentClient = client.getSocket();
                         client.start();

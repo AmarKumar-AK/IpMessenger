@@ -10,8 +10,8 @@ public class ip extends Thread{
     public void run(){
         int timeout=100;
         String subnet="192.168";
-        for (int i=1;i<255;i++){
-            for(int j=1; j<255; j++)
+        for (int i=0;i<255;i++){
+            for(int j=0; j<255; j++)
             {
                 String host = subnet + "." + i + "." + j;
                 try {

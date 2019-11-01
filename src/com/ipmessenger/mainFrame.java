@@ -52,7 +52,8 @@ public class mainFrame {
         ip IpAddr=new ip();
         try
         {
-            IpAddr.start();
+            //IpAddr.start();
+            ;
         } catch (Exception e) {
             e.printStackTrace();
         }

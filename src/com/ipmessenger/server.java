@@ -172,6 +172,7 @@ class ClientHandler implements Runnable
                             bytesRead=is.read(mybytearray,current,(mybytearray.length-current));
                             System.out.println("bytesread : "+bytesRead);
                             System.out.println("current : "+current);
+                            current+=bytesRead;
                         }while(current<recvfilesize);
                         System.out.println(received);
                         if(!received.equals(""))

@@ -11,7 +11,7 @@ import java.util.Vector;
 
 public class server extends Thread {
     static Vector<ClientHandler> ar = new Vector<>();
-    private JTextArea taMsgRecv;
+    private JTextPane taMsgRecv;
     static  int i=0;
     DefaultListModel<String> ips = new DefaultListModel<>();// counter for clients
     JList<String > listip;
@@ -20,7 +20,7 @@ public class server extends Thread {
     }
 
     // constructor with port
-    public server(JTextArea taMsgRecv,DefaultListModel<String> ips,JList<String> listip)
+    public server(JTextPane taMsgRecv,DefaultListModel<String> ips,JList<String> listip)
     {
         this.taMsgRecv=taMsgRecv;
         this.ips = ips;
@@ -104,7 +104,7 @@ class ClientHandler implements Runnable
     private String name;
     final DataInputStream dis;
     final DataOutputStream dos;
-    private JTextArea taMsgRecv;
+    private JTextPane taMsgRecv;
     Socket s;
     boolean isloggedin;
     boolean exit =false;
@@ -112,7 +112,7 @@ class ClientHandler implements Runnable
     JList<String>listip;
     // constructor
     public ClientHandler(Socket s, String name,
-                         DataInputStream dis, DataOutputStream dos,JTextArea taMsgRecv,DefaultListModel<String>ips,JList<String> listip) {
+                         DataInputStream dis, DataOutputStream dos,JTextPane taMsgRecv,DefaultListModel<String>ips,JList<String> listip) {
         this.dis = dis;
         this.dos = dos;
         this.name = name;
@@ -147,7 +147,7 @@ class ClientHandler implements Runnable
                 System.out.println(received);
                 if(!received.equals(""))
                 {
-                    taMsgRecv.append("["+s.getInetAddress().getHostAddress()+"] "+received+"\n");
+                    taMsgRecv.setText(taMsgRecv.getText()+"["+s.getInetAddress().getHostAddress()+"] "+received+"\n");
                 }
 
                 if(received.equals("logout")){

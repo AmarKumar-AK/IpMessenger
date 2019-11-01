@@ -20,7 +20,7 @@ public class clientConnect extends Thread {
     private String address = null;
     private int port = 0;
     private JTextArea taMsgSend;
-    private JTextArea taHistory;
+    private JTextPane taHistory;
     private JButton sendButton;
     private DataInputStream In=null;
 
@@ -28,7 +28,7 @@ public class clientConnect extends Thread {
 
 
     // constructor to put ip address and port
-    public clientConnect(String adr, int prt,JTextArea taMsgSend,JTextArea taHistory,JButton sendButton) {
+    public clientConnect(String adr, int prt,JTextArea taMsgSend,JTextPane taHistory,JButton sendButton) {
         address = adr;
         port = prt;
         this.taMsgSend=taMsgSend;
@@ -83,7 +83,7 @@ public class clientConnect extends Thread {
                             String ack;
                             ack=In.readUTF();
                             if(ack.equals("ackOK") && !msg.equals(""))
-                                taHistory.append("[You @ "+dtf.format(now)+"]: "+msg+"\n");
+                                taHistory.setText(taHistory.getText()+"[You @ "+dtf.format(now)+"]: "+msg+"\n");
 
                         }
                         catch (IOException e1)

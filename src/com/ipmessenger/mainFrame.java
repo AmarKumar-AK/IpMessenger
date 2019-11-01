@@ -15,7 +15,7 @@ import java.net.Socket;
 public class mainFrame {
     private JPanel panel1;
     //area where we get message
-    private JTextArea taHistory;
+    private JTextPane taHistory;
     //button for sending message
     private JButton btnSend;
     //area where we type ip to search

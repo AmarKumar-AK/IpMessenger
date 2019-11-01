@@ -1,6 +1,9 @@
 package com.ipmessenger;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import java.awt.desktop.SystemEventListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.DataOutputStream;
@@ -29,26 +32,14 @@ public class mainFrame {
     Socket lastClient=null;
     DataOutputStream lastOut=null;
     int lc =1;
+    int bc=1;
     DefaultListModel<String> ips = new DefaultListModel<>();
 
-
+    
     public mainFrame()
     {
         server server = new server(taHistory,ips,listIp);
         server.start();
-
-
-//        ips.addElement("192.168.1.11");
-//        ips.addElement("192.168.1.12");
-//        ips.addElement("192.168.1.13");
-//        ips.addElement("192.168.1.14");
-//        ips.addElement("192.168.1.15");
-
-        //String ips[] ={"192.168.1.11","192.168.1.13","192.168.1.12","192.168.1.14","192.168.1.15"};
-        //listIp.setModel(ips);
-
-
-
 
         btnSearchIp.addActionListener(new ActionListener() {
             @Override
@@ -77,7 +68,6 @@ public class mainFrame {
 
                 }
 
-
                 String temp = tfNewIp.getText();
                 int flag = 0;
                 for (int i=0;i<ips.size();i++)
@@ -87,7 +77,8 @@ public class mainFrame {
                     {
                         //taHistory.append(ips.get(i));
                         flag=1;
-                        listIp.setSelectedIndex(i);
+                        System.out.println("firoz................");
+                        listIp.setSelectedIndex(1);
                         break;
                     }
                 }
@@ -98,6 +89,8 @@ public class mainFrame {
                 clientConnect client = new clientConnect(temp,5000,taSendMsg,taHistory,btnSend);
                 try {
                     client.start();
+                    if(lastClient!=null)
+                        labelName.setText(temp);
                 } catch (UnknownError eee) {
                     eee.printStackTrace();
                 }
@@ -114,9 +107,56 @@ public class mainFrame {
                 {
                     ips.addElement(temp);
                 }
-
-
                 lc=0;
+            }
+        });
+
+
+        listIp.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if(!e.getValueIsAdjusting())
+                {
+                    if(bc==0)
+                    {
+                        try{
+                            System.out.println("lastsocket = "+lastClient);
+                            if(lastOut!=null)
+                                lastClient.close();
+                        }
+                        catch (IOException i){
+                            System.out.println(i);
+                        };
+                        try{
+                            if(lastOut!=null)
+                                lastOut.close();
+                        }
+                        catch (IOException i){
+
+                        };
+                    }
+                    String temp1=listIp.getSelectedValue();
+                    System.out.println("selected ip = "+temp1);
+                    System.out.println(temp1);
+                    //listIp.setModel(ips);
+
+                    clientConnect client = new clientConnect(temp1,5000,taSendMsg,taHistory,btnSend);
+                    try {
+                        client.start();
+                        if(lastClient!=null)
+                            labelName.setText(temp1);
+                    } catch (UnknownError eee) {
+                        eee.printStackTrace();
+                    }
+                    try {
+                        client.join();
+                    } catch (InterruptedException ee) {
+                        ee.printStackTrace();
+                    }
+                    lastClient=client.getSocket();
+                    System.out.println("socket = "+lastClient);
+                    bc=0;
+                }
             }
         });
     }

@@ -82,7 +82,7 @@ public class clientConnect extends Thread {
                             out.writeUTF(msg);
                             String ack;
                             ack=In.readUTF();
-                            if(ack.equals("ackOK"))
+                            if(ack.equals("ackOK") && !msg.equals(""))
                                 taHistory.append("[You @ "+dtf.format(now)+"]: "+msg+"\n");
 
                         }

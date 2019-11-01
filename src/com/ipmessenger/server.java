@@ -145,7 +145,10 @@ class ClientHandler implements Runnable
                 dos.writeUTF(ack);
 
                 System.out.println(received);
-                taMsgRecv.append("["+s.getInetAddress().getHostAddress()+"] "+received+"\n");
+                if(!received.equals(""))
+                {
+                    taMsgRecv.append("["+s.getInetAddress().getHostAddress()+"] "+received+"\n");
+                }
 
                 if(received.equals("logout")){
                     this.isloggedin=false;

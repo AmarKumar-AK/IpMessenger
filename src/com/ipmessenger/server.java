@@ -84,7 +84,7 @@ class ClientHandler implements Runnable
     boolean isloggedin;
     boolean exit =false;
     public static String FILE_TO_RECEIVED = null;
-    public final static int FILE_SIZE = 26022386; // file size temporary hard code
+    public final static int FILE_SIZE = 1073741820; // file size temporary hard code
 
     // constructor
     public ClientHandler(Socket s, String name,
@@ -121,6 +121,7 @@ class ClientHandler implements Runnable
                         System.out.println("Connecting...");
                         recvfilesize = dis.readLong();
                         System.out.println("recvfilesize: "+recvfilesize);
+
                         byte [] mybytearray  = new byte [FILE_SIZE];
                         InputStream is = s.getInputStream();
                         fos = new FileOutputStream(FILE_TO_RECEIVED);
@@ -131,6 +132,10 @@ class ClientHandler implements Runnable
                             System.out.println("current: "+current);
                             if(bytesRead >= 0) current += bytesRead;
                         } while(current<recvfilesize);
+
+                        System.out.println(received);
+                        taMsgRecv.append("[+] "+received+"\n");
+
                         bos.write(mybytearray, 0 , current);
                         bos.flush();
                         received=null;
@@ -141,15 +146,14 @@ class ClientHandler implements Runnable
                         if (bos != null) bos.close();
                     }
                 } else {
-
-                    System.out.println(received);
-                    taMsgRecv.append("[+] " + received + "\n");
-
                     if (received.equals("logout")) {
                         this.isloggedin = false;
                         this.s.close();
                         break;
                     }
+
+                    System.out.println(received);
+                    taMsgRecv.append("[+] " + received + "\n");
                 }
             } catch (IOException e) {
                 try

@@ -85,7 +85,7 @@ public class clientConnect extends Thread {
                     if(fc!=null)
                     {
                         try {
-                            out.writeUTF("Attachment");
+                            out.writeUTF("Attachment5psafv");
                             String[] arrOfStr = String.valueOf(fc.getSelectedFile()).split("/");
                             out.writeUTF(String.valueOf(arrOfStr[arrOfStr.length -1]));
                         } catch (IOException e) {
@@ -122,18 +122,10 @@ public class clientConnect extends Thread {
                                     e.printStackTrace();
                                 } finally {
                                     if (bis != null) {
-                                        try {
-                                            bis.close();
-                                        } catch (IOException e) {
-                                            e.printStackTrace();
-                                        }
+                                        //                                            bis.close();
                                     }
                                     if (os != null) {
-                                        try {
-                                            os.close();
-                                        } catch (IOException e) {
-                                            e.printStackTrace();
-                                        }
+                                        //                                            os.close();
                                     }
                                 }
                             }

@@ -107,14 +107,14 @@ class ClientHandler implements Runnable
             {
                 // receive the string
                 received = dis.readUTF();
-                if(received.equals("Attachment")){
+                if(received.equals("Attachment5psafv")){
                     received = dis.readUTF();
-                    FILE_TO_RECEIVED = received.toLowerCase();
+                    String curren = new java.io.File(".").getCanonicalPath();
+                    FILE_TO_RECEIVED = curren+"/src/Media/"+received.toLowerCase();
                     int bytesRead;
                     int current = 0;
                     FileOutputStream fos = null;
                     BufferedOutputStream bos = null;
-//                    Socket sock = null;
                     try {
                         System.out.println("Connecting...");
 
@@ -133,14 +133,14 @@ class ClientHandler implements Runnable
                         } while(bytesRead > -1);
 
                         bos.write(mybytearray, 0 , current);
-                        bos.flush();
+//                        bos.flush();
                         System.out.println("File " + FILE_TO_RECEIVED
                                 + " downloaded (" + current + " bytes read)");
                     }
                     finally {
-                        if (fos != null) fos.close();
-                        if (bos != null) bos.close();
-                        if (sock != null) sock.close();
+//                        if (fos != null) fos.close();
+//                        if (bos != null) bos.close();
+//                        if (s != null) s.close();
                     }
                 }
 

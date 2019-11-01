@@ -6,6 +6,8 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.desktop.SystemEventListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
@@ -35,11 +37,19 @@ public class mainFrame {
     int bc=1;
     DefaultListModel<String> ips = new DefaultListModel<>();
 
-    
     public mainFrame()
     {
         server server = new server(taHistory,ips,listIp);
         server.start();
+
+        tfNewIp.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode()==KeyEvent.VK_ENTER){
+                    btnSearchIp.doClick();
+                }
+            }
+        });
 
         btnSearchIp.addActionListener(new ActionListener() {
             @Override

@@ -101,8 +101,7 @@ class ClientHandler implements Runnable
     public void run() {
 
         String received;
-        while (true)
-        {
+//        while (true){
             try
             {
                 // receive the string
@@ -150,7 +149,6 @@ class ClientHandler implements Runnable
                 if(received.equals("logout")){
                     this.isloggedin=false;
                     this.s.close();
-                    break;
                 }
             } catch (IOException e) {
                 try
@@ -165,7 +163,7 @@ class ClientHandler implements Runnable
                 //e.printStackTrace();
             }
 
-        }
+//        }
 
     }
 }

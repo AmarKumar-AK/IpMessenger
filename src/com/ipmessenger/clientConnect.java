@@ -156,6 +156,9 @@ public class clientConnect extends Thread {
                 }
             });
 
+            for( ActionListener al : btnMediaButton.getActionListeners() ) {
+                btnMediaButton.removeActionListener( al );
+            }
             btnMediaButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {

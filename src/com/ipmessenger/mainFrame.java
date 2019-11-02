@@ -91,7 +91,6 @@ public class mainFrame {
                     for( ActionListener al : btnSend.getActionListeners() ) {
                         btnSend.removeActionListener( al );
                     }
-
                 }
 
                 String temp = tfNewIp.getText();

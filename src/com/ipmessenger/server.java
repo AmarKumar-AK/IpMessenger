@@ -111,7 +111,7 @@ class ClientHandler implements Runnable
     DefaultListModel<String> ips = new DefaultListModel<>();
     JList<String>listip;
     public  static  String FILE_TO_RECEIVED=null;
-    public final static int FILE_SIZE=1073741820;   //1GB
+    public final static int FILE_SIZE=104857600;   //100MB
     // constructor
     public ClientHandler(Socket s, String name,
                          DataInputStream dis, DataOutputStream dos,JTextPane taMsgRecv,DefaultListModel<String>ips,JList<String> listip) {

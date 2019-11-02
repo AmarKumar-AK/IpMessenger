@@ -193,7 +193,6 @@ public class mainFrame {
 
                     clientConnect client = new clientConnect(temp1,5000,taSendMsg,taHistory,btnSend,btnMediaButton,panel1);
                     try {
-                        currentClient = client.getSocket();
                         client.start();
 
                         System.out.println("client = "+currentClient);
@@ -209,6 +208,7 @@ public class mainFrame {
                     }
 
                     lastClient=client.getSocket();
+                    currentClient = client.getSocket();
                     System.out.println("socket = "+lastClient);
                     bc=0;
                 }
@@ -217,8 +217,12 @@ public class mainFrame {
         moreButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-//                String ip = currentClient.getInetAddress().getHostAddress();
-                JOptionPane.showMessageDialog(panel1,"kaksdkkal");
+                try{
+                    System.out.println("Current Client : " + currentClient);
+                    JOptionPane.showMessageDialog(panel1, "IP: "+currentClient.getInetAddress().getHostAddress()+"\nPort: "+currentClient.getPort()+"\nLocal Port: "+currentClient.getLocalPort());
+                } catch(NullPointerException e) {
+                    JOptionPane.showMessageDialog(panel1, "Your friend is\ncurrently OFFLINE.");
+                }
             }
         });
     }
@@ -229,9 +233,5 @@ public class mainFrame {
         frame.setContentPane(new mainFrame().panel1);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
-
-
-
-
     }
 }

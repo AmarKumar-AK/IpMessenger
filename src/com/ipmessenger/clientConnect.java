@@ -1,6 +1,10 @@
 package com.ipmessenger;
 
 import javax.swing.*;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
@@ -49,6 +53,19 @@ public class clientConnect extends Thread {
     }
 
     public void run() {// establish a connection
+        StyledDocument doc = taHistory.getStyledDocument();
+
+        SimpleAttributeSet left = new SimpleAttributeSet();
+        StyleConstants.setBackground(left, Color.YELLOW);
+        StyleConstants.setForeground(left, Color.RED);
+        StyleConstants.setAlignment(left, StyleConstants.ALIGN_LEFT);
+
+
+
+        SimpleAttributeSet right = new SimpleAttributeSet();
+        StyleConstants.setBackground(right, Color.GRAY);
+        StyleConstants.setForeground(right, Color.BLUE);
+        StyleConstants.setAlignment(right, StyleConstants.ALIGN_RIGHT);
         try
         {
             pid = Thread.currentThread().getId();
@@ -85,7 +102,19 @@ public class clientConnect extends Thread {
                             ack=In.readUTF();
                             if(ack.equals("ackOK") && !msg.equals(""))
                             {
-                                taHistory.setText(taHistory.getText()+"[You @ "+dtf.format(now)+"]: "+msg+"\n");
+                                String newmsg = msg;
+                                newmsg=newmsg.trim();
+                                newmsg = "\n"+newmsg;
+                                try
+                                {
+                                    doc.insertString(doc.getLength(), newmsg, right );
+                                    doc.setParagraphAttributes(doc.getLength(), 1, right, false);
+                                }
+                                catch (Exception e)
+                                {
+
+                                }
+//                                taHistory.setText(taHistory.getText()+"[You @ "+dtf.format(now)+"]: "+msg+"\n");
                                 System.out.println("filename"+filename.replace('.','_'));
                                 File file=new File("database/"+filename.replace(".","_")+".txt");
                                 file.setWritable(true,false);
@@ -136,8 +165,24 @@ public class clientConnect extends Thread {
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
+                            float progress;
+                            progress=In.readFloat();
+                            while(progress<100)
+                                System.out.println("progress: "+progress);
                             System.out.println("Done");
-                            taHistory.setText(taHistory.getText()+"[You @ "+dtf.format(now)+"]: "+fc.getSelectedFile()+ "\n");
+                            String newmsg = msg;
+                            newmsg=newmsg.trim();
+                            newmsg = "\n"+newmsg;
+                            try
+                            {
+                                doc.insertString(doc.getLength(), newmsg, right );
+                                doc.setParagraphAttributes(doc.getLength(), 1, right, false);
+                            }
+                            catch (Exception e)
+                            {
+
+                            }
+//                            taHistory.setText(taHistory.getText()+"[You @ "+dtf.format(now)+"]: "+fc.getSelectedFile()+ "\n");
                         } catch (FileNotFoundException e) {
                             e.printStackTrace();
                         } catch (IOException e) {

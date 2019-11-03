@@ -3,6 +3,11 @@ package com.ipmessenger;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
+import java.awt.*;
 import java.awt.desktop.SystemEventListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -46,6 +51,23 @@ public class mainFrame {
 
     public mainFrame()
     {
+
+
+        StyledDocument doc = taHistory.getStyledDocument();
+
+        SimpleAttributeSet left = new SimpleAttributeSet();
+        StyleConstants.setBackground(left, Color.YELLOW);
+        StyleConstants.setForeground(left, Color.RED);
+        StyleConstants.setAlignment(left, StyleConstants.ALIGN_LEFT);
+
+
+
+        SimpleAttributeSet right = new SimpleAttributeSet();
+        StyleConstants.setBackground(right, Color.GRAY);
+        StyleConstants.setForeground(right, Color.BLUE);
+        StyleConstants.setAlignment(right, StyleConstants.ALIGN_RIGHT);
+
+
         server server = new server(taHistory,ips,listIp);
         server.start();
 
@@ -70,6 +92,8 @@ public class mainFrame {
         btnSearchIp.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                String chat="";
+                char[] ch={0};
                 if(lc==0)
                 {
                     try{
@@ -102,7 +126,21 @@ public class mainFrame {
                     File file=new File("database/"+filename.replace(".","_")+".txt");
                     Scanner sc=new Scanner(file);
                     sc.useDelimiter("\\Z");
-                    taHistory.setText(sc.next());
+                    chat = sc.next();
+                    System.out.println(chat);
+//                    Scanner scanner = new Scanner(chat);
+                    ch = chat.toCharArray();
+
+                    System.out.println(chat.length());
+
+
+//                    taHistory.setText();
+//                        String msgsave=sc.next()+"\n";
+//                        taHistory.setText(msgsave);
+
+
+//                    taHistory.setText();
+//                    taHistory.setText(sc.next());
                 } catch (FileNotFoundException ex) {
                     ex.printStackTrace();
                 }
@@ -146,7 +184,85 @@ public class mainFrame {
                 {
                     ips.addElement(temp);
                 }
+                listIp.setSelectedIndex(ips.size()-1);
                 lc=0;
+
+                String msg = "";
+                for(int i=0;i<ch.length-1;i++)
+                {
+//                        System.out.println("i");
+                    char a=ch[i],b=ch[i+1];
+                    if(a=='[' && b=='Y')
+                    {
+                        while(ch[i]!=']')
+                        {
+//                                System.out.println("j"+i);
+                            i++;
+                        }
+                        i++;
+                        msg = "";
+                        while(ch[i]!='[')
+                        {
+//                                System.out.println("k"+i);
+                            msg+=ch[i];
+                            i++;
+                            if(i==chat.length()){
+                                break;
+                            }
+                        }
+
+                        i--;
+                        ////////////right
+                        try
+                        {
+                            msg =msg.trim();
+                            msg="\n"+msg;
+                            System.out.println("::::r"+msg);
+                            doc.insertString(doc.getLength(), msg, right );
+                            doc.setParagraphAttributes(doc.getLength(), 1, right, false);
+                        } catch (BadLocationException ex) {
+                            ex.printStackTrace();
+                        }
+
+                    }
+                    else if(a=='[' && b!='Y')
+                    {
+                        while(ch[i]!=']')
+                        {
+//                                System.out.println("l"+i);
+                            i++;
+                        }
+                        i++;
+                        msg = "";
+                        while(ch[i]!='[')
+                        {
+//                                System.out.println("m"+i);
+                            msg+=ch[i];
+//                                System.out.println(msg);
+                            i++;
+                            if(i==chat.length()){
+                                break;
+                            }
+                        }
+
+                        i--;
+                        System.out.println("amar"+i);
+                        //////////////left
+                        try
+                        {
+                            msg =msg.trim();
+                            msg="\n"+msg;
+                            System.out.println("::::l"+msg);
+                            doc.insertString(doc.getLength(), msg, left );
+                            doc.setParagraphAttributes(doc.getLength(), 1, left, false);
+                        } catch (BadLocationException ex) {
+                            ex.printStackTrace();
+                        }
+
+                    }
+                }
+
+
             }
         });
 
@@ -154,6 +270,8 @@ public class mainFrame {
         listIp.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
+                String chat ="";
+                char[] ch;
                 if(!e.getValueIsAdjusting())
                 {
                     if(bc==0)
@@ -182,8 +300,87 @@ public class mainFrame {
                         File file=new File("database/"+filename.replace(".","_")+".txt");
                         Scanner sc=new Scanner(file);
                         sc.useDelimiter("\\Z");
-                        String msgsave=sc.next()+"\n";
-                        taHistory.setText(msgsave);
+                        chat = sc.next();
+                        System.out.println(chat);
+//                    Scanner scanner = new Scanner(chat);
+                        ch = chat.toCharArray();
+                        String msg = "";
+                        System.out.println(chat.length());
+                        for(int i=0;i<ch.length-1;i++)
+                        {
+//                        System.out.println("i");
+                            char a=ch[i],b=ch[i+1];
+                            if(a=='[' && b=='Y')
+                            {
+                                while(ch[i]!=']')
+                                {
+//                                System.out.println("j"+i);
+                                    i++;
+                                }
+                                i++;
+                                msg = "";
+                                while(ch[i]!='[')
+                                {
+//                                System.out.println("k"+i);
+                                    msg+=ch[i];
+                                    i++;
+                                    if(i==chat.length()){
+                                        break;
+                                    }
+                                }
+
+                                i--;
+                                ////////////right
+                                try
+                                {
+                                    msg =msg.trim();
+                                    msg="\n"+msg;
+                                    System.out.println("::::r"+msg);
+                                    doc.insertString(doc.getLength(), msg, right );
+                                    doc.setParagraphAttributes(doc.getLength(), 1, right, false);
+                                } catch (BadLocationException ex) {
+                                    ex.printStackTrace();
+                                }
+
+                            }
+                            else if(a=='[' && b!='Y')
+                            {
+                                while(ch[i]!=']')
+                                {
+//                                System.out.println("l"+i);
+                                    i++;
+                                }
+                                i++;
+                                msg = "";
+                                while(ch[i]!='[')
+                                {
+//                                System.out.println("m"+i);
+                                    msg+=ch[i];
+//                                    System.out.println(msg);
+                                    i++;
+                                    if(i==chat.length()){
+                                        break;
+                                    }
+                                }
+
+                                i--;
+                                System.out.println("amar"+i);
+                                //////////////left
+                                try
+                                {
+                                    msg =msg.trim();
+                                    msg="\n"+msg;
+                                    System.out.println("::::l"+msg);
+                                    doc.insertString(doc.getLength(), msg, left );
+                                    doc.setParagraphAttributes(doc.getLength(), 1, left, false);
+                                } catch (BadLocationException ex) {
+                                    ex.printStackTrace();
+                                }
+
+                            }
+                        }
+//                        String msgsave=sc.next()+"\n";
+//                        taHistory.setText(msgsave);
                     } catch (FileNotFoundException ex) {
                         ex.printStackTrace();
                     }

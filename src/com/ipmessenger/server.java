@@ -1,6 +1,10 @@
 package com.ipmessenger;
 
 import javax.swing.*;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
+import java.awt.*;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -27,6 +31,7 @@ public class server extends Thread {
     public void run()
     {
         // server is listening on port 5000
+
         try
         {
             ServerSocket ss = new ServerSocket(5000);
@@ -56,7 +61,9 @@ public class server extends Thread {
                 if(flag==0) {
                     ips.addElement(s.getInetAddress().getHostAddress());
                 }
-
+                int lastSelected = listip.getSelectedIndex();
+                listip.setModel(ips);
+                listip.setSelectedIndex(lastSelected);
                 for(int i=0;i<ips.size();i++)
                 {
                     System.out.println(ips.get(i));
@@ -127,15 +134,24 @@ class ClientHandler implements Runnable
 
     @Override
     public void run() {
-        listip.setModel(ips);
-        for(int i=0;i<ips.size();i++)
-        {
-            if(ips.get(i).equals(s.getInetAddress().getHostAddress()))
-            {
 
-                break;
-            }
-        }
+        StyledDocument doc = taMsgRecv.getStyledDocument();
+
+        SimpleAttributeSet left = new SimpleAttributeSet();
+        StyleConstants.setBackground(left, Color.YELLOW);
+        StyleConstants.setForeground(left, Color.RED);
+        StyleConstants.setAlignment(left, StyleConstants.ALIGN_LEFT);
+        SimpleAttributeSet right = new SimpleAttributeSet();
+        StyleConstants.setBackground(right, Color.GRAY);
+        StyleConstants.setForeground(right, Color.BLUE);
+        StyleConstants.setAlignment(right, StyleConstants.ALIGN_RIGHT);
+
+
+//        for(int i=0;i<ips.size();i++)
+//        {
+//
+//        }
+
         String received;
         while (true)
         {
@@ -177,7 +193,19 @@ class ClientHandler implements Runnable
                         System.out.println(received);
                         if(!received.equals(""))
                         {
-                            taMsgRecv.setText(taMsgRecv.getText()+"["+s.getInetAddress().getHostAddress()+"] "+received+"\n");
+                            String msg =received;
+                            msg = msg.trim();
+                            msg = "\n"+msg;
+                            try
+                            {
+                                doc.insertString(doc.getLength(), msg, left );
+                                doc.setParagraphAttributes(doc.getLength(), 1, left, false);
+                            }
+                            catch (Exception e )
+                            {
+
+                            }
+//                            taMsgRecv.setText(taMsgRecv.getText()+"["+s.getInetAddress().getHostAddress()+"] "+received+"\n");
                         }
                         bos.write(mybytearray,0,current);
                         bos.flush();
@@ -198,7 +226,19 @@ class ClientHandler implements Runnable
 
                     System.out.println(received);
                     if (!received.equals("")) {
-                        taMsgRecv.setText(taMsgRecv.getText() + "[" + s.getInetAddress().getHostAddress() + "] " + received + "\n");
+                        String msg =received;
+                        msg = msg.trim();
+                        msg = "\n"+msg;
+                        try
+                        {
+                            doc.insertString(doc.getLength(), msg, left );
+                            doc.setParagraphAttributes(doc.getLength(), 1, left, false);
+                        }
+                        catch (Exception e )
+                        {
+
+                        }
+//                        taMsgRecv.setText(taMsgRecv.getText() + "[" + s.getInetAddress().getHostAddress() + "] " + received + "\n");
                     }
 
                     File file = new File("database/" + filename.replace(".", "_") + ".txt");

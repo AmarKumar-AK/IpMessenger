@@ -128,6 +128,7 @@ public class clientConnect extends Thread {
                         }
                         catch (IOException e1)
                         {
+                            JOptionPane.showMessageDialog(panel1,"User not connected !");
                             e1.printStackTrace();
                             Thread.currentThread().stop();
                         }
@@ -167,8 +168,8 @@ public class clientConnect extends Thread {
                             }
                             float progress;
                             progress=In.readFloat();
-                            while(progress<100)
-                                System.out.println("progress: "+progress);
+//                            while(progress<100)
+//                                System.out.println("progress: "+progress);
                             System.out.println("Done");
                             String newmsg = msg;
                             newmsg=newmsg.trim();

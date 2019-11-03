@@ -62,8 +62,8 @@ public class server extends Thread {
                     ips.addElement(s.getInetAddress().getHostAddress());
                 }
                 int lastSelected = listip.getSelectedIndex();
-                listip.setModel(ips);
-                listip.setSelectedIndex(lastSelected);
+//                listip.setModel(ips);
+//                listip.setSelectedIndex(lastSelected);
                 for(int i=0;i<ips.size();i++)
                 {
                     System.out.println(ips.get(i));
@@ -176,6 +176,8 @@ class ClientHandler implements Runnable
                     BufferedOutputStream bos=null;
                     try
                     {
+//                        progressBar pb = new progressBar();
+//                        pb.start();
                         System.out.println("Connecting...........");
                         recvfilesize=dis.readLong();
                         System.out.println("recvFilesize: "+recvfilesize);
@@ -188,8 +190,10 @@ class ClientHandler implements Runnable
                             bytesRead=is.read(mybytearray,current,(mybytearray.length-current));
                             System.out.println("bytesread : "+bytesRead);
                             System.out.println("current : "+current);
+//                            pb.setPercent(current*100/((int)(recvfilesize)));
                             current+=bytesRead;
                         }while(current<recvfilesize);
+//                        pb.setStop(false);
                         System.out.println(received);
                         if(!received.equals(""))
                         {
@@ -198,8 +202,12 @@ class ClientHandler implements Runnable
                             msg = "\n"+msg;
                             try
                             {
-                                doc.insertString(doc.getLength(), msg, left );
-                                doc.setParagraphAttributes(doc.getLength(), 1, left, false);
+                                if(s.getInetAddress().getHostAddress().equals(listip.getSelectedValue()))
+                                {
+                                    doc.insertString(doc.getLength(), msg, left );
+                                    taMsgRecv.insertIcon(new ImageIcon("media/"+filename));
+                                    doc.setParagraphAttributes(doc.getLength(), 1, left, false);
+                                }
                             }
                             catch (Exception e )
                             {
@@ -231,8 +239,12 @@ class ClientHandler implements Runnable
                         msg = "\n"+msg;
                         try
                         {
-                            doc.insertString(doc.getLength(), msg, left );
-                            doc.setParagraphAttributes(doc.getLength(), 1, left, false);
+
+                            if(s.getInetAddress().getHostAddress().equals(listip.getSelectedValue()))
+                            {
+                                doc.insertString(doc.getLength(), msg, left );
+                                doc.setParagraphAttributes(doc.getLength(), 1, left, false);
+                            }
                         }
                         catch (Exception e )
                         {

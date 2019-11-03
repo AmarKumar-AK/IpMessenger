@@ -1,7 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fb4cc6b7-0502-480a-acc6-957c40a3742e" name="Default Changelist" comment="" />
+    <list default="true" id="fb4cc6b7-0502-480a-acc6-957c40a3742e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/com/ipmessenger/progressBar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/192_168_0_117.txt" beforeDir="false" afterPath="$PROJECT_DIR$/database/192_168_0_117.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/192_168_0_137.txt" beforeDir="false" afterPath="$PROJECT_DIR$/database/192_168_0_137.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/ClientHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/ClientHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/clientConnect$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/clientConnect$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/mainFrame$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/mainFrame$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/mainFrame$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/mainFrame$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/mainFrame$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/mainFrame$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/mainFrame$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/mainFrame$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/mainFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/mainFrame.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/server.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/server.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/ipmessenger/clientConnect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/ipmessenger/clientConnect.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/ipmessenger/mainFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/ipmessenger/mainFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/ipmessenger/server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/ipmessenger/server.java" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,33 +32,42 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/ipmessenger/mainFrame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="74">
-              <caret line="142" column="51" lean-forward="true" selection-start-line="142" selection-start-column="51" selection-end-line="142" selection-end-column="51" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/ipmessenger/server.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-300">
-              <caret line="105" column="1" lean-forward="true" selection-start-line="105" selection-start-column="1" selection-end-line="105" selection-end-column="1" />
+            <state relative-caret-position="156">
+              <caret line="56" column="37" selection-start-line="56" selection-start-column="37" selection-end-line="56" selection-end-column="37" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/ipmessenger/server.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-172">
+              <caret line="207" column="88" selection-start-line="207" selection-start-column="88" selection-end-line="207" selection-end-column="88" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/database/192_168_0_137.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-988" />
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/ipmessenger/clientConnect.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-181">
-              <caret line="167" column="43" selection-start-line="167" selection-start-column="43" selection-end-line="167" selection-end-column="43" />
+            <state relative-caret-position="291">
+              <caret line="130" column="86" selection-start-line="130" selection-start-column="86" selection-end-line="130" selection-end-column="86" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/database/192_168_0_117.txt">
-          <provider selected="true" editor-type-id="text-editor" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-673" />
+          </provider>
         </entry>
       </file>
     </leaf>
@@ -58,6 +83,7 @@
     <findStrings>
       <find>`</find>
       <find>setse</find>
+      <find>setsel</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -66,9 +92,10 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+        <option value="$PROJECT_DIR$/src/com/ipmessenger/progressBar.java" />
         <option value="$PROJECT_DIR$/src/com/ipmessenger/server.java" />
-        <option value="$PROJECT_DIR$/src/com/ipmessenger/clientConnect.java" />
         <option value="$PROJECT_DIR$/src/com/ipmessenger/mainFrame.java" />
+        <option value="$PROJECT_DIR$/src/com/ipmessenger/clientConnect.java" />
       </list>
     </option>
   </component>
@@ -84,7 +111,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -96,6 +122,11 @@
               <item name="IpMessenger" type="b2602c69:ProjectViewProjectNode" />
               <item name="IpMessenger" type="462c0819:PsiDirectoryNode" />
               <item name="database" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="IpMessenger" type="b2602c69:ProjectViewProjectNode" />
+              <item name="IpMessenger" type="462c0819:PsiDirectoryNode" />
+              <item name="media" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="IpMessenger" type="b2602c69:ProjectViewProjectNode" />
@@ -115,17 +146,11 @@
               <item name="ipmessenger" type="462c0819:PsiDirectoryNode" />
               <item name="server.java" type="529ef68f:ClassesTreeStructureProvider$PsiClassOwnerTreeNode" />
             </path>
-            <path>
-              <item name="IpMessenger" type="b2602c69:ProjectViewProjectNode" />
-              <item name="IpMessenger" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="ipmessenger" type="462c0819:PsiDirectoryNode" />
-              <item name="mainFrame" type="e9f4de52:FormNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -209,8 +234,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="25" width="1366" height="743" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21060605" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21666667" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -219,14 +245,14 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.2752443" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.23941368" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Version Control" order="9" visible="true" weight="0.32899022" />
+      <window_info anchor="bottom" id="Version Control" order="9" weight="0.32792208" />
       <window_info anchor="bottom" id="Messages" order="10" weight="0.32899022" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -298,30 +324,47 @@
     <entry file="jrt:///usr/lib/jvm/java-1.11.0-openjdk-amd64!/java.desktop/java/awt/EventQueue.class">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/database/192_168_0_137.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/192_168_0_117.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/ipmessenger/clientConnect.java">
+    <entry file="file://$PROJECT_DIR$/src/com/ipmessenger/progressBar.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-181">
-          <caret line="167" column="43" selection-start-line="167" selection-start-column="43" selection-end-line="167" selection-end-column="43" />
+        <state relative-caret-position="322">
+          <caret line="26" column="21" selection-start-line="26" selection-start-column="21" selection-end-line="26" selection-end-column="21" />
+          <folding>
+            <element signature="e#662#663#0" expanded="true" />
+            <element signature="e#694#695#0" expanded="true" />
+            <element signature="e#751#752#0" expanded="true" />
+            <element signature="e#789#790#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/ipmessenger/mainFrame.java">
+    <entry file="file://$PROJECT_DIR$/database/192_168_0_117.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="74">
-          <caret line="142" column="51" lean-forward="true" selection-start-line="142" selection-start-column="51" selection-end-line="142" selection-end-column="51" />
-        </state>
+        <state relative-caret-position="-673" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/ipmessenger/server.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-300">
-          <caret line="105" column="1" lean-forward="true" selection-start-line="105" selection-start-column="1" selection-end-line="105" selection-end-column="1" />
+        <state relative-caret-position="-172">
+          <caret line="207" column="88" selection-start-line="207" selection-start-column="88" selection-end-line="207" selection-end-column="88" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/192_168_0_137.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-988" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/ipmessenger/mainFrame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="56" column="37" selection-start-line="56" selection-start-column="37" selection-end-line="56" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/ipmessenger/clientConnect.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="291">
+          <caret line="130" column="86" selection-start-line="130" selection-start-column="86" selection-end-line="130" selection-end-column="86" />
         </state>
       </provider>
     </entry>

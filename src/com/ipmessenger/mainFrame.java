@@ -52,21 +52,31 @@ public class mainFrame {
     public mainFrame()
     {
 
-
+//        progressBar p = new progressBar();
+//        p.start();
+        taHistory.setAutoscrolls(true);
         StyledDocument doc = taHistory.getStyledDocument();
 
         SimpleAttributeSet left = new SimpleAttributeSet();
         StyleConstants.setBackground(left, Color.YELLOW);
         StyleConstants.setForeground(left, Color.RED);
         StyleConstants.setAlignment(left, StyleConstants.ALIGN_LEFT);
+        StyleConstants.setFontSize(left,24);
+        StyleConstants.setSpaceAbove(left,20);
+
 
 
 
         SimpleAttributeSet right = new SimpleAttributeSet();
-        StyleConstants.setBackground(right, Color.GRAY);
-        StyleConstants.setForeground(right, Color.BLUE);
+        StyleConstants.setBackground(right, Color.black);
+        StyleConstants.setForeground(right, Color.white);
         StyleConstants.setAlignment(right, StyleConstants.ALIGN_RIGHT);
+        StyleConstants.setFontSize(right,24);
+        StyleConstants.setSpaceAbove(right,20);
 
+
+
+        taHistory.setMargin(new Insets(10,10,10,10));
 
         server server = new server(taHistory,ips,listIp);
         server.start();
@@ -92,6 +102,7 @@ public class mainFrame {
         btnSearchIp.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+//                p.setStop(false);
                 String chat="";
                 char[] ch={0};
                 if(lc==0)
@@ -153,7 +164,7 @@ public class mainFrame {
                         //taHistory.append(ips.get(i));
                         flag=1;
                         System.out.println("firoz................");
-                        listIp.setSelectedIndex(1);
+//                        listIp.setSelectedIndex(1);
                         break;
                     }
                 }
@@ -422,7 +433,7 @@ public class mainFrame {
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("Ip Messenger");
-        frame.setSize(800,600);
+        frame.setSize(1080,720);
         frame.setContentPane(new mainFrame().panel1);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);

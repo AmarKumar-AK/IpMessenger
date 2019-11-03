@@ -1,8 +1,12 @@
 package com.ipmessenger;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.plaf.basic.BasicSplitPaneDivider;
+import javax.swing.plaf.basic.BasicSplitPaneUI;
+import java.awt.*;
 import java.awt.desktop.SystemEventListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -46,6 +50,23 @@ public class mainFrame {
 
     public mainFrame()
     {
+        sp.setUI(new BasicSplitPaneUI() {
+            public BasicSplitPaneDivider createDefaultDivider() {
+                return new BasicSplitPaneDivider(this) {
+                    public void setBorder(Border b) {
+                    }
+
+                    @Override
+                    public void paint(Graphics g) {
+                        Color darkBlue = new Color(18, 49, 87);
+                        g.setColor(darkBlue);
+                        g.fillRect(0, 0, getSize().width, getSize().height);
+                        super.paint(g);
+                    }
+                };
+            }
+        });
+
         server server = new server(taHistory,ips,listIp);
         server.start();
 
@@ -218,8 +239,9 @@ public class mainFrame {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 try{
+                    System.out.println("Last Client: "+lastClient);
                     System.out.println("Current Client : " + currentClient);
-                    JOptionPane.showMessageDialog(panel1, "IP: "+currentClient.getInetAddress().getHostAddress()+"\nPort: "+currentClient.getPort()+"\nLocal Port: "+currentClient.getLocalPort());
+                    JOptionPane.showMessageDialog(panel1, "IP: " + currentClient.getInetAddress().getHostAddress() + "\nPort: " + currentClient.getPort() + "\nLocal Port: " + currentClient.getLocalPort());
                 } catch(NullPointerException e) {
                     JOptionPane.showMessageDialog(panel1, "Your friend is\ncurrently OFFLINE.");
                 }

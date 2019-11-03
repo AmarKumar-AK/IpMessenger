@@ -2,15 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fb4cc6b7-0502-480a-acc6-957c40a3742e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/ClientHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/ClientHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/mainFrame$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/mainFrame$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/mainFrame$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/mainFrame$2.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/mainFrame$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/mainFrame$3.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/mainFrame$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/mainFrame$4.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/mainFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/mainFrame.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/ipmessenger/mainFrame.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/ipmessenger/mainFrame.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/ipmessenger/mainFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/ipmessenger/mainFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/ipmessenger/server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/ipmessenger/server.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -38,7 +37,7 @@
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH" value="297" />
+    <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH" value="313" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/cliparts" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />

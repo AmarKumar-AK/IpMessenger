@@ -166,8 +166,8 @@ public class clientConnect extends Thread {
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-                            float progress;
-                            progress=In.readFloat();
+//                            float progress;
+//                            progress=In.readFloat();
 //                            while(progress<100)
 //                                System.out.println("progress: "+progress);
                             System.out.println("Done");

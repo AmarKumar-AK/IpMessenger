@@ -8,8 +8,7 @@ import java.awt.*;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Scanner;
-import java.util.Vector;
+import java.util.*;
 
 public class server extends Thread {
     static Vector<ClientHandler> ar = new Vector<>();
@@ -27,6 +26,7 @@ public class server extends Thread {
         this.taMsgRecv=taMsgRecv;
         this.ips = ips;
         this.listip = listip;
+        listip.setModel(ips);
     }
     public void run()
     {
@@ -62,12 +62,30 @@ public class server extends Thread {
                     ips.addElement(s.getInetAddress().getHostAddress());
                 }
                 int lastSelected = listip.getSelectedIndex();
-//                listip.setModel(ips);
-//                listip.setSelectedIndex(lastSelected);
+
+                // ===========================
+                // Writing ip's to file.
+                // ===========================
+                Set<String> hash_set = new HashSet<String>();
+                System.out.println("Printing the  IP List");
+                File file = new File("database/ip.txt");
+                file.setWritable(true,false);
+                FileWriter fr= new FileWriter(file, true);
+                BufferedWriter br = new BufferedWriter(fr);
+
                 for(int i=0;i<ips.size();i++)
                 {
                     System.out.println(ips.get(i));
+                    hash_set.add(ips.get(i));
                 }
+                Iterator<String> ip= hash_set.iterator();
+                while(ip.hasNext()){
+                    br.write(String.valueOf(ip.next()+"\n"));
+                }
+                br.close();
+                fr.close();
+                file.setReadOnly();
+
                 System.out.println("New client request received : " + s);
 
                 // obtain input and output streams
@@ -141,11 +159,14 @@ class ClientHandler implements Runnable
         StyleConstants.setBackground(left, Color.YELLOW);
         StyleConstants.setForeground(left, Color.RED);
         StyleConstants.setAlignment(left, StyleConstants.ALIGN_LEFT);
+        StyleConstants.setFontSize(left,24);
+        StyleConstants.setSpaceAbove(left,20);
         SimpleAttributeSet right = new SimpleAttributeSet();
         StyleConstants.setBackground(right, Color.GRAY);
         StyleConstants.setForeground(right, Color.BLUE);
         StyleConstants.setAlignment(right, StyleConstants.ALIGN_RIGHT);
-
+        StyleConstants.setFontSize(right,24);
+        StyleConstants.setSpaceAbove(right,20);
 
 //        for(int i=0;i<ips.size();i++)
 //        {

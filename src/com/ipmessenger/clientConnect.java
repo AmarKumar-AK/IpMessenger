@@ -11,6 +11,10 @@ import java.io.*;
 import java.net.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.concurrent.TimeoutException;
 
 public class clientConnect extends Thread {
 
@@ -28,10 +32,11 @@ public class clientConnect extends Thread {
     private  JPanel panel1;
     private long pid;
     private  JFileChooser fc=null;
+    private JLabel labelName;
 
 
     // constructor to put ip address and port
-    public clientConnect(String adr, int prt,JTextArea taMsgSend,JTextPane taHistory,JButton sendButton,JButton btnMediaButton,JPanel panel1) {
+    public clientConnect(String adr, int prt,JTextArea taMsgSend,JTextPane taHistory,JButton sendButton,JButton btnMediaButton,JPanel panel1,JLabel labelName) {
         address = adr;
         port = prt;
         this.taMsgSend=taMsgSend;
@@ -39,6 +44,8 @@ public class clientConnect extends Thread {
         this.taHistory=taHistory;
         this.btnMediaButton=btnMediaButton;
         this.panel1=panel1;
+        this.labelName=labelName;
+
     }
 
     public Socket getSocket() {
@@ -59,6 +66,8 @@ public class clientConnect extends Thread {
         StyleConstants.setBackground(left, Color.YELLOW);
         StyleConstants.setForeground(left, Color.RED);
         StyleConstants.setAlignment(left, StyleConstants.ALIGN_LEFT);
+        StyleConstants.setFontSize(left,24);
+        StyleConstants.setSpaceAbove(left,20);
 
 
 
@@ -66,6 +75,9 @@ public class clientConnect extends Thread {
         StyleConstants.setBackground(right, Color.GRAY);
         StyleConstants.setForeground(right, Color.BLUE);
         StyleConstants.setAlignment(right, StyleConstants.ALIGN_RIGHT);
+        StyleConstants.setFontSize(right,24);
+        StyleConstants.setSpaceAbove(right,20);
+
         try
         {
             pid = Thread.currentThread().getId();
@@ -74,6 +86,19 @@ public class clientConnect extends Thread {
             socket.connect(new InetSocketAddress(address, port), 1000);
             System.out.println("CCCsocket = "+socket);
             System.out.println("Connected"+Thread.currentThread().getId());
+
+
+            System.out.println("Printing the  IP List");
+            File file = new File("database/ip.txt");
+            file.setWritable(true,false);
+            FileWriter fr= new FileWriter(file, true);
+            BufferedWriter br = new BufferedWriter(fr);
+
+            br.write(socket.getInetAddress().getHostAddress()+"\n");
+
+            br.close();
+            fr.close();
+            file.setReadOnly();
 
             try {
                 out    = new DataOutputStream(socket.getOutputStream());
@@ -135,6 +160,8 @@ public class clientConnect extends Thread {
                     }
                     if(fc!=null && fc.getSelectedFile()!=null)
                     {
+                        progressbar pb=new progressbar();
+                        pb.start();
                         try
                         {
                             out.writeUTF("Attachment5psafv");
@@ -166,6 +193,8 @@ public class clientConnect extends Thread {
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
+                            pb.setStop(false);
+
 //                            float progress;
 //                            progress=In.readFloat();
 //                            while(progress<100)
@@ -202,6 +231,10 @@ public class clientConnect extends Thread {
                 }
             });
 
+            for( ActionListener al : btnMediaButton.getActionListeners() ) {
+                btnMediaButton.removeActionListener( al );
+            }
+
             btnMediaButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {
@@ -210,15 +243,20 @@ public class clientConnect extends Thread {
                     System.out.println("FC "+fc.getSelectedFile());
                 }
             });
-
+            labelName.setText(socket.getInetAddress().getHostAddress());
         }
         catch(UnknownHostException u)
         {
+            JOptionPane.showMessageDialog(panel1,"User Not Connected");
             System.out.println(u);
         }
         catch(IOException i)
         {
-            System.out.println(i);
+            System.out.println("error in block!");
+//            if(socket.isClosed())
+//                JOptionPane.showMessageDialog(panel1,"User offline !");
+//            JOptionPane.showMessageDialog(panel1,"User Not Connected");
+//            System.out.println(i);
         }
 
         // close the connection

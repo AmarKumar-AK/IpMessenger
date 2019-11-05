@@ -13,12 +13,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.net.Socket;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Scanner;
+import java.util.Set;
 
 public class mainFrame {
     private JPanel panel1;
@@ -46,14 +46,36 @@ public class mainFrame {
     int lc =1;
     int bc=1;
     private Socket currentClient = null;
+    private clientConnect currClient ;
 
     DefaultListModel<String> ips = new DefaultListModel<>();
 
-    public mainFrame()
-    {
+    public mainFrame() throws IOException {
 
-//        progressBar p = new progressBar();
-//        p.start();
+        //Reading iplist from file ip.txt
+        Set<String> hash_set = new HashSet<String>();
+        File ipsfile = new File("database/ip.txt");
+        if(ipsfile.exists())
+        {
+            BufferedReader wbr = new BufferedReader(new FileReader(ipsfile));
+            String st;
+            while((st = wbr.readLine())!=null){
+//                ips.add(j,st);
+                hash_set.add(st);
+            }
+        }
+        Iterator<String> j = hash_set.iterator();
+        while(j.hasNext()){
+            ips.addElement(j.next());
+        }
+
+        listIp.setModel(ips);
+        try { UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()); }
+        catch (UnsupportedLookAndFeelException e) {}
+        catch (ClassNotFoundException e) {}
+        catch (InstantiationException e) {}
+        catch (IllegalAccessException e) {}
+
         taHistory.setAutoscrolls(true);
         StyledDocument doc = taHistory.getStyledDocument();
 
@@ -81,6 +103,15 @@ public class mainFrame {
         server server = new server(taHistory,ips,listIp);
         server.start();
 
+        taHistory.setAutoscrolls(true);
+        listIp.setFixedCellHeight(40);
+        listIp.setFixedCellWidth(10);
+        listIp.setBorder(BorderFactory.createRaisedBevelBorder());
+        listIp.setCellRenderer(getRenderer());
+//        listIp.setForeground(Color.blue);
+        ImageIcon icon = new ImageIcon("icon_2.png");
+//        ips.addElement(icon);
+        //listIp.sets
         ip IpAddr=new ip();
         try
         {
@@ -102,47 +133,48 @@ public class mainFrame {
         btnSearchIp.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                p.setStop(false);
-                String chat="";
-                char[] ch={0};
-                if(lc==0)
+                if(!tfNewIp.getText().equals(""))
                 {
-                    try{
-                        System.out.println("lastsocket = "+lastClient);
-                        if(lastOut!=null)
-                         lastClient.close();
+                    String chat="";
+                    char[] ch={0};
+                    if(lc==0)
+                    {
+                        try{
+                            System.out.println("lastsocket = "+lastClient);
+                            if(lastOut!=null)
+                                lastClient.close();
+                        }
+                        catch (IOException i){
+                            System.out.println(i);
+                        };
+                        try{
+                            if(lastOut!=null)
+                                lastOut.close();
+                        }
+                        catch (IOException i){
+
+                        };
+
+                        for( ActionListener al : btnSend.getActionListeners() ) {
+                            btnSend.removeActionListener( al );
+                        }
+
                     }
-                    catch (IOException i){
-                        System.out.println(i);
-                    };
-                    try{
-                        if(lastOut!=null)
-                        lastOut.close();
-                    }
-                    catch (IOException i){
 
-                    };
-
-                    for( ActionListener al : btnSend.getActionListeners() ) {
-                        btnSend.removeActionListener( al );
-                    }
-
-                }
-
-                String temp = tfNewIp.getText();
-                String filename=temp;
-                taHistory.setText("");
-                try
-                {
-                    File file=new File("database/"+filename.replace(".","_")+".txt");
-                    Scanner sc=new Scanner(file);
-                    sc.useDelimiter("\\Z");
-                    chat = sc.next();
-                    System.out.println(chat);
+                    String temp = tfNewIp.getText();
+                    String filename=temp;
+                    taHistory.setText("");
+                    try
+                    {
+                        File file=new File("database/"+filename.replace(".","_")+".txt");
+                        Scanner sc=new Scanner(file);
+                        sc.useDelimiter("\\Z");
+                        chat = sc.next();
+                        System.out.println(chat);
 //                    Scanner scanner = new Scanner(chat);
-                    ch = chat.toCharArray();
+                        ch = chat.toCharArray();
 
-                    System.out.println(chat.length());
+                        System.out.println(chat.length());
 
 
 //                    taHistory.setText();
@@ -152,125 +184,131 @@ public class mainFrame {
 
 //                    taHistory.setText();
 //                    taHistory.setText(sc.next());
-                } catch (FileNotFoundException ex) {
-                    ex.printStackTrace();
-                }
-                int flag = 0;
-                for (int i=0;i<ips.size();i++)
-                {
-                    String a= ips.get(i);
-                    if(a.equals(temp))
+                    } catch (FileNotFoundException ex) {
+                        ex.printStackTrace();
+                    }
+                    int flag = 0;
+                    for (int i=0;i<ips.size();i++)
                     {
-                        //taHistory.append(ips.get(i));
-                        flag=1;
-                        System.out.println("firoz................");
+                        String a= ips.get(i);
+                        if(a.equals(temp))
+                        {
+                            //taHistory.append(ips.get(i));
+                            flag=1;
+//                            System.out.println("firoz................");
 //                        listIp.setSelectedIndex(1);
-                        break;
+                            break;
+                        }
                     }
-                }
 
-                tfNewIp.setText("");
-                System.out.println(temp);
-                listIp.setModel(ips);
-                clientConnect client = new clientConnect(temp,5000,taSendMsg,taHistory,btnSend,btnMediaButton,panel1);
-                try {
-                    currentClient = client.getSocket();
-                    client.start();
-                    System.out.println("client = "+currentClient);
-                    if(lastClient!=null)
-                        labelName.setText(temp);
-                } catch (UnknownError eee) {
-                    eee.printStackTrace();
-                }
-                try {
-                    client.join();
-                } catch (InterruptedException ee) {
-                    ee.printStackTrace();
-                }
-                lastClient=client.getSocket();
-                System.out.println("socket = "+lastClient);
-                lastOut=client.getOut();
-                System.out.println("out = "+lastOut);
-                if(lastOut!=null && flag!=1)
-                {
-                    ips.addElement(temp);
-                }
-                listIp.setSelectedIndex(ips.size()-1);
-                lc=0;
+                    tfNewIp.setText("");
+                    System.out.println(temp);
 
-                String msg = "";
-                for(int i=0;i<ch.length-1;i++)
-                {
+                    clientConnect client = new clientConnect(temp,5000,taSendMsg,taHistory,btnSend,btnMediaButton,panel1,labelName);
+                    try {
+                        currentClient = client.getSocket();
+                        currClient = client;
+                        client.start();
+                        System.out.println("client = "+currentClient);
+                        if(lastClient!=null)
+                            labelName.setText(temp);
+                    } catch (UnknownError eee) {
+                        eee.printStackTrace();
+                    }
+                    try {
+                        client.join();
+                    } catch (InterruptedException ee) {
+                        ee.printStackTrace();
+                    }
+                    lastClient=client.getSocket();
+                    System.out.println("socket = "+lastClient);
+                    lastOut=client.getOut();
+                    System.out.println("out = "+lastOut);
+                    if(lastOut!=null && flag!=1)
+                    {
+                        ips.addElement(temp);
+                    }
+                    listIp.setSelectedIndex(ips.size()-1);
+                    lc=0;
+
+                    String msg = "";
+                    for(int i=0;i<ch.length-1;i++)
+                    {
 //                        System.out.println("i");
-                    char a=ch[i],b=ch[i+1];
-                    if(a=='[' && b=='Y')
-                    {
-                        while(ch[i]!=']')
+                        char a=ch[i],b=ch[i+1];
+                        if(a=='[' && b=='Y')
                         {
+                            while(ch[i]!=']')
+                            {
 //                                System.out.println("j"+i);
+                                i++;
+                            }
                             i++;
-                        }
-                        i++;
-                        msg = "";
-                        while(ch[i]!='[')
-                        {
+                            msg = "";
+                            while(ch[i]!='[')
+                            {
 //                                System.out.println("k"+i);
-                            msg+=ch[i];
-                            i++;
-                            if(i==chat.length()){
-                                break;
+                                msg+=ch[i];
+                                i++;
+                                if(i==chat.length()){
+                                    break;
+                                }
                             }
-                        }
 
-                        i--;
-                        ////////////right
-                        try
-                        {
-                            msg =msg.trim();
-                            msg="\n"+msg;
-                            System.out.println("::::r"+msg);
-                            doc.insertString(doc.getLength(), msg, right );
-                            doc.setParagraphAttributes(doc.getLength(), 1, right, false);
-                        } catch (BadLocationException ex) {
-                            ex.printStackTrace();
-                        }
+                            i--;
+                            ////////////right
+                            try
+                            {
+                                msg =msg.trim();
+                                msg="\n"+msg;
+//                                System.out.println("::::r"+msg);
+                                doc.insertString(doc.getLength(), msg, right );
+                                doc.setParagraphAttributes(doc.getLength(), 1, right, false);
+                            } catch (BadLocationException ex) {
+                                ex.printStackTrace();
+                            }
 
-                    }
-                    else if(a=='[' && b!='Y')
-                    {
-                        while(ch[i]!=']')
+                        }
+                        else if(a=='[' && b!='Y')
                         {
+                            while(ch[i]!=']')
+                            {
 //                                System.out.println("l"+i);
-                            i++;
-                        }
-                        i++;
-                        msg = "";
-                        while(ch[i]!='[')
-                        {
-//                                System.out.println("m"+i);
-                            msg+=ch[i];
-//                                System.out.println(msg);
-                            i++;
-                            if(i==chat.length()){
-                                break;
+                                i++;
                             }
-                        }
+                            i++;
+                            msg = "";
+                            while(ch[i]!='[')
+                            {
+//                                System.out.println("m"+i);
+                                msg+=ch[i];
+//                                System.out.println(msg);
+                                i++;
+                                if(i==chat.length()){
+                                    break;
+                                }
+                            }
 
-                        i--;
-                        System.out.println("amar"+i);
-                        //////////////left
-                        try
-                        {
-                            msg =msg.trim();
-                            msg="\n"+msg;
-                            System.out.println("::::l"+msg);
-                            doc.insertString(doc.getLength(), msg, left );
-                            doc.setParagraphAttributes(doc.getLength(), 1, left, false);
-                        } catch (BadLocationException ex) {
-                            ex.printStackTrace();
-                        }
+                            i--;
+//                            System.out.println("amar"+i);
+                            //////////////left
+                            try
+                            {
+                                msg =msg.trim();
+                                msg="\n"+msg;
+                                System.out.println("::::l"+msg);
+                                doc.insertString(doc.getLength(), msg, left );
+                                doc.setParagraphAttributes(doc.getLength(), 1, left, false);
+                            } catch (BadLocationException ex) {
+                                ex.printStackTrace();
+                            }
 
+                        }
                     }
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(panel1,"Please enter valid Ip !");
                 }
 
 
@@ -304,6 +342,8 @@ public class mainFrame {
                         };
                     }
                     String temp1=listIp.getSelectedValue();
+                    //listIp.setSelectionForeground(Color.green);
+//                    listIp.set
                     String filename=temp1;
                     taHistory.setText("");
                     try
@@ -346,7 +386,7 @@ public class mainFrame {
                                 {
                                     msg =msg.trim();
                                     msg="\n"+msg;
-                                    System.out.println("::::r"+msg);
+//                                    System.out.println("::::r"+msg);
                                     doc.insertString(doc.getLength(), msg, right );
                                     doc.setParagraphAttributes(doc.getLength(), 1, right, false);
                                 } catch (BadLocationException ex) {
@@ -375,13 +415,13 @@ public class mainFrame {
                                 }
 
                                 i--;
-                                System.out.println("amar"+i);
+//                                System.out.println("amar"+i);
                                 //////////////left
                                 try
                                 {
                                     msg =msg.trim();
                                     msg="\n"+msg;
-                                    System.out.println("::::l"+msg);
+//                                    System.out.println("::::l"+msg);
                                     doc.insertString(doc.getLength(), msg, left );
                                     doc.setParagraphAttributes(doc.getLength(), 1, left, false);
                                 } catch (BadLocationException ex) {
@@ -399,14 +439,20 @@ public class mainFrame {
                     System.out.println(temp1);
                     //listIp.setModel(ips);
 
-                    clientConnect client = new clientConnect(temp1,5000,taSendMsg,taHistory,btnSend,btnMediaButton,panel1);
+                    clientConnect client = new clientConnect(temp1,5000,taSendMsg,taHistory,btnSend,btnMediaButton,panel1,labelName);
                     try {
                         currentClient = client.getSocket();
                         client.start();
+                        currClient = client;
 
                         System.out.println("client = "+currentClient);
-                        if(lastClient!=null)
-                            labelName.setText(temp1);
+//                        if(lastClient!=null)
+//                        {
+//                            labelName.setText(temp1);
+//                        }
+//                        else{
+//                            JOptionPane.showMessageDialog(panel1,"User is offline !");
+//                        }
                     } catch (UnknownError eee) {
                         eee.printStackTrace();
                     }
@@ -425,21 +471,52 @@ public class mainFrame {
         moreButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-//                String ip = currentClient.getInetAddress().getHostAddress();
-                JOptionPane.showMessageDialog(panel1,"kaksdkkal");
+                Socket socket = currClient.getSocket();
+                if(socket!=null)
+                {
+                    try{
+//                        System.out.println("Last Client: "+lastClient);
+//                        System.out.println("Current Client : " + currentClient);
+                        JOptionPane.showMessageDialog(panel1, "IP: " + socket.getInetAddress().getHostAddress() + "\nPort: " + socket.getPort() + "\nLocal Port: " + socket.getLocalPort());
+                    } catch(NullPointerException e) {
+                    JOptionPane.showMessageDialog(panel1, "User is offline !");
+                        System.out.println(e);
+                    }
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(panel1,"User is offline !");
+                }
+
+
             }
         });
     }
 
-    public static void main(String[] args) {
+    private ListCellRenderer<? super String> getRenderer() {
+        return new DefaultListCellRenderer(){
+            @Override
+            public Component getListCellRendererComponent(JList<?> list,
+                                                          Object value, int index, boolean isSelected,
+                                                          boolean cellHasFocus) {
+                JLabel listCellRendererComponent = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected,cellHasFocus);
+                listCellRendererComponent.setBorder(BorderFactory.createRaisedSoftBevelBorder());
+                Color ipscolor = new Color(255, 255, 255);
+                listCellRendererComponent.setBackground(ipscolor);
+//                listCellRendererComponent.set
+                ImageIcon icon = new ImageIcon("icon_2.png");
+                listCellRendererComponent.setIcon(icon);
+                //getListCellRendererComponent.
+                return listCellRendererComponent;
+            }
+        };
+    }
+
+    public static void main(String[] args) throws IOException {
         JFrame frame = new JFrame("Ip Messenger");
         frame.setSize(1080,720);
         frame.setContentPane(new mainFrame().panel1);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
-
-
-
-
     }
 }

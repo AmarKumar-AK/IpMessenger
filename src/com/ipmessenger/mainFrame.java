@@ -1,5 +1,6 @@
 package com.ipmessenger;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -13,8 +14,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.NetworkInterface;
 import java.net.Socket;
 import java.util.*;
@@ -25,6 +28,7 @@ public class mainFrame {
     private JButton btnSend;    //area where we type ip to search
     private JTextField tfNewIp;    //button for searching ip
     private JButton btnSearchIp;    //area where list of ip is shown
+    private  JButton refresh;
     private JList<String> listIp;
     private JSplitPane sp;
     private JPanel rpanel;
@@ -33,10 +37,13 @@ public class mainFrame {
     private JTextArea taSendMsg;
     private JButton btnMediaButton;
     private JButton moreButton;
+    private JPanel userpnl;
+    private JLabel labelicon;
     Socket lastClient=null;
     DataOutputStream lastOut=null;
     int lc =1;
     int bc=1;
+    int selected;
     private Socket currentClient = null;
     private clientConnect currClient ;
 
@@ -44,6 +51,18 @@ public class mainFrame {
 
 
     public mainFrame() throws IOException {
+
+        //user png
+        BufferedImage image = ImageIO.read(new File("u3.png"));
+        Graphics2D g = (Graphics2D) image.getGraphics();
+        g.setStroke(new BasicStroke(3));
+        g.setColor(Color.BLUE);
+        g.drawRect(0, 0, image.getWidth() - 10, image.getHeight() - 10);
+        labelicon.setIcon(new ImageIcon(image));
+        compairingOwnIp c = new compairingOwnIp();
+        ArrayList<String> mylist = c.getMyips();
+        labelicon.setText(mylist.get(0));
+        //
 
         // getting own system ips
         compairingOwnIp compairingOwnIp = new compairingOwnIp();
@@ -90,8 +109,21 @@ public class mainFrame {
             }
         }
 
-        checkingAvailIps checkingAvailIps = new checkingAvailIps(listIp,ips,"192.168",myips);
-        checkingAvailIps.start();
+        // fetching online users
+        refresh.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                listIp.setEnabled(false);
+                checkingAvailIps checkingAvailIps = new checkingAvailIps(listIp,ips,"192.168",myips);
+                checkingAvailIps.start();
+                listIp.setEnabled(true);
+
+                for( ActionListener al : refresh.getActionListeners() ) {
+                    refresh.removeActionListener( al );
+                }
+            }
+        });
+        //
 
         listIp.setModel(ips);
         try { UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()); }
@@ -368,8 +400,8 @@ public class mainFrame {
                         };
                     }
                     String temp1=listIp.getSelectedValue();
-                    //listIp.setSelectionForeground(Color.green);
-//                    listIp.set
+                    selected=listIp.getSelectedIndex();
+//                    listIp.setSelectionBackground(Color.green);
                     String filename=temp1;
                     taHistory.setText("");
                     try
@@ -526,11 +558,16 @@ public class mainFrame {
                                                           Object value, int index, boolean isSelected,
                                                           boolean cellHasFocus) {
                 JLabel listCellRendererComponent = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected,cellHasFocus);
+                System.out.println("sssss = "+index);
                 listCellRendererComponent.setBorder(BorderFactory.createRaisedSoftBevelBorder());
                 Color ipscolor = new Color(255, 255, 255);
                 listCellRendererComponent.setBackground(ipscolor);
-//                listCellRendererComponent.set
-                ImageIcon icon = new ImageIcon("icon_2.png");
+                if(index==selected)
+                {
+                    Color sele = new Color(172, 190, 200);
+                    listCellRendererComponent.setBackground(sele);
+                }
+                ImageIcon icon = new ImageIcon("c1.png");
                 listCellRendererComponent.setIcon(icon);
                 //getListCellRendererComponent.
                 return listCellRendererComponent;

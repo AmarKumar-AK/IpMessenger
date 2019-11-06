@@ -48,7 +48,7 @@ public class progressbar extends Thread {
             e.printStackTrace();
         }
         frame.dispose();
-        pb.update(pb.getGraphics());
+//        pb.update(pb.getGraphics());
 
     }
 

@@ -90,8 +90,8 @@ public class mainFrame {
             }
         }
 
-//        checkingAvailIps checkingAvailIps = new checkingAvailIps(listIp,ips,"192.168");
-//        checkingAvailIps.start();
+        checkingAvailIps checkingAvailIps = new checkingAvailIps(listIp,ips,"192.168",myips);
+        checkingAvailIps.start();
 
         listIp.setModel(ips);
         try { UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()); }

@@ -176,6 +176,11 @@ public class clientConnect extends Thread {
                         try
                         {
                             File FILE_TO_SEND = fc.getSelectedFile();
+
+                            btnMediaButton.setText("Attach");
+                            taMsgSend.setText("");
+                            taMsgSend.setEditable(true);
+
                             System.out.println(FILE_TO_SEND);
                             File myFile=new File(String.valueOf(FILE_TO_SEND));
                             byte[] mybytearray=new byte[(int) myFile.length()];
@@ -200,18 +205,18 @@ public class clientConnect extends Thread {
 //                            while(progress<100)
 //                                System.out.println("progress: "+progress);
                             System.out.println("Done");
-                            String newmsg = msg;
-                            newmsg=newmsg.trim();
-                            newmsg = "\n"+newmsg;
-                            try
-                            {
-                                doc.insertString(doc.getLength(), newmsg, right );
-                                doc.setParagraphAttributes(doc.getLength(), 1, right, false);
-                            }
-                            catch (Exception e)
-                            {
-
-                            }
+//                            String newmsg = msg;
+//                            newmsg=newmsg.trim();
+//                            newmsg = "\n"+newmsg;
+//                            try
+//                            {
+//                                doc.insertString(doc.getLength(), newmsg, right );
+//                                doc.setParagraphAttributes(doc.getLength(), 1, right, false);
+//                            }
+//                            catch (Exception e)
+//                            {
+//
+//                            }
 //                            taHistory.setText(taHistory.getText()+"[You @ "+dtf.format(now)+"]: "+fc.getSelectedFile()+ "\n");
                         } catch (FileNotFoundException e) {
                             e.printStackTrace();
@@ -238,9 +243,25 @@ public class clientConnect extends Thread {
             btnMediaButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {
-                    fc = new JFileChooser();
-                    fc.showOpenDialog(panel1);
-                    System.out.println("FC "+fc.getSelectedFile());
+                    if(fc==null)
+                    {
+                        fc = new JFileChooser();
+                        fc.showOpenDialog(panel1);
+                        System.out.println("FC "+fc.getSelectedFile());
+                        btnMediaButton.setText("Cancel");
+                        taMsgSend.setText("Attached file: "+fc.getSelectedFile().getName());
+                        taMsgSend.setEditable(false);
+
+                    }
+                    else
+                    {
+                        fc=null;
+                        btnMediaButton.setText("Attach");
+                        taMsgSend.setText("");
+                        taMsgSend.setEditable(true);
+                    }
+
+
                 }
             });
             labelName.setText(socket.getInetAddress().getHostAddress());

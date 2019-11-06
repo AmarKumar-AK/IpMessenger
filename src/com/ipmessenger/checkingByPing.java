@@ -13,13 +13,15 @@ public class checkingByPing extends Thread {
     private int i,j;
     private JList<String> list ;
     private DefaultListModel ips;
+    private ArrayList<String> myips;
 
-    public checkingByPing(String subnet, int i, int j, JList list, DefaultListModel ips) {
+    public checkingByPing(String subnet, int i, int j, JList list, DefaultListModel ips,ArrayList<String> myips) {
         this.subnet = subnet;
         this.i = i;
         this.j = j;
         this.list = list;
         this.ips = ips;
+        this.myips =myips;
         list.setModel(ips);
 
     }
@@ -34,8 +36,8 @@ public class checkingByPing extends Thread {
 
             host = subnet + "." + i + "." + j;
 
-            compairingOwnIp compairingOwnIp = new compairingOwnIp();
-            ArrayList<String> myips = compairingOwnIp.getMyips();
+//            compairingOwnIp compairingOwnIp = new compairingOwnIp();
+//            ArrayList<String> myips = compairingOwnIp.getMyips();
             int flag =1;
             for(int i=0;i<myips.size();i++)
             {
@@ -50,7 +52,7 @@ public class checkingByPing extends Thread {
                 Socket s = new Socket();
                 s.connect(new InetSocketAddress(host,5000),1000);
                 int flag1 =1;
-//                System.out.println(host+"....................ava");
+                System.out.println(host+"....................ava");
                 for(int i=0;i<ips.size();i++)
                 {
                     if(ips.get(i).equals(host))
@@ -70,7 +72,7 @@ public class checkingByPing extends Thread {
         }
         catch (Exception e)
         {
-//            System.out.println(host+"fail");
+            System.out.println(host+"fail");
         }
 
 

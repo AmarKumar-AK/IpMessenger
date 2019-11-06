@@ -1,6 +1,7 @@
 package com.ipmessenger;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -11,8 +12,10 @@ public class progressbar extends Thread {
     private JProgressBar pb;
     private boolean stop;
     JFrame frame = new JFrame("Sending");
-    public progressbar() {
+    Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 
+    public progressbar() {
+        frame.setLocation(dim.width/2-frame.getSize().width/2,dim.height/2-frame.getSize().height/2);
         pb = new JProgressBar();
         pb.setValue(0);
         JPanel p = new JPanel();

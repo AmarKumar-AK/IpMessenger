@@ -14,30 +14,22 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.*;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.net.Socket;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 
 public class mainFrame {
-    private JPanel panel1;
-    //area where we get message
-    private JTextPane taHistory;
-    //button for sending message
-    private JButton btnSend;
-    //area where we type ip to search
-    private JTextField tfNewIp;
-    //button for searching ip
-    private JButton btnSearchIp;
-    //area where list of ip is shown
+    private JPanel panel1;      //area where we get message
+    private JTextPane taHistory;    //button for sending message
+    private JButton btnSend;    //area where we type ip to search
+    private JTextField tfNewIp;    //button for searching ip
+    private JButton btnSearchIp;    //area where list of ip is shown
     private JList<String> listIp;
     private JSplitPane sp;
     private JPanel rpanel;
-    private JPanel lpanel;
-    //name of person with whom you are chatting
-    private JLabel labelName;
-    //area where we type message
+    private JPanel lpanel;    //name of person with whom you are chatting
+    private JLabel labelName;    //area where we type message
     private JTextArea taSendMsg;
     private JButton btnMediaButton;
     private JButton moreButton;
@@ -50,7 +42,12 @@ public class mainFrame {
 
     DefaultListModel<String> ips = new DefaultListModel<>();
 
+
     public mainFrame() throws IOException {
+        // getting own system ips
+        compairingOwnIp compairingOwnIp = new compairingOwnIp();
+        ArrayList<String> myips = compairingOwnIp.getMyips();
+
 
         //Reading iplist from file ip.txt
         Set<String> hash_set = new HashSet<String>();
@@ -60,13 +57,31 @@ public class mainFrame {
             BufferedReader wbr = new BufferedReader(new FileReader(ipsfile));
             String st;
             while((st = wbr.readLine())!=null){
-//                ips.add(j,st);
                 hash_set.add(st);
             }
         }
+
         Iterator<String> j = hash_set.iterator();
+
+        for(int i=0;i<myips.size();i++)
+            System.out.println(myips.get(i));
         while(j.hasNext()){
-            ips.addElement(j.next());
+            String ip =j.next();
+            int flag =1;
+            for(int i=0;i<myips.size();i++)
+            {
+                if(ip.equals(myips.get(i)))
+                {
+                    flag =0;
+                    break;
+                }
+            }
+            if(flag==1)
+            {
+                ips.addElement(ip);
+            }
+
+
         }
 
         listIp.setModel(ips);
@@ -85,9 +100,6 @@ public class mainFrame {
         StyleConstants.setAlignment(left, StyleConstants.ALIGN_LEFT);
         StyleConstants.setFontSize(left,24);
         StyleConstants.setSpaceAbove(left,20);
-
-
-
 
         SimpleAttributeSet right = new SimpleAttributeSet();
         StyleConstants.setBackground(right, Color.black);
@@ -110,16 +122,8 @@ public class mainFrame {
         listIp.setCellRenderer(getRenderer());
 //        listIp.setForeground(Color.blue);
         ImageIcon icon = new ImageIcon("icon_2.png");
-//        ips.addElement(icon);
-        //listIp.sets
-        ip IpAddr=new ip();
-        try
-        {
-            //IpAddr.start();
-            ;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
+
 
         tfNewIp.addKeyListener(new KeyAdapter() {
             @Override
@@ -133,7 +137,20 @@ public class mainFrame {
         btnSearchIp.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(!tfNewIp.getText().equals(""))
+                String temp = tfNewIp.getText();
+                int flag_ownip =1;
+                for(int i=0;i<myips.size();i++)
+                {
+                    System.out.println("myip"+myips.get(i));
+                    if(temp.equals(myips.get(i)))
+                    {
+                        flag_ownip =0;
+                        break;
+                    }
+
+                }
+                System.out.println("fo"+flag_ownip);
+                if(!tfNewIp.getText().equals("") && flag_ownip==1)
                 {
                     String chat="";
                     char[] ch={0};
@@ -161,7 +178,7 @@ public class mainFrame {
 
                     }
 
-                    String temp = tfNewIp.getText();
+
                     String filename=temp;
                     taHistory.setText("");
                     try
@@ -515,6 +532,8 @@ public class mainFrame {
     public static void main(String[] args) throws IOException {
         JFrame frame = new JFrame("Ip Messenger");
         frame.setSize(1080,720);
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        frame.setLocation(dim.width/2-frame.getSize().width/2,dim.height/2-frame.getSize().height/2);
         frame.setContentPane(new mainFrame().panel1);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);

@@ -23,11 +23,11 @@ public class compairingOwnIp {
             {
                 NetworkInterface e = n.nextElement();
                 Enumeration<InetAddress> a = e.getInetAddresses();
-
+                System.out.println(e.getName());
                 while(a.hasMoreElements())
                 {
                     InetAddress addr = a.nextElement();
-                    if(addr.getHostAddress().length()<=15)
+                    if(addr.getHostAddress().length()<=15 && (e.getName().equals("wlp3s0") || e.getName().equals("eno1")))
                         myips.add(addr.getHostAddress());
                 }
             }

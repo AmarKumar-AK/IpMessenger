@@ -44,9 +44,17 @@ public class mainFrame {
 
 
     public mainFrame() throws IOException {
+
         // getting own system ips
         compairingOwnIp compairingOwnIp = new compairingOwnIp();
         ArrayList<String> myips = compairingOwnIp.getMyips();
+        for(int i=0;i<myips.size();i++)
+        {
+            if(myips.get(i).equals("127.0.0.1") || myips.get(i).equals("0.0.0.0"))
+            {
+                myips.remove(i);
+            }
+        }
 
 
         //Reading iplist from file ip.txt
@@ -80,9 +88,10 @@ public class mainFrame {
             {
                 ips.addElement(ip);
             }
-
-
         }
+
+//        checkingAvailIps checkingAvailIps = new checkingAvailIps(listIp,ips,"192.168");
+//        checkingAvailIps.start();
 
         listIp.setModel(ips);
         try { UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()); }

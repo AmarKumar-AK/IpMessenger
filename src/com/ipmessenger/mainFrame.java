@@ -39,6 +39,7 @@ public class mainFrame {
     private JButton moreButton;
     private JPanel userpnl;
     private JLabel labelicon;
+    private JButton savedMediaButton;
     Socket lastClient=null;
     DataOutputStream lastOut=null;
     int lc =1;
@@ -547,6 +548,17 @@ public class mainFrame {
                 }
 
 
+            }
+        });
+        savedMediaButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                try {
+                    System.out.println("Saved media button clicked!");
+                    Desktop.getDesktop().open(new File("media"));
+                } catch(IOException e){
+                    System.out.println(e);
+                }
             }
         });
     }

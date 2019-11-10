@@ -2,6 +2,7 @@ package com.ipmessenger;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.event.AncestorListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.text.BadLocationException;
@@ -21,6 +22,8 @@ import java.net.InetSocketAddress;
 import java.net.NetworkInterface;
 import java.net.Socket;
 import java.util.*;
+
+import static java.lang.Thread.sleep;
 
 public class mainFrame {
     private JPanel panel1;      //area where we get message
@@ -54,11 +57,12 @@ public class mainFrame {
     public mainFrame() throws IOException {
 
         //user png
-        BufferedImage image = ImageIO.read(new File("u3.png"));
-        Graphics2D g = (Graphics2D) image.getGraphics();
-        g.setStroke(new BasicStroke(3));
-        g.setColor(Color.BLUE);
-        g.drawRect(0, 0, image.getWidth() - 10, image.getHeight() - 10);
+        BufferedImage image = ImageIO.read(new File("u4.png"));
+//        Graphics2D g = (Graphics2D) image.getGraphics();
+//        g.setStroke(new BasicStroke(3));
+//        g.setColor(Color.BLUE);
+//        g.drawRect(0, 0, image.getWidth() - 10, image.getHeight() - 10);
+        labelicon.setLocation(0,10);
         labelicon.setIcon(new ImageIcon(image));
         compairingOwnIp c = new compairingOwnIp();
         ArrayList<String> mylist = c.getMyips();
@@ -115,13 +119,30 @@ public class mainFrame {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 listIp.setEnabled(false);
-                checkingAvailIps checkingAvailIps = new checkingAvailIps(listIp,ips,"192.168",myips);
+                checkingAvailIps checkingAvailIps = new checkingAvailIps(listIp,ips,"172.16",myips);
                 checkingAvailIps.start();
-                listIp.setEnabled(true);
-
-                for( ActionListener al : refresh.getActionListeners() ) {
-                    refresh.removeActionListener( al );
+                try {
+                    sleep(20000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
+                checkingAvailIps.stop();
+//
+                for(int i=0; i<ips.size(); i++){
+                    System.out.println("Ip from ips: "+ips.get(i));
+                }
+//                Iterator<String> k = hash_set.iterator();
+//                ips.clear();
+//                while(k.hasNext()){
+//                    String s = k.next();
+//                    ips.addElement(s);
+//                    System.out.println("IP: "+s);
+//                }
+                listIp.setEnabled(true);
+                for( AncestorListener al : refresh.getAncestorListeners() ) {
+                    refresh.removeActionListener((ActionListener) al);
+                }
+
             }
         });
         //
@@ -378,6 +399,7 @@ public class mainFrame {
         listIp.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
+                listIp.setCellRenderer(getRenderer());
                 String chat ="";
                 char[] ch;
                 if(!e.getValueIsAdjusting())

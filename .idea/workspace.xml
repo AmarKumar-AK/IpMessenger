@@ -3,17 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="fb4cc6b7-0502-480a-acc6-957c40a3742e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/mainFrame$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/mainFrame$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/mainFrame$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/mainFrame$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/mainFrame$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/mainFrame$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/mainFrame$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/mainFrame$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/mainFrame$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/mainFrame$5.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/mainFrame$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/mainFrame$6.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/mainFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/mainFrame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/progressBar.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/progressBar.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/ip.txt" beforeDir="false" afterPath="$PROJECT_DIR$/database/ip.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/ipmessenger/checkingAvailIps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/ipmessenger/checkingAvailIps.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/ipmessenger/checkingByPing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/ipmessenger/checkingByPing.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/ipmessenger/mainFrame.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/ipmessenger/mainFrame.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/ipmessenger/mainFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/ipmessenger/mainFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/ipmessenger/progressBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/ipmessenger/progressBar.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -45,7 +39,7 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH" value="297" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../for firoz/IpMessenger" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />

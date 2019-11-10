@@ -21,8 +21,8 @@ public class checkingAvailIps extends Thread {
     public void run() {
         super.run();
 
-        for (int i=0;i<255;i++) {
-            for (int j = 0; j < 255; j++) {
+        for (int i=15;i<20;i++) {
+            for (int j = 85; j < 100; j++) {
                 checkingByPing c = new checkingByPing(subnet,i,j,list,ips,myips);
                 c.start();
                 try {

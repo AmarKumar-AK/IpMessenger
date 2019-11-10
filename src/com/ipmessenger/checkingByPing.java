@@ -23,7 +23,6 @@ public class checkingByPing extends Thread {
         this.ips = ips;
         this.myips =myips;
         list.setModel(ips);
-
     }
 
 
@@ -50,7 +49,7 @@ public class checkingByPing extends Thread {
             if(flag==1)
             {
                 Socket s = new Socket();
-                s.connect(new InetSocketAddress(host,5000),1000);
+                s.connect(new InetSocketAddress(host,5000),5000);
                 int flag1 =1;
                 System.out.println(host+"....................ava");
                 for(int i=0;i<ips.size();i++)
@@ -65,6 +64,10 @@ public class checkingByPing extends Thread {
                 {
 
                     ips.addElement(host);
+                    for(int i=0;i<ips.size();i++)
+                    {
+                        System.out.println("Ip from ips: "+ips.get(i));
+                    }
                 }
             }
 

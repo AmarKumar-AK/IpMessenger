@@ -1,9 +1,0 @@
-[You @ 06/11 19:21]hello
-[You @ 06/11 19:21]sdads
-[You @ 06/11 21:48]Attached file: 2.txt
-[You @ 06/11 21:50]Attached file: 3.txt
-[You @ 06/11 21:51]Attached file: 1.txt
-[You @ 06/11 22:07]mmmm
-[192.168.0.164]hi
-[192.168.0.164]hijkbjkbk
-[192.168.0.164]hi

@@ -208,7 +208,16 @@ public class clientConnect extends Thread {
                                 e.printStackTrace();
                             }
                             pb.setStop(false);
-
+                            String filename=socket.getInetAddress().getHostName();
+                            System.out.println("filename"+filename.replace('.','_'));
+                            File file=new File("database/"+filename.replace(".","_")+".txt");
+                            file.setWritable(true,false);
+                            FileWriter fr=new FileWriter(file,true);
+                            BufferedWriter br=new BufferedWriter(fr);
+                            br.write("[You @ "+dtf.format(now)+"]"+msg+"\n");
+                            br.close();
+                            fr.close();
+                            file.setReadOnly();
 
                             String fileName=fc.getSelectedFile().toString();
                             String extension = "";

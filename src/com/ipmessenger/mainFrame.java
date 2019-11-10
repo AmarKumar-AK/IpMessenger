@@ -7,6 +7,7 @@ import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.text.*;
+import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
 import java.awt.*;
 import java.awt.desktop.SystemEventListener;
@@ -367,10 +368,35 @@ public class mainFrame {
                             i--;
                             ////////////right
                             msg =msg.trim();
-                            msg="\n"+msg;
+
 //                                System.out.println("::::r"+msg);
 //                                doc.insertString(doc.getLength(), msg, right );
 //                                doc.setParagraphAttributes(doc.getLength(), 1, right, false);
+                            File tempFile = new File(msg);
+                            boolean exists = tempFile.exists();
+                            if(!exists) {
+                                try {
+//                                    doc.insertString(doc.getLength(), newmsg, right );
+//                                    doc.setParagraphAttributes(doc.getLength(), 1, right, false);
+                                    HTMLDocument doc = (HTMLDocument) epHistory.getDocument();
+                                    Element elem = doc.getElement("body");
+                                    String line = "<div class='div2'>" + msg + "</div>";
+                                    System.out.println("line: " + line);
+                                    String htmlText = String.format("<p>%s</p>", line);
+                                    try {
+                                        doc.insertBeforeEnd(elem, htmlText);
+                                    } catch (BadLocationException | IOException ex) {
+                                        ex.printStackTrace();
+                                    }
+
+                                } catch (Exception e1) {
+
+                                }
+                            }
+                            else
+                            {
+                                //formatted output
+                            }
 
                         }
                         else if(a=='[' && b!='Y')
@@ -397,10 +423,35 @@ public class mainFrame {
 //                            System.out.println("amar"+i);
                             //////////////left
                             msg =msg.trim();
-                            msg="\n"+msg;
-                            System.out.println("::::l"+msg);
+
+                            //System.out.println("::::l"+msg);
 //                                doc.insertString(doc.getLength(), msg, left );
 //                                doc.setParagraphAttributes(doc.getLength(), 1, left, false);
+                            File tempFile = new File(msg);
+                            boolean exists = tempFile.exists();
+                            if(!exists) {
+                                try {
+//                                    doc.insertString(doc.getLength(), newmsg, right );
+//                                    doc.setParagraphAttributes(doc.getLength(), 1, right, false);
+                                    HTMLDocument doc = (HTMLDocument) epHistory.getDocument();
+                                    Element elem = doc.getElement("body");
+                                    String line = "<div class='div1'>" + msg + "</div>";
+                                    System.out.println("line: " + line);
+                                    String htmlText = String.format("<p>%s</p>", line);
+                                    try {
+                                        doc.insertBeforeEnd(elem, htmlText);
+                                    } catch (BadLocationException | IOException ex) {
+                                        ex.printStackTrace();
+                                    }
+
+                                } catch (Exception e2) {
+
+                                }
+                            }
+                            else
+                            {
+                                //formatted output
+                            }
 
                         }
                     }
@@ -483,10 +534,34 @@ public class mainFrame {
                                 i--;
                                 ////////////right
                                 msg =msg.trim();
-                                msg="\n"+msg;
+
 //                                    System.out.println("::::r"+msg);
 //                                    doc.insertString(doc.getLength(), msg, right );
 //                                    doc.setParagraphAttributes(doc.getLength(), 1, right, false);
+                                File tempFile = new File(msg);
+                                boolean exists = tempFile.exists();
+                                if(!exists) {
+                                    try {
+//                                    doc.insertString(doc.getLength(), newmsg, right );
+//                                    doc.setParagraphAttributes(doc.getLength(), 1, right, false);
+                                        HTMLDocument doc = (HTMLDocument) epHistory.getDocument();
+                                        Element elem = doc.getElement("body");
+                                        String line = "<div class='div2'>" + msg + "</div>";
+                                        System.out.println("line: " + line);
+                                        String htmlText = String.format("<p>%s</p>", line);
+                                        try {
+                                            doc.insertBeforeEnd(elem, htmlText);
+                                        } catch (BadLocationException | IOException ex) {
+                                            ex.printStackTrace();
+                                        }
+
+                                    } catch (Exception e3) {
+                                    }
+                                }
+                                else
+                                {
+                                    //formatted output
+                                }
 
                             }
                             else if(a=='[' && b!='Y')
@@ -513,10 +588,37 @@ public class mainFrame {
 //                                System.out.println("amar"+i);
                                 //////////////left
                                 msg =msg.trim();
-                                msg="\n"+msg;
+
 //                                    System.out.println("::::l"+msg);
 //                                    doc.insertString(doc.getLength(), msg, left );
 //                                    doc.setParagraphAttributes(doc.getLength(), 1, left, false);
+                                File tempFile = new File(msg);
+                                boolean exists = tempFile.exists();
+                                if(!exists){
+                                try
+                                {
+//                                    doc.insertString(doc.getLength(), newmsg, right );
+//                                    doc.setParagraphAttributes(doc.getLength(), 1, right, false);
+                                    HTMLDocument doc = (HTMLDocument) epHistory.getDocument();
+                                    Element elem = doc.getElement("body");
+                                    String line = "<div class='div1'>"+msg+"</div>";
+                                    System.out.println("line: "+line);
+                                    String htmlText = String.format("<p>%s</p>", line);
+                                    try {
+                                        doc.insertBeforeEnd(elem, htmlText);
+                                    } catch (BadLocationException | IOException ex) {
+                                        ex.printStackTrace();
+                                    }
+
+                                }
+                                catch (Exception e4)
+                                {
+
+                                }}
+                                else
+                                {
+                                    //add for formatted output
+                                }
 
                             }
                         }

@@ -77,9 +77,5 @@ public class checkingByPing extends Thread {
         {
             System.out.println(host+"fail");
         }
-
-
-
-
     }
 }

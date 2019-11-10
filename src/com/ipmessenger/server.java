@@ -188,8 +188,9 @@ class ClientHandler implements Runnable
                 if(received.equals("Attachment5psafv"))
                 {
                     received=dis.readUTF();
+                    received=received.replace(" ","_");
                     String path="media/";
-                    FILE_TO_RECEIVED=path+received.toLowerCase();
+                    FILE_TO_RECEIVED=path+received;
                     int bytesRead;
                     int current=0;
                     FileOutputStream fos=null;
@@ -219,7 +220,25 @@ class ClientHandler implements Runnable
                         {
                             String msg =received;
                             msg = msg.trim();
+                            msg = msg.replace(" ","_");
+                            String fileName=System.getProperty("user.dir")+"/media/"+msg;
+                            String extension = "";
+                            int i = fileName.lastIndexOf('.');
+                            if (i > 0) {
+                                extension = fileName.substring(i+1);
+                            }
+                            System.out.println("extension: "+extension);
+                            String text;
+                            if(extension.equals("jpg") || extension.equals("png")){
+                                text = "<a href='file://" + fileName + "'>" + "<img src='file:"+fileName+"' width=200 height=auto></img>" + "</a>";
 
+
+                            }
+                            else {
+                                text = "<img src='file:./file.png' width=50 height=auto></img>" +"<a href='file://" + fileName + "'>" +"   "+ msg + "</a>";
+
+
+                            }
                             try
                             {
                                 if(s.getInetAddress().getHostAddress().equals(listip.getSelectedValue()))
@@ -233,7 +252,7 @@ class ClientHandler implements Runnable
 //                                    doc.setParagraphAttributes(doc.getLength(), 1, right, false);
                                         HTMLDocument doc = (HTMLDocument) epHistory.getDocument();
                                         Element elem = doc.getElement("body");
-                                        String line = "<div class='div1'>"+msg+"</div>";
+                                        String line = "<div class='div1'>"+text+"</div>";
                                         System.out.println("line: "+line);
                                         String htmlText = String.format("<p>%s</p>", line);
                                         try {
@@ -257,6 +276,20 @@ class ClientHandler implements Runnable
                         }
                         bos.write(mybytearray,0,current);
                         bos.flush();
+
+                        File file = new File("database/" + filename.replace(".", "_") + ".txt");
+                        file.setWritable(true, false);
+                        FileWriter fr = new FileWriter(file, true);
+                        BufferedWriter br = new BufferedWriter(fr);
+                        br.write("[" + s.getInetAddress().getHostAddress() + "]" + received + "\n");
+                        br.close();
+                        fr.close();
+                        file.setReadOnly();
+
+
+
+
+
                         received=null;
                         System.out.println("file "+FILE_TO_RECEIVED+" downloaded ("+current+" bytes read)");
                     }
@@ -264,6 +297,7 @@ class ClientHandler implements Runnable
                         if(fos!=null)  fos.close();
                         if(bos!=null)  bos.close();
                     }
+
                 }else {
 
                     if (received.equals("logout")) {

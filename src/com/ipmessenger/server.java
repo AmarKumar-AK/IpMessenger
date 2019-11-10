@@ -1,9 +1,8 @@
 package com.ipmessenger;
 
 import javax.swing.*;
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyledDocument;
+import javax.swing.text.*;
+import javax.swing.text.html.HTMLDocument;
 import java.awt.*;
 import java.io.*;
 import java.net.ServerSocket;
@@ -12,7 +11,7 @@ import java.util.*;
 
 public class server extends Thread {
     static Vector<ClientHandler> ar = new Vector<>();
-    private JTextPane taMsgRecv;
+    private JEditorPane epHistory;
     static  int i=0;
     DefaultListModel<String> ips = new DefaultListModel<>();// counter for clients
     JList<String > listip;
@@ -21,9 +20,9 @@ public class server extends Thread {
     }
 
     // constructor with port
-    public server(JTextPane taMsgRecv,DefaultListModel<String> ips,JList<String> listip)
+    public server(JEditorPane epHistory,DefaultListModel<String> ips,JList<String> listip)
     {
-        this.taMsgRecv=taMsgRecv;
+        this.epHistory=epHistory;
         this.ips = ips;
         this.listip = listip;
         listip.setModel(ips);
@@ -95,7 +94,7 @@ public class server extends Thread {
                 System.out.println("Creating a new handler for this client...");
 
                 // Create a new handler object for handling this request.
-                ClientHandler mtch = new ClientHandler(s,"client " + i, dis, dos,taMsgRecv,ips,listip);
+                ClientHandler mtch = new ClientHandler(s,"client " + i, dis, dos,epHistory,ips,listip);
 
 
                 // Create a new Thread with this object.
@@ -129,7 +128,7 @@ class ClientHandler implements Runnable
     private String name;
     final DataInputStream dis;
     final DataOutputStream dos;
-    private JTextPane taMsgRecv;
+    private JEditorPane epHistory;
     Socket s;
     boolean isloggedin;
     boolean exit =false;
@@ -139,13 +138,13 @@ class ClientHandler implements Runnable
     public final static int FILE_SIZE=1073741820;   //1GB
     // constructor
     public ClientHandler(Socket s, String name,
-                         DataInputStream dis, DataOutputStream dos,JTextPane taMsgRecv,DefaultListModel<String>ips,JList<String> listip) {
+                         DataInputStream dis, DataOutputStream dos,JEditorPane epHistory,DefaultListModel<String>ips,JList<String> listip) {
         this.dis = dis;
         this.dos = dos;
         this.name = name;
         this.s = s;
         this.isloggedin=true;
-        this.taMsgRecv=taMsgRecv;
+        this.epHistory=epHistory;
         this.ips = ips;
         this.listip=listip;
     }
@@ -153,20 +152,20 @@ class ClientHandler implements Runnable
     @Override
     public void run() {
 
-        StyledDocument doc = taMsgRecv.getStyledDocument();
-
-        SimpleAttributeSet left = new SimpleAttributeSet();
-        StyleConstants.setBackground(left, Color.YELLOW);
-        StyleConstants.setForeground(left, Color.RED);
-        StyleConstants.setAlignment(left, StyleConstants.ALIGN_LEFT);
-        StyleConstants.setFontSize(left,24);
-        StyleConstants.setSpaceAbove(left,20);
-        SimpleAttributeSet right = new SimpleAttributeSet();
-        StyleConstants.setBackground(right, Color.GRAY);
-        StyleConstants.setForeground(right, Color.BLUE);
-        StyleConstants.setAlignment(right, StyleConstants.ALIGN_RIGHT);
-        StyleConstants.setFontSize(right,24);
-        StyleConstants.setSpaceAbove(right,20);
+//        StyledDocument doc = taMsgRecv.getStyledDocument();
+//
+//        SimpleAttributeSet left = new SimpleAttributeSet();
+//        StyleConstants.setBackground(left, Color.YELLOW);
+//        StyleConstants.setForeground(left, Color.RED);
+//        StyleConstants.setAlignment(left, StyleConstants.ALIGN_LEFT);
+//        StyleConstants.setFontSize(left,24);
+//        StyleConstants.setSpaceAbove(left,20);
+//        SimpleAttributeSet right = new SimpleAttributeSet();
+//        StyleConstants.setBackground(right, Color.GRAY);
+//        StyleConstants.setForeground(right, Color.BLUE);
+//        StyleConstants.setAlignment(right, StyleConstants.ALIGN_RIGHT);
+//        StyleConstants.setFontSize(right,24);
+//        StyleConstants.setSpaceAbove(right,20);
 
 //        for(int i=0;i<ips.size();i++)
 //        {
@@ -220,14 +219,34 @@ class ClientHandler implements Runnable
                         {
                             String msg =received;
                             msg = msg.trim();
-                            msg = "\n"+msg;
+
                             try
                             {
                                 if(s.getInetAddress().getHostAddress().equals(listip.getSelectedValue()))
                                 {
-                                    doc.insertString(doc.getLength(), msg, left );
-                                    taMsgRecv.insertIcon(new ImageIcon("media/"+filename));
-                                    doc.setParagraphAttributes(doc.getLength(), 1, left, false);
+//                                    doc.insertString(doc.getLength(), msg, left );
+//                                    taMsgRecv.insertIcon(new ImageIcon("media/"+filename));
+//                                    doc.setParagraphAttributes(doc.getLength(), 1, left, false);
+                                    try
+                                    {
+//                                    doc.insertString(doc.getLength(), newmsg, right );
+//                                    doc.setParagraphAttributes(doc.getLength(), 1, right, false);
+                                        HTMLDocument doc = (HTMLDocument) epHistory.getDocument();
+                                        Element elem = doc.getElement("body");
+                                        String line = "<div class='div1'>"+msg+"</div>";
+                                        System.out.println("line: "+line);
+                                        String htmlText = String.format("<p>%s</p>", line);
+                                        try {
+                                            doc.insertBeforeEnd(elem, htmlText);
+                                        } catch (BadLocationException | IOException ex) {
+                                            ex.printStackTrace();
+                                        }
+
+                                    }
+                                    catch (Exception e)
+                                    {
+
+                                    }
                                 }
                             }
                             catch (Exception e )
@@ -257,17 +276,24 @@ class ClientHandler implements Runnable
                     if (!received.equals("")) {
                         String msg =received;
                         msg = msg.trim();
-                        msg = "\n"+msg;
+
                         try
                         {
-
-                            if(s.getInetAddress().getHostAddress().equals(listip.getSelectedValue()))
-                            {
-                                doc.insertString(doc.getLength(), msg, left );
-                                doc.setParagraphAttributes(doc.getLength(), 1, left, false);
+//                                    doc.insertString(doc.getLength(), newmsg, right );
+//                                    doc.setParagraphAttributes(doc.getLength(), 1, right, false);
+                            HTMLDocument doc = (HTMLDocument) epHistory.getDocument();
+                            Element elem = doc.getElement("body");
+                            String line = "<div class='div1'>"+msg+"</div>";
+                            System.out.println("line: "+line);
+                            String htmlText = String.format("<p>%s</p>", line);
+                            try {
+                                doc.insertBeforeEnd(elem, htmlText);
+                            } catch (BadLocationException | IOException ex) {
+                                ex.printStackTrace();
                             }
+
                         }
-                        catch (Exception e )
+                        catch (Exception e)
                         {
 
                         }

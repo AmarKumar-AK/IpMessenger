@@ -1,9 +1,8 @@
 package com.ipmessenger;
 
 import javax.swing.*;
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyledDocument;
+import javax.swing.text.*;
+import javax.swing.text.html.HTMLDocument;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,7 +24,7 @@ public class clientConnect extends Thread {
     private String address = null;
     private int port = 0;
     private JTextArea taMsgSend;
-    private JTextPane taHistory;
+    private JEditorPane epHistory;
     private JButton sendButton;
     private DataInputStream In=null;
     private  JButton btnMediaButton;
@@ -36,12 +35,12 @@ public class clientConnect extends Thread {
 
 
     // constructor to put ip address and port
-    public clientConnect(String adr, int prt,JTextArea taMsgSend,JTextPane taHistory,JButton sendButton,JButton btnMediaButton,JPanel panel1,JLabel labelName) {
+    public clientConnect(String adr, int prt,JTextArea taMsgSend,JEditorPane epHistory,JButton sendButton,JButton btnMediaButton,JPanel panel1,JLabel labelName) {
         address = adr;
         port = prt;
         this.taMsgSend=taMsgSend;
         this.sendButton=sendButton;
-        this.taHistory=taHistory;
+        this.epHistory=epHistory;
         this.btnMediaButton=btnMediaButton;
         this.panel1=panel1;
         this.labelName=labelName;
@@ -60,23 +59,23 @@ public class clientConnect extends Thread {
     }
 
     public void run() {// establish a connection
-        StyledDocument doc = taHistory.getStyledDocument();
-
-        SimpleAttributeSet left = new SimpleAttributeSet();
-        StyleConstants.setBackground(left, Color.YELLOW);
-        StyleConstants.setForeground(left, Color.RED);
-        StyleConstants.setAlignment(left, StyleConstants.ALIGN_LEFT);
-        StyleConstants.setFontSize(left,24);
-        StyleConstants.setSpaceAbove(left,20);
-
-
-
-        SimpleAttributeSet right = new SimpleAttributeSet();
-        StyleConstants.setBackground(right, Color.GRAY);
-        StyleConstants.setForeground(right, Color.BLUE);
-        StyleConstants.setAlignment(right, StyleConstants.ALIGN_RIGHT);
-        StyleConstants.setFontSize(right,24);
-        StyleConstants.setSpaceAbove(right,20);
+//        StyledDocument doc = taHistory.getStyledDocument();
+//
+//        SimpleAttributeSet left = new SimpleAttributeSet();
+//        StyleConstants.setBackground(left, Color.YELLOW);
+//        StyleConstants.setForeground(left, Color.RED);
+//        StyleConstants.setAlignment(left, StyleConstants.ALIGN_LEFT);
+//        StyleConstants.setFontSize(left,24);
+//        StyleConstants.setSpaceAbove(left,20);
+//
+//
+//
+//        SimpleAttributeSet right = new SimpleAttributeSet();
+//        StyleConstants.setBackground(right, Color.GRAY);
+//        StyleConstants.setForeground(right, Color.BLUE);
+//        StyleConstants.setAlignment(right, StyleConstants.ALIGN_RIGHT);
+//        StyleConstants.setFontSize(right,24);
+//        StyleConstants.setSpaceAbove(right,20);
 
         try
         {
@@ -114,7 +113,7 @@ public class clientConnect extends Thread {
                     String msg=taMsgSend.getText();
                     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM HH:mm");
                     LocalDateTime now = LocalDateTime.now();
-                    if(!msg.equals(null) && !msg.equals(""))
+                    if(!msg.equals(null) && !msg.equals("") &&( fc==null || fc.getSelectedFile()==null))
                     {
                         taMsgSend.setText("");
                         System.out.println("send b clicked");
@@ -129,11 +128,21 @@ public class clientConnect extends Thread {
                             {
                                 String newmsg = msg;
                                 newmsg=newmsg.trim();
-                                newmsg = "\n"+newmsg;
                                 try
                                 {
-                                    doc.insertString(doc.getLength(), newmsg, right );
-                                    doc.setParagraphAttributes(doc.getLength(), 1, right, false);
+//                                    doc.insertString(doc.getLength(), newmsg, right );
+//                                    doc.setParagraphAttributes(doc.getLength(), 1, right, false);
+                                    HTMLDocument doc = (HTMLDocument) epHistory.getDocument();
+                                    Element elem = doc.getElement("body");
+                                    String line = "<div class='div2'>"+newmsg+"</div>";
+                                    System.out.println("line: "+line);
+                                    String htmlText = String.format("<p>%s</p>", line);
+                                    try {
+                                        doc.insertBeforeEnd(elem, htmlText);
+                                    } catch (BadLocationException | IOException ex) {
+                                        ex.printStackTrace();
+                                    }
+
                                 }
                                 catch (Exception e)
                                 {
@@ -200,6 +209,46 @@ public class clientConnect extends Thread {
                             }
                             pb.setStop(false);
 
+
+                            String fileName=fc.getSelectedFile().toString();
+                            String extension = "";
+                            int i = fileName.lastIndexOf('.');
+                            if (i > 0) {
+                                extension = fileName.substring(i+1);
+                            }
+                            System.out.println("extension: "+extension);
+                            String text;
+                            if(extension.equals("jpg") || extension.equals("png")){
+                                text = "<a href='file:///" + fc.getSelectedFile() + "'>" + "<img src='file:"+fc.getSelectedFile()+"' width=200 height=auto></img>" + "</a>";
+
+
+                            }
+                            else {
+                                text = "<img src='file:./file.png' width=50 height=auto></img>" +"<a href='file:///" + fc.getSelectedFile() + "'>" +"   "+ fc.getSelectedFile() + "</a>";
+
+
+                            }
+                            try
+                            {
+//                                    doc.insertString(doc.getLength(), newmsg, right );
+//                                    doc.setParagraphAttributes(doc.getLength(), 1, right, false);
+                                HTMLDocument doc = (HTMLDocument) epHistory.getDocument();
+                                Element elem = doc.getElement("body");
+                                String line = "<div class='div2'>"+text+"</div>";
+                                System.out.println("line: "+line);
+                                String htmlText = String.format("<p>%s</p>", line);
+                                try {
+                                    doc.insertBeforeEnd(elem, htmlText);
+                                } catch (BadLocationException | IOException ex) {
+                                    ex.printStackTrace();
+                                }
+
+                            }
+                            catch (Exception e)
+                            {
+
+                            }
+
 //                            float progress;
 //                            progress=In.readFloat();
 //                            while(progress<100)
@@ -249,8 +298,10 @@ public class clientConnect extends Thread {
                         fc.showOpenDialog(panel1);
                         System.out.println("FC "+fc.getSelectedFile());
                         btnMediaButton.setText("Cancel");
-                        taMsgSend.setText("Attached file: "+fc.getSelectedFile().getName());
+                        String fileName=fc.getSelectedFile().toString();
+                        taMsgSend.setText(fileName);
                         taMsgSend.setEditable(false);
+
 
                     }
                     else

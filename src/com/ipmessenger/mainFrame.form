@@ -35,7 +35,7 @@
                   </grid>
                 </constraints>
                 <properties>
-                  <text value="Label"/>
+                  <text value=""/>
                 </properties>
               </component>
               <scrollpane id="238af">
@@ -47,11 +47,9 @@
                 <properties/>
                 <border type="none"/>
                 <children>
-                  <component id="28852" class="javax.swing.JTextPane" binding="taHistory">
+                  <component id="dda35" class="javax.swing.JEditorPane" binding="epHistory">
                     <constraints/>
-                    <properties>
-                      <editable value="false"/>
-                    </properties>
+                    <properties/>
                   </component>
                 </children>
               </scrollpane>

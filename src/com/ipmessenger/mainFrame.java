@@ -3,12 +3,11 @@ package com.ipmessenger;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.AncestorListener;
+import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyledDocument;
+import javax.swing.text.*;
+import javax.swing.text.html.HTMLEditorKit;
 import java.awt.*;
 import java.awt.desktop.SystemEventListener;
 import java.awt.event.ActionEvent;
@@ -17,17 +16,13 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
-import java.net.NetworkInterface;
-import java.net.Socket;
+import java.net.*;
 import java.util.*;
 
 import static java.lang.Thread.sleep;
 
 public class mainFrame {
     private JPanel panel1;      //area where we get message
-    private JTextPane taHistory;    //button for sending message
     private JButton btnSend;    //area where we type ip to search
     private JTextField tfNewIp;    //button for searching ip
     private JButton btnSearchIp;    //area where list of ip is shown
@@ -43,6 +38,7 @@ public class mainFrame {
     private JPanel userpnl;
     private JLabel labelicon;
     private JButton savedMediaButton;
+    private JEditorPane epHistory;
     Socket lastClient=null;
     DataOutputStream lastOut=null;
     int lc =1;
@@ -68,6 +64,39 @@ public class mainFrame {
         ArrayList<String> mylist = c.getMyips();
         labelicon.setText(mylist.get(0));
         //
+
+        HTMLEditorKit htmlEditorKit = new HTMLEditorKit();
+        epHistory.setEditorKit(htmlEditorKit);
+
+        Document doc = htmlEditorKit.createDefaultDocument();
+        epHistory.setDocument(doc);
+        File background = new File("icon_2.png");
+        URL url = background.getCanonicalFile().toURI().toURL();
+        epHistory.setText("<html><head><style type='text/css'>" +
+                ".div1{width: 5px; max-width: 5px; margin: 5px auto; background: #00bfb6; color: #fff; padding: 10px; text-align: center; font-weight: 900; font-family: arial; position: relative;margin-left:0; margin-right:500;}" +
+                ".div2{width: 40; max-width: 40; margin: 5px auto; background: #00bfb6; color: #fff; padding: 10px; text-align: center; font-weight: 900; font-family: arial; position: relative; margin-left:500; margin-right:0;}" +
+                "</style></head> <body id='body' > </body></html>");
+
+        epHistory.setEditable(false);
+        epHistory.addHyperlinkListener(e -> {
+            if (HyperlinkEvent.EventType.ACTIVATED.equals(e.getEventType())) {
+                System.out.println(e.getURL());
+                Desktop desktop = Desktop.getDesktop();
+                try {
+                    desktop.browse(e.getURL().toURI());
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+
+
+
+
+
+
+
+
 
         // getting own system ips
         compairingOwnIp compairingOwnIp = new compairingOwnIp();
@@ -154,31 +183,31 @@ public class mainFrame {
         catch (InstantiationException e) {}
         catch (IllegalAccessException e) {}
 
-        taHistory.setAutoscrolls(true);
-        StyledDocument doc = taHistory.getStyledDocument();
+//        taHistory.setAutoscrolls(true);
+//        StyledDocument doc = taHistory.getStyledDocument();
+//
+//        SimpleAttributeSet left = new SimpleAttributeSet();
+//        StyleConstants.setBackground(left, Color.YELLOW);
+//        StyleConstants.setForeground(left, Color.RED);
+//        StyleConstants.setAlignment(left, StyleConstants.ALIGN_LEFT);
+//        StyleConstants.setFontSize(left,24);
+//        StyleConstants.setSpaceAbove(left,20);
+//
+//        SimpleAttributeSet right = new SimpleAttributeSet();
+//        StyleConstants.setBackground(right, Color.black);
+//        StyleConstants.setForeground(right, Color.white);
+//        StyleConstants.setAlignment(right, StyleConstants.ALIGN_RIGHT);
+//        StyleConstants.setFontSize(right,24);
+//        StyleConstants.setSpaceAbove(right,20);
 
-        SimpleAttributeSet left = new SimpleAttributeSet();
-        StyleConstants.setBackground(left, Color.YELLOW);
-        StyleConstants.setForeground(left, Color.RED);
-        StyleConstants.setAlignment(left, StyleConstants.ALIGN_LEFT);
-        StyleConstants.setFontSize(left,24);
-        StyleConstants.setSpaceAbove(left,20);
-
-        SimpleAttributeSet right = new SimpleAttributeSet();
-        StyleConstants.setBackground(right, Color.black);
-        StyleConstants.setForeground(right, Color.white);
-        StyleConstants.setAlignment(right, StyleConstants.ALIGN_RIGHT);
-        StyleConstants.setFontSize(right,24);
-        StyleConstants.setSpaceAbove(right,20);
 
 
+//        taHistory.setMargin(new Insets(10,10,10,10));
 
-        taHistory.setMargin(new Insets(10,10,10,10));
-
-        server server = new server(taHistory,ips,listIp);
+        server server = new server(epHistory,ips,listIp);
         server.start();
 
-        taHistory.setAutoscrolls(true);
+//        taHistory.setAutoscrolls(true);
         listIp.setFixedCellHeight(40);
         listIp.setFixedCellWidth(10);
         listIp.setBorder(BorderFactory.createRaisedBevelBorder());
@@ -243,7 +272,7 @@ public class mainFrame {
 
 
                     String filename=temp;
-                    taHistory.setText("");
+                   // taHistory.setText("");
                     try
                     {
                         File file=new File("database/"+filename.replace(".","_")+".txt");
@@ -284,7 +313,7 @@ public class mainFrame {
                     tfNewIp.setText("");
                     System.out.println(temp);
 
-                    clientConnect client = new clientConnect(temp,5000,taSendMsg,taHistory,btnSend,btnMediaButton,panel1,labelName);
+                    clientConnect client = new clientConnect(temp,5000,taSendMsg,epHistory,btnSend,btnMediaButton,panel1,labelName);
                     try {
                         currentClient = client.getSocket();
                         currClient = client;
@@ -337,16 +366,11 @@ public class mainFrame {
 
                             i--;
                             ////////////right
-                            try
-                            {
-                                msg =msg.trim();
-                                msg="\n"+msg;
+                            msg =msg.trim();
+                            msg="\n"+msg;
 //                                System.out.println("::::r"+msg);
-                                doc.insertString(doc.getLength(), msg, right );
-                                doc.setParagraphAttributes(doc.getLength(), 1, right, false);
-                            } catch (BadLocationException ex) {
-                                ex.printStackTrace();
-                            }
+//                                doc.insertString(doc.getLength(), msg, right );
+//                                doc.setParagraphAttributes(doc.getLength(), 1, right, false);
 
                         }
                         else if(a=='[' && b!='Y')
@@ -372,16 +396,11 @@ public class mainFrame {
                             i--;
 //                            System.out.println("amar"+i);
                             //////////////left
-                            try
-                            {
-                                msg =msg.trim();
-                                msg="\n"+msg;
-                                System.out.println("::::l"+msg);
-                                doc.insertString(doc.getLength(), msg, left );
-                                doc.setParagraphAttributes(doc.getLength(), 1, left, false);
-                            } catch (BadLocationException ex) {
-                                ex.printStackTrace();
-                            }
+                            msg =msg.trim();
+                            msg="\n"+msg;
+                            System.out.println("::::l"+msg);
+//                                doc.insertString(doc.getLength(), msg, left );
+//                                doc.setParagraphAttributes(doc.getLength(), 1, left, false);
 
                         }
                     }
@@ -426,7 +445,7 @@ public class mainFrame {
                     selected=listIp.getSelectedIndex();
 //                    listIp.setSelectionBackground(Color.green);
                     String filename=temp1;
-                    taHistory.setText("");
+//                    taHistory.setText("");
                     try
                     {
                         File file=new File("database/"+filename.replace(".","_")+".txt");
@@ -463,16 +482,11 @@ public class mainFrame {
 
                                 i--;
                                 ////////////right
-                                try
-                                {
-                                    msg =msg.trim();
-                                    msg="\n"+msg;
+                                msg =msg.trim();
+                                msg="\n"+msg;
 //                                    System.out.println("::::r"+msg);
-                                    doc.insertString(doc.getLength(), msg, right );
-                                    doc.setParagraphAttributes(doc.getLength(), 1, right, false);
-                                } catch (BadLocationException ex) {
-                                    ex.printStackTrace();
-                                }
+//                                    doc.insertString(doc.getLength(), msg, right );
+//                                    doc.setParagraphAttributes(doc.getLength(), 1, right, false);
 
                             }
                             else if(a=='[' && b!='Y')
@@ -498,16 +512,11 @@ public class mainFrame {
                                 i--;
 //                                System.out.println("amar"+i);
                                 //////////////left
-                                try
-                                {
-                                    msg =msg.trim();
-                                    msg="\n"+msg;
+                                msg =msg.trim();
+                                msg="\n"+msg;
 //                                    System.out.println("::::l"+msg);
-                                    doc.insertString(doc.getLength(), msg, left );
-                                    doc.setParagraphAttributes(doc.getLength(), 1, left, false);
-                                } catch (BadLocationException ex) {
-                                    ex.printStackTrace();
-                                }
+//                                    doc.insertString(doc.getLength(), msg, left );
+//                                    doc.setParagraphAttributes(doc.getLength(), 1, left, false);
 
                             }
                         }
@@ -520,7 +529,7 @@ public class mainFrame {
                     System.out.println(temp1);
                     //listIp.setModel(ips);
 
-                    clientConnect client = new clientConnect(temp1,5000,taSendMsg,taHistory,btnSend,btnMediaButton,panel1,labelName);
+                    clientConnect client = new clientConnect(temp1,5000,taSendMsg,epHistory,btnSend,btnMediaButton,panel1,labelName);
                     try {
                         currentClient = client.getSocket();
                         client.start();

@@ -396,6 +396,44 @@ public class mainFrame {
                             else
                             {
                                 //formatted output
+                                String fileName=msg;
+                                String extension = "";
+                                int j = fileName.lastIndexOf('.');
+                                if (j > 0) {
+                                    extension = fileName.substring(j+1);
+                                }
+                                System.out.println("extension: "+extension);
+                                String text;
+                                if(extension.equals("jpg") || extension.equals("png")){
+                                    text = "<a href='file:///" + msg + "'>" + "<img src='file:"+msg+"' width=200 height=auto></img>" + "</a>";
+
+
+                                }
+                                else {
+                                    text = "<img src='file:./file.png' width=50 height=auto></img>" +"<a href='file:///" + msg + "'>" +"   "+ msg + "</a>";
+
+
+                                }
+                                try
+                                {
+//                                    doc.insertString(doc.getLength(), newmsg, right );
+//                                    doc.setParagraphAttributes(doc.getLength(), 1, right, false);
+                                    HTMLDocument doc = (HTMLDocument) epHistory.getDocument();
+                                    Element elem = doc.getElement("body");
+                                    String line = "<div class='div2'>"+text+"</div>";
+                                    System.out.println("line: "+line);
+                                    String htmlText = String.format("<p>%s</p>", line);
+                                    try {
+                                        doc.insertBeforeEnd(elem, htmlText);
+                                    } catch (BadLocationException | IOException ex) {
+                                        ex.printStackTrace();
+                                    }
+
+                                }
+                                catch (Exception e5)
+                                {
+
+                                }
                             }
 
                         }
@@ -427,7 +465,7 @@ public class mainFrame {
                             //System.out.println("::::l"+msg);
 //                                doc.insertString(doc.getLength(), msg, left );
 //                                doc.setParagraphAttributes(doc.getLength(), 1, left, false);
-                            File tempFile = new File(msg);
+                            File tempFile = new File(System.getProperty("user.dir")+"/media/"+msg);
                             boolean exists = tempFile.exists();
                             if(!exists) {
                                 try {
@@ -451,6 +489,44 @@ public class mainFrame {
                             else
                             {
                                 //formatted output
+                                String fileName=System.getProperty("user.dir")+"/media/"+msg;
+                                String extension = "";
+                                int j = fileName.lastIndexOf('.');
+                                if (j > 0) {
+                                    extension = fileName.substring(j+1);
+                                }
+                                System.out.println("extension: "+extension);
+                                String text;
+                                if(extension.equals("jpg") || extension.equals("png")){
+                                    text = "<a href='file://" + fileName + "'>" + "<img src='file:"+fileName+"' width=200 height=auto></img>" + "</a>";
+
+
+                                }
+                                else {
+                                    text = "<img src='file:./file.png' width=50 height=auto></img>" +"<a href='file://" + fileName + "'>" +"   "+ msg + "</a>";
+
+
+                                }
+                                try
+                                {
+//                                    doc.insertString(doc.getLength(), newmsg, right );
+//                                    doc.setParagraphAttributes(doc.getLength(), 1, right, false);
+                                    HTMLDocument doc = (HTMLDocument) epHistory.getDocument();
+                                    Element elem = doc.getElement("body");
+                                    String line = "<div class='div1'>"+text+"</div>";
+                                    System.out.println("line: "+line);
+                                    String htmlText = String.format("<p>%s</p>", line);
+                                    try {
+                                        doc.insertBeforeEnd(elem, htmlText);
+                                    } catch (BadLocationException | IOException ex) {
+                                        ex.printStackTrace();
+                                    }
+
+                                }
+                                catch (Exception e5)
+                                {
+
+                                }
                             }
 
                         }
@@ -561,6 +637,44 @@ public class mainFrame {
                                 else
                                 {
                                     //formatted output
+                                    String fileName=msg;
+                                    String extension = "";
+                                    int j = fileName.lastIndexOf('.');
+                                    if (j > 0) {
+                                        extension = fileName.substring(j+1);
+                                    }
+                                    System.out.println("extension: "+extension);
+                                    String text;
+                                    if(extension.equals("jpg") || extension.equals("png")){
+                                        text = "<a href='file:///" + msg + "'>" + "<img src='file:"+msg+"' width=200 height=auto></img>" + "</a>";
+
+
+                                    }
+                                    else {
+                                        text = "<img src='file:./file.png' width=50 height=auto></img>" +"<a href='file:///" + msg + "'>" +"   "+ msg + "</a>";
+
+
+                                    }
+                                    try
+                                    {
+//                                    doc.insertString(doc.getLength(), newmsg, right );
+//                                    doc.setParagraphAttributes(doc.getLength(), 1, right, false);
+                                        HTMLDocument doc = (HTMLDocument) epHistory.getDocument();
+                                        Element elem = doc.getElement("body");
+                                        String line = "<div class='div2'>"+text+"</div>";
+                                        System.out.println("line: "+line);
+                                        String htmlText = String.format("<p>%s</p>", line);
+                                        try {
+                                            doc.insertBeforeEnd(elem, htmlText);
+                                        } catch (BadLocationException | IOException ex) {
+                                            ex.printStackTrace();
+                                        }
+
+                                    }
+                                    catch (Exception e5)
+                                    {
+
+                                    }
                                 }
 
                             }
@@ -592,7 +706,7 @@ public class mainFrame {
 //                                    System.out.println("::::l"+msg);
 //                                    doc.insertString(doc.getLength(), msg, left );
 //                                    doc.setParagraphAttributes(doc.getLength(), 1, left, false);
-                                File tempFile = new File(msg);
+                                File tempFile = new File(System.getProperty("user.dir")+"/media/"+msg);
                                 boolean exists = tempFile.exists();
                                 if(!exists){
                                 try
@@ -617,7 +731,45 @@ public class mainFrame {
                                 }}
                                 else
                                 {
-                                    //add for formatted output
+                                    //formatted output
+                                    String fileName=System.getProperty("user.dir")+"/media/"+msg;
+                                    String extension = "";
+                                    int j = fileName.lastIndexOf('.');
+                                    if (j > 0) {
+                                        extension = fileName.substring(j+1);
+                                    }
+                                    System.out.println("extension: "+extension);
+                                    String text;
+                                    if(extension.equals("jpg") || extension.equals("png")){
+                                        text = "<a href='file://" + fileName + "'>" + "<img src='file:"+fileName+"' width=200 height=auto></img>" + "</a>";
+
+
+                                    }
+                                    else {
+                                        text = "<img src='file:./file.png' width=50 height=auto></img>" +"<a href='file://" + fileName + "'>" +"   "+ msg + "</a>";
+
+
+                                    }
+                                    try
+                                    {
+//                                    doc.insertString(doc.getLength(), newmsg, right );
+//                                    doc.setParagraphAttributes(doc.getLength(), 1, right, false);
+                                        HTMLDocument doc = (HTMLDocument) epHistory.getDocument();
+                                        Element elem = doc.getElement("body");
+                                        String line = "<div class='div1'>"+text+"</div>";
+                                        System.out.println("line: "+line);
+                                        String htmlText = String.format("<p>%s</p>", line);
+                                        try {
+                                            doc.insertBeforeEnd(elem, htmlText);
+                                        } catch (BadLocationException | IOException ex) {
+                                            ex.printStackTrace();
+                                        }
+
+                                    }
+                                    catch (Exception e5)
+                                    {
+
+                                    }
                                 }
 
                             }

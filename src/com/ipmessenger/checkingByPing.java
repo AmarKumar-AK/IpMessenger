@@ -60,7 +60,7 @@ public class checkingByPing extends Thread {
                         break;
                     }
                 }
-                if(flag==1)
+                if(flag1==1)
                 {
 
                     ips.addElement(host);

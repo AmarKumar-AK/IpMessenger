@@ -53,6 +53,12 @@ public class mainFrame {
 
     public mainFrame() throws IOException {
 
+//        File backgroundd = new File("./u1.png");
+//        URL urll = backgroundd.toURI().toURL();
+//
+//        epHistory.setContentType("text/html");
+//        epHistory.setText("<html><body style='color: #ffffff; background-image: url(" + urll.toString() + ");'>Boo</body></html>");
+
         // getting own system ips
         compairingOwnIp compairingOwnIp = new compairingOwnIp();
         ArrayList<String> myips = compairingOwnIp.getMyips();
@@ -166,18 +172,20 @@ public class mainFrame {
                     else
                         subnet+=myip.charAt(i);
                 }
-                checkingAvailIps checkingAvailIps = new checkingAvailIps(listIp,ips,"192.168",myips);
+                checkingAvailIps checkingAvailIps = new checkingAvailIps(listIp,ips,subnet,myips);
                 checkingAvailIps.start();
-                try {
-                    sleep(20000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                progressbar pb=new progressbar("Searching online users...");
+                pb.start();
+                while (checkingAvailIps.getStatus()!=0)
+                {
+                    System.out.println("status = "+checkingAvailIps.getStatus());
+                    //System.out.println("");
                 }
-                checkingAvailIps.stop();
+                pb.setStop(false);
 //
-                for(int i=0; i<ips.size(); i++){
-                    System.out.println("Ip from ips: "+ips.get(i));
-                }
+//                for(int i=0; i<ips.size(); i++){
+//                    System.out.println("Ip from ips: "+ips.get(i));
+//                }
 //                Iterator<String> k = hash_set.iterator();
 //                ips.clear();
 //                while(k.hasNext()){
@@ -328,6 +336,7 @@ public class mainFrame {
                             flag=1;
 //                            System.out.println("firoz................");
 //                        listIp.setSelectedIndex(1);
+                            listIp.setSelectedIndex(i);
                             break;
                         }
                     }
@@ -359,7 +368,7 @@ public class mainFrame {
                     {
                         ips.addElement(temp);
                     }
-                    listIp.setSelectedIndex(ips.size()-1);
+                    //listIp.setSelectedIndex(ips.size()-1);
                     lc=0;
 
                     String msg = "";

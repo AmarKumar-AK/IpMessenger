@@ -11,26 +11,28 @@ import java.util.Vector;
 public class progressbar extends Thread {
     private JProgressBar pb;
     private boolean stop;
-    JFrame frame = new JFrame("Sending");
+    JFrame frame = new JFrame();
     Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-
-    public progressbar() {
+    public progressbar(String title) {
         frame.setLocation(dim.width/2-frame.getSize().width/2,dim.height/2-frame.getSize().height/2);
+        frame.setTitle(title);
         pb = new JProgressBar();
         pb.setValue(0);
         JPanel p = new JPanel();
+        pb.update(pb.getGraphics());
+        //p.setBackground(Color.BLACK);
         p.add(pb);
-        pb.setString("Sending....");
+        pb.setString(title);
         frame.add(p);
         stop=true;
-        frame.setSize(200,100);
+        frame.setSize(400,100);
         frame.setVisible(true);
     }
 
     //    @Override
     public void run() {
         int i=0;
-        pb.setString("Sending...");
+        //pb.setString("Sending...");
         while(stop){
             pb.update(pb.getGraphics());
 

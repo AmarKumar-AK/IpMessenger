@@ -169,7 +169,7 @@ public class clientConnect extends Thread {
                     }
                     if(fc!=null && fc.getSelectedFile()!=null)
                     {
-                        progressbar pb=new progressbar();
+                        progressbar pb=new progressbar("Sending...");
                         pb.start();
                         try
                         {

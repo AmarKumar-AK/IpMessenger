@@ -149,7 +149,7 @@ public class mainFrame {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 listIp.setEnabled(false);
-                checkingAvailIps checkingAvailIps = new checkingAvailIps(listIp,ips,"172.16",myips);
+                checkingAvailIps checkingAvailIps = new checkingAvailIps(listIp,ips,"192.168",myips);
                 checkingAvailIps.start();
                 try {
                     sleep(20000);
@@ -245,6 +245,10 @@ public class mainFrame {
                 System.out.println("fo"+flag_ownip);
                 if(!tfNewIp.getText().equals("") && flag_ownip==1)
                 {
+                    epHistory.setText("<html><head><style type='text/css'>" +
+                            ".div1{width: 5px; max-width: 5px; margin: 5px auto; background: #00bfb6; color: #fff; padding: 10px; text-align: center; font-weight: 900; font-family: arial; position: relative;margin-left:0; margin-right:500;}" +
+                            ".div2{width: 40; max-width: 40; margin: 5px auto; background: #00bfb6; color: #fff; padding: 10px; text-align: center; font-weight: 900; font-family: arial; position: relative; margin-left:500; margin-right:0;}" +
+                            "</style></head> <body id='body' > </body></html>");
                     String chat="";
                     char[] ch={0};
                     if(lc==0)
@@ -372,6 +376,7 @@ public class mainFrame {
 //                                System.out.println("::::r"+msg);
 //                                doc.insertString(doc.getLength(), msg, right );
 //                                doc.setParagraphAttributes(doc.getLength(), 1, right, false);
+
                             File tempFile = new File(msg);
                             boolean exists = tempFile.exists();
                             if(!exists) {
@@ -573,6 +578,10 @@ public class mainFrame {
 //                    listIp.setSelectionBackground(Color.green);
                     String filename=temp1;
 //                    taHistory.setText("");
+                    epHistory.setText("<html><head><style type='text/css'>" +
+                            ".div1{width: 5px; max-width: 5px; margin: 5px auto; background: #00bfb6; color: #fff; padding: 10px; text-align: center; font-weight: 900; font-family: arial; position: relative;margin-left:0; margin-right:500;}" +
+                            ".div2{width: 40; max-width: 40; margin: 5px auto; background: #00bfb6; color: #fff; padding: 10px; text-align: center; font-weight: 900; font-family: arial; position: relative; margin-left:500; margin-right:0;}" +
+                            "</style></head> <body id='body' > </body></html>");
                     try
                     {
                         File file=new File("database/"+filename.replace(".","_")+".txt");

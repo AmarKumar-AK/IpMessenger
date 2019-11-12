@@ -229,7 +229,7 @@ class ClientHandler implements Runnable
                             }
                             System.out.println("extension: "+extension);
                             String text;
-                            if(extension.equals("jpg") || extension.equals("png")){
+                            if(extension.equals("jpg") || extension.equals("png") || extension.equals("gif")){
                                 text = "<a href='file://" + fileName + "'>" + "<img src='file:"+fileName+"' width=200 height=auto></img>" + "</a>";
 
 
@@ -243,6 +243,7 @@ class ClientHandler implements Runnable
                             {
                                 if(s.getInetAddress().getHostAddress().equals(listip.getSelectedValue()))
                                 {
+                                    System.out.println("firooooooooz\n");
 //                                    doc.insertString(doc.getLength(), msg, left );
 //                                    taMsgRecv.insertIcon(new ImageIcon("media/"+filename));
 //                                    doc.setParagraphAttributes(doc.getLength(), 1, left, false);
@@ -310,26 +311,24 @@ class ClientHandler implements Runnable
                     if (!received.equals("")) {
                         String msg =received;
                         msg = msg.trim();
-
-                        try
-                        {
-//                                    doc.insertString(doc.getLength(), newmsg, right );
-//                                    doc.setParagraphAttributes(doc.getLength(), 1, right, false);
-                            HTMLDocument doc = (HTMLDocument) epHistory.getDocument();
-                            Element elem = doc.getElement("body");
-                            String line = "<div class='div1'>"+msg+"</div>";
-                            System.out.println("line: "+line);
-                            String htmlText = String.format("<p>%s</p>", line);
+                        if(s.getInetAddress().getHostAddress().equals(listip.getSelectedValue())) {
                             try {
-                                doc.insertBeforeEnd(elem, htmlText);
-                            } catch (BadLocationException | IOException ex) {
-                                ex.printStackTrace();
+                                //                                    doc.insertString(doc.getLength(), newmsg, right );
+                                //                                    doc.setParagraphAttributes(doc.getLength(), 1, right, false);
+                                HTMLDocument doc = (HTMLDocument) epHistory.getDocument();
+                                Element elem = doc.getElement("body");
+                                String line = "<div class='div1'>" + msg + "</div>";
+                                System.out.println("line: " + line);
+                                String htmlText = String.format("<p>%s</p>", line);
+                                try {
+                                    doc.insertBeforeEnd(elem, htmlText);
+                                } catch (BadLocationException | IOException ex) {
+                                    ex.printStackTrace();
+                                }
+
+                            } catch (Exception e) {
+
                             }
-
-                        }
-                        catch (Exception e)
-                        {
-
                         }
 //                        taMsgRecv.setText(taMsgRecv.getText() + "[" + s.getInetAddress().getHostAddress() + "] " + received + "\n");
                     }

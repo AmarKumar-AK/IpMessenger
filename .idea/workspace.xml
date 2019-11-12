@@ -3,8 +3,15 @@
   <component name="ChangeListManager">
     <list default="true" id="fb4cc6b7-0502-480a-acc6-957c40a3742e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/192_168_0_115.txt" beforeDir="false" afterPath="$PROJECT_DIR$/database/192_168_0_115.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/192_168_0_115.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/ip.txt" beforeDir="false" afterPath="$PROJECT_DIR$/database/ip.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Ip Messenger/META-INF/Ip Messenger.kotlin_module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/ClientHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/ClientHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/checkingAvailIps.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/checkingAvailIps.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/mainFrame$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/mainFrame$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/ipmessenger/checkingAvailIps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/ipmessenger/checkingAvailIps.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/ipmessenger/mainFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/ipmessenger/mainFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/ipmessenger/server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/ipmessenger/server.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

@@ -53,6 +53,17 @@ public class mainFrame {
 
     public mainFrame() throws IOException {
 
+        // getting own system ips
+        compairingOwnIp compairingOwnIp = new compairingOwnIp();
+        ArrayList<String> myips = compairingOwnIp.getMyips();
+        for(int i=0;i<myips.size();i++)
+        {
+            if(myips.get(i).equals("127.0.0.1") || myips.get(i).equals("0.0.0.0"))
+            {
+                myips.remove(i);
+            }
+        }
+
         //user png
         BufferedImage image = ImageIO.read(new File("u4.png"));
 //        Graphics2D g = (Graphics2D) image.getGraphics();
@@ -99,16 +110,7 @@ public class mainFrame {
 
 
 
-        // getting own system ips
-        compairingOwnIp compairingOwnIp = new compairingOwnIp();
-        ArrayList<String> myips = compairingOwnIp.getMyips();
-        for(int i=0;i<myips.size();i++)
-        {
-            if(myips.get(i).equals("127.0.0.1") || myips.get(i).equals("0.0.0.0"))
-            {
-                myips.remove(i);
-            }
-        }
+
 
 
         //Reading iplist from file ip.txt
@@ -149,6 +151,21 @@ public class mainFrame {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 listIp.setEnabled(false);
+                String myip = myips.get(myips.size()-1);
+                String subnet="";
+                int dotcount=0;
+                for(int i=0;i<myip.length();i++)
+                {
+                    if(myip.charAt(i)=='.' )
+                    {
+                        dotcount++;
+                        if(dotcount==2)
+                            break;
+                        subnet+=myip.charAt(i);
+                    }
+                    else
+                        subnet+=myip.charAt(i);
+                }
                 checkingAvailIps checkingAvailIps = new checkingAvailIps(listIp,ips,"192.168",myips);
                 checkingAvailIps.start();
                 try {
@@ -888,6 +905,11 @@ public class mainFrame {
         frame.setLocation(dim.width/2-frame.getSize().width/2,dim.height/2-frame.getSize().height/2);
         frame.setContentPane(new mainFrame().panel1);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        splashScreen spp = new splashScreen();
+        while (spp.getStatus()!=0)
+        {
+            System.out.println("waiting");
+        }
         frame.setVisible(true);
     }
 }

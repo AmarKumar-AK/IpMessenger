@@ -42,12 +42,12 @@ class splashScreen extends JFrame {
         setLocation((dim.width-getSize().width)/2,(dim.height-getSize().height)/2);
 
         Container container = getContentPane();
-        ImageIcon ic = new ImageIcon("u4.png");
 
-        Image im = ic.getImage();
+        setUndecorated(true);
+
         try{
 
-            image = ImageIO.read(new File("splash.jpg"));
+            image = ImageIO.read(getClass().getClassLoader().getResource("splash.jpg"));
         }catch (Exception e){
 
         }

@@ -50,9 +50,12 @@ public class mainFrame {
 
     DefaultListModel<String> ips = new DefaultListModel<>();
 
-
+    private BufferedImage image;
     public mainFrame() throws IOException {
-
+        File fmkdir2 = new File("database");
+        fmkdir2.mkdir();
+        File fmkdir1 = new File("media");
+        fmkdir1.mkdir();
 //        File backgroundd = new File("./u1.png");
 //        URL urll = backgroundd.toURI().toURL();
 //
@@ -71,12 +74,18 @@ public class mainFrame {
         }
 
         //user png
-        BufferedImage image = ImageIO.read(new File("u4.png"));
+        try {
+            image = ImageIO.read(getClass().getClassLoader().getResource("u4.png"));
+
+        }catch (Exception e)
+        {
+            System.out.println("error in user image loading");
+        }
 //        Graphics2D g = (Graphics2D) image.getGraphics();
 //        g.setStroke(new BasicStroke(3));
 //        g.setColor(Color.BLUE);
 //        g.drawRect(0, 0, image.getWidth() - 10, image.getHeight() - 10);
-        labelicon.setLocation(0,10);
+//        labelicon.setLocation(0,10);
         labelicon.setIcon(new ImageIcon(image));
         compairingOwnIp c = new compairingOwnIp();
         ArrayList<String> mylist = c.getMyips();
@@ -88,7 +97,7 @@ public class mainFrame {
 
         Document doc = htmlEditorKit.createDefaultDocument();
         epHistory.setDocument(doc);
-        File background = new File("icon_2.png");
+        File background = new File("resources/icon_2.png");
         URL url = background.getCanonicalFile().toURI().toURL();
         epHistory.setText("<html><head><style type='text/css'>" +
                 ".div1{width: 5px; max-width: 5px; margin: 5px auto; background: #00bfb6; color: #fff; padding: 10px; text-align: center; font-weight: 900; font-family: arial; position: relative;margin-left:0; margin-right:500;}" +
@@ -121,6 +130,8 @@ public class mainFrame {
 
         //Reading iplist from file ip.txt
         Set<String> hash_set = new HashSet<String>();
+        File fmkdir = new File("database");
+        fmkdir.mkdir();
         File ipsfile = new File("database/ip.txt");
         if(ipsfile.exists())
         {
@@ -239,7 +250,7 @@ public class mainFrame {
         listIp.setBorder(BorderFactory.createRaisedBevelBorder());
         listIp.setCellRenderer(getRenderer());
 //        listIp.setForeground(Color.blue);
-        ImageIcon icon = new ImageIcon("icon_2.png");
+//        ImageIcon icon = new ImageIcon("icon_2.png");
 
 
 
@@ -305,6 +316,8 @@ public class mainFrame {
                    // taHistory.setText("");
                     try
                     {
+                        File fmkdir = new File("database");
+                        fmkdir.mkdir();
                         File file=new File("database/"+filename.replace(".","_")+".txt");
                         Scanner sc=new Scanner(file);
                         sc.useDelimiter("\\Z");
@@ -435,13 +448,13 @@ public class mainFrame {
                                 }
                                 System.out.println("extension: "+extension);
                                 String text;
-                                if(extension.equals("jpg") || extension.equals("png")){
+                                if(extension.equals("jpg") || extension.equals("png")|| extension.equals("jpeg")|| extension.equals("gif")|| extension.equals("bmp")){
                                     text = "<a href='file:///" + msg + "'>" + "<img src='file:"+msg+"' width=200 height=auto></img>" + "</a>";
 
 
                                 }
                                 else {
-                                    text = "<img src='file:./file.png' width=50 height=auto></img>" +"<a href='file:///" + msg + "'>" +"   "+ msg + "</a>";
+                                    text = "<img src='file:file.png' width=50 height=auto></img>" +"<a href='file:///" + msg + "'>" +"   "+ msg + "</a>";
 
 
                                 }
@@ -528,13 +541,13 @@ public class mainFrame {
                                 }
                                 System.out.println("extension: "+extension);
                                 String text;
-                                if(extension.equals("jpg") || extension.equals("png")){
+                                if(extension.equals("jpg") || extension.equals("png")|| extension.equals("jpeg")|| extension.equals("gif")|| extension.equals("bmp")){
                                     text = "<a href='file://" + fileName + "'>" + "<img src='file:"+fileName+"' width=200 height=auto></img>" + "</a>";
 
 
                                 }
                                 else {
-                                    text = "<img src='file:./file.png' width=50 height=auto></img>" +"<a href='file://" + fileName + "'>" +"   "+ msg + "</a>";
+                                    text = "<img src='file:file.png' width=50 height=auto></img>" +"<a href='file://" + fileName + "'>" +"   "+ msg + "</a>";
 
 
                                 }
@@ -610,6 +623,8 @@ public class mainFrame {
                             "</style></head> <body id='body' > </body></html>");
                     try
                     {
+                        File fmkdir = new File("database");
+                        fmkdir.mkdir();
                         File file=new File("database/"+filename.replace(".","_")+".txt");
                         Scanner sc=new Scanner(file);
                         sc.useDelimiter("\\Z");
@@ -680,13 +695,13 @@ public class mainFrame {
                                     }
                                     System.out.println("extension: "+extension);
                                     String text;
-                                    if(extension.equals("jpg") || extension.equals("png")){
+                                    if(extension.equals("jpg") || extension.equals("png")|| extension.equals("jpeg")|| extension.equals("gif")|| extension.equals("bmp")){
                                         text = "<a href='file:///" + msg + "'>" + "<img src='file:"+msg+"' width=200 height=auto></img>" + "</a>";
 
 
                                     }
                                     else {
-                                        text = "<img src='file:./file.png' width=50 height=auto></img>" +"<a href='file:///" + msg + "'>" +"   "+ msg + "</a>";
+                                        text = "<img src='file:file.png' width=50 height=auto></img>" +"<a href='file:///" + msg + "'>" +"   "+ msg + "</a>";
 
 
                                     }
@@ -775,13 +790,13 @@ public class mainFrame {
                                     }
                                     System.out.println("extension: "+extension);
                                     String text;
-                                    if(extension.equals("jpg") || extension.equals("png")){
+                                    if(extension.equals("jpg") || extension.equals("png")|| extension.equals("jpeg")|| extension.equals("gif")|| extension.equals("bmp")){
                                         text = "<a href='file://" + fileName + "'>" + "<img src='file:"+fileName+"' width=200 height=auto></img>" + "</a>";
 
 
                                     }
                                     else {
-                                        text = "<img src='file:./file.png' width=50 height=auto></img>" +"<a href='file://" + fileName + "'>" +"   "+ msg + "</a>";
+                                        text = "<img src='file:file.png' width=50 height=auto></img>" +"<a href='file://" + fileName + "'>" +"   "+ msg + "</a>";
 
 
                                     }

@@ -88,6 +88,8 @@ public class clientConnect extends Thread {
 
 
             System.out.println("Printing the  IP List");
+            File fmkdir = new File("database");
+            fmkdir.mkdir();
             File file = new File("database/ip.txt");
             file.setWritable(true,false);
             FileWriter fr= new FileWriter(file, true);
@@ -226,14 +228,15 @@ public class clientConnect extends Thread {
                                 extension = fileName.substring(i+1);
                             }
                             System.out.println("extension: "+extension);
+
                             String text;
-                            if(extension.equals("jpg") || extension.equals("png")){
+                            if(extension.equals("jpg") || extension.equals("png") || extension.equals("jpeg")|| extension.equals("gif")|| extension.equals("bmp")){
                                 text = "<a href='file:///" + fc.getSelectedFile() + "'>" + "<img src='file:"+fc.getSelectedFile()+"' width=200 height=auto></img>" + "</a>";
 
 
                             }
                             else {
-                                text = "<img src='file:./file.png' width=50 height=auto></img>" +"<a href='file:///" + fc.getSelectedFile() + "'>" +"   "+ fc.getSelectedFile() + "</a>";
+                                text = "<img src='file:./resources/file.png' width=50 height=auto></img>" +"<a href='file:///" + fc.getSelectedFile() + "'>" +"   "+ fc.getSelectedFile() + "</a>";
 
 
                             }

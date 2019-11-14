@@ -89,7 +89,7 @@ public class mainFrame {
         labelicon.setIcon(new ImageIcon(image));
         compairingOwnIp c = new compairingOwnIp();
         ArrayList<String> mylist = c.getMyips();
-        labelicon.setText(mylist.get(0));
+        labelicon.setText(mylist.get(mylist.size()-1));
         //
 
         HTMLEditorKit htmlEditorKit = new HTMLEditorKit();

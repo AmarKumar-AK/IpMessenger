@@ -311,6 +311,7 @@ class ClientHandler implements Runnable
                     if (!received.equals("")) {
                         String msg =received;
                         msg = msg.trim();
+
                         if(s.getInetAddress().getHostAddress().equals(listip.getSelectedValue())) {
                             try {
                                 //                                    doc.insertString(doc.getLength(), newmsg, right );

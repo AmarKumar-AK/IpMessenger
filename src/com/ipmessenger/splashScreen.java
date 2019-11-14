@@ -43,7 +43,7 @@ class splashScreen extends JFrame {
 
         Container container = getContentPane();
         ImageIcon ic = new ImageIcon("u4.png");
-
+        setUndecorated(true);
         Image im = ic.getImage();
         try{
 

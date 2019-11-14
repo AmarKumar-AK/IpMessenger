@@ -53,8 +53,8 @@ public class mainFrame {
 
     public mainFrame() throws IOException {
 
-//        File backgroundd = new File("./u1.png");
-//        URL urll = backgroundd.toURI().toURL();
+        File backgroundd = new File("./msgbackground.jpg");
+        URL urll = backgroundd.toURI().toURL();
 //
 //        epHistory.setContentType("text/html");
 //        epHistory.setText("<html><body style='color: #ffffff; background-image: url(" + urll.toString() + ");'>Boo</body></html>");
@@ -71,7 +71,7 @@ public class mainFrame {
         }
 
         //user png
-        BufferedImage image = ImageIO.read(new File("u4.png"));
+        BufferedImage image = ImageIO.read(new File("mainuser1.png"));
 //        Graphics2D g = (Graphics2D) image.getGraphics();
 //        g.setStroke(new BasicStroke(3));
 //        g.setColor(Color.BLUE);
@@ -90,9 +90,9 @@ public class mainFrame {
         epHistory.setDocument(doc);
         File background = new File("icon_2.png");
         URL url = background.getCanonicalFile().toURI().toURL();
-        epHistory.setText("<html><head><style type='text/css'>" +
-                ".div1{width: 5px; max-width: 5px; margin: 5px auto; background: #00bfb6; color: #fff; padding: 10px; text-align: center; font-weight: 900; font-family: arial; position: relative;margin-left:0; margin-right:500;}" +
-                ".div2{width: 40; max-width: 40; margin: 5px auto; background: #00bfb6; color: #fff; padding: 10px; text-align: center; font-weight: 900; font-family: arial; position: relative; margin-left:500; margin-right:0;}" +
+        epHistory.setText("<html><head><style type='text/css'>" +//"body{background-image: url('"+urll.toString()+ "' );background-repeat: 'none';}"+
+                ".div1{width: 5px; max-width: 5px; margin: 5px auto; background: #C4D6D6; color: #fff; padding: 10px; text-align: center; font-weight: 900; font-family: arial; position: relative;margin-left:0; margin-right:500;}" +
+                ".div2{width: 40; max-width: 40; margin: 5px auto; background: #C4D6D6; color: #fff; padding: 10px; text-align: center; font-weight: 900; font-family: arial; position: relative; margin-left:500; margin-right:0;}" +
                 "</style></head> <body id='body' > </body></html>");
 
         epHistory.setEditable(false);
@@ -271,8 +271,8 @@ public class mainFrame {
                 if(!tfNewIp.getText().equals("") && flag_ownip==1)
                 {
                     epHistory.setText("<html><head><style type='text/css'>" +
-                            ".div1{width: 5px; max-width: 5px; margin: 5px auto; background: #00bfb6; color: #fff; padding: 10px; text-align: center; font-weight: 900; font-family: arial; position: relative;margin-left:0; margin-right:500;}" +
-                            ".div2{width: 40; max-width: 40; margin: 5px auto; background: #00bfb6; color: #fff; padding: 10px; text-align: center; font-weight: 900; font-family: arial; position: relative; margin-left:500; margin-right:0;}" +
+                            ".div1{width: 5px; max-width: 5px; margin: 5px auto; background: #C4D6D6; color: #fff; padding: 10px; text-align: center; font-weight: 900; font-family: arial; position: relative;margin-left:0; margin-right:500;}" +
+                            ".div2{width: 40; max-width: 40; margin: 5px auto; background: #C4D6D6; color: #fff; padding: 10px; text-align: center; font-weight: 900; font-family: arial; position: relative; margin-left:500; margin-right:0;}" +
                             "</style></head> <body id='body' > </body></html>");
                     String chat="";
                     char[] ch={0};
@@ -605,8 +605,8 @@ public class mainFrame {
                     String filename=temp1;
 //                    taHistory.setText("");
                     epHistory.setText("<html><head><style type='text/css'>" +
-                            ".div1{width: 5px; max-width: 5px; margin: 5px auto; background: #00bfb6; color: #fff; padding: 10px; text-align: center; font-weight: 900; font-family: arial; position: relative;margin-left:0; margin-right:500;}" +
-                            ".div2{width: 40; max-width: 40; margin: 5px auto; background: #00bfb6; color: #fff; padding: 10px; text-align: center; font-weight: 900; font-family: arial; position: relative; margin-left:500; margin-right:0;}" +
+                            ".div1{width: 5px; max-width: 5px; margin: 5px auto; background: #C4D6D6; color: #fff; padding: 10px; text-align: center; font-weight: 900; font-family: arial; position: relative;margin-left:0; margin-right:500;}" +
+                            ".div2{width: 40; max-width: 40; margin: 5px auto; background: #C4D6D6; color: #fff; padding: 10px; text-align: center; font-weight: 900; font-family: arial; position: relative; margin-left:500; margin-right:0;}" +
                             "</style></head> <body id='body' > </body></html>");
                     try
                     {

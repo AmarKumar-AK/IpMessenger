@@ -337,7 +337,8 @@ public class clientConnect extends Thread {
             labelName.setText(address+" (offline)");
 //            if(socket.isClosed())
 //                JOptionPane.showMessageDialog(panel1,"User offline !");
-//            JOptionPane.showMessageDialog(panel1,"User Not Connected");
+//            String msssg=i.getMessage();
+//            System.out.println(msssg);
 //            System.out.println(i);
         }
 

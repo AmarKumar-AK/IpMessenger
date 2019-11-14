@@ -7,17 +7,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fb4cc6b7-0502-480a-acc6-957c40a3742e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/192_168_0_115.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/192_168_0_137.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/192_168_1_112.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/192_168_1_113.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/database/ip.txt" beforeDir="false" afterPath="$PROJECT_DIR$/database/ip.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/file.png" beforeDir="false" afterPath="$PROJECT_DIR$/file.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/ClientHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/ClientHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/clientConnect.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/clientConnect.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/mainFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Ip Messenger/com/ipmessenger/mainFrame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/ipmessenger/clientConnect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/ipmessenger/clientConnect.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/ipmessenger/mainFrame.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/ipmessenger/mainFrame.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/ipmessenger/mainFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/ipmessenger/mainFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/ipmessenger/server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/ipmessenger/server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/ipmessenger/splashScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/ipmessenger/splashScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/001_Introduction.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/1.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/2.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/ced17i029.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/widescreen_hd_emma_watson-2560x1600.jpg" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

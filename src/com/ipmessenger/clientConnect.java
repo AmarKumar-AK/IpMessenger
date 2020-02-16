@@ -227,7 +227,7 @@ public class clientConnect extends Thread {
                             }
                             System.out.println("extension: "+extension);
                             String text;
-                            if(extension.equals("jpg") || extension.equals("png")){
+                            if(extension.equals("jpg") || extension.equals("png")|| extension.equals("gif")|| extension.equals("jpeg")){
                                 text = "<a href='file:///" + fc.getSelectedFile() + "'>" + "<img src='file:"+fc.getSelectedFile()+"' width=200 height=auto></img>" + "</a>";
 
 

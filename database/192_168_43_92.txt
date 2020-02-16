@@ -1,0 +1,6 @@
+[192.168.43.92]firozzzzzzzzzzz
+[You @ 14/11 16:12]/home/saumya/1.txt
+[You @ 14/11 16:13]/home/saumya/Pictures/widescreen_hd_emma_watson-2560x1600.jpg
+[192.168.43.92]image.py
+[You @ 14/11 16:14]/home/saumya/Desktop/Jeremy-Renner-Thumbs-Up-Awesome.gif
+[192.168.43.92]5._How_do_Neural_Networks_learn.mp4

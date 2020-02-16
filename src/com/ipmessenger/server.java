@@ -229,7 +229,7 @@ class ClientHandler implements Runnable
                             }
                             System.out.println("extension: "+extension);
                             String text;
-                            if(extension.equals("jpg") || extension.equals("png") || extension.equals("gif")){
+                            if(extension.equals("jpg") || extension.equals("png") || extension.equals("gif")|| extension.equals("jpeg")){
                                 text = "<a href='file://" + fileName + "'>" + "<img src='file:"+fileName+"' width=200 height=auto></img>" + "</a>";
 
 

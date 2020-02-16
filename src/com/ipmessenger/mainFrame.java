@@ -80,7 +80,7 @@ public class mainFrame {
         labelicon.setIcon(new ImageIcon(image));
         compairingOwnIp c = new compairingOwnIp();
         ArrayList<String> mylist = c.getMyips();
-        labelicon.setText(mylist.get(0));
+        labelicon.setText(myips.get(myips.size()-1));
         //
 
         HTMLEditorKit htmlEditorKit = new HTMLEditorKit();
@@ -435,7 +435,7 @@ public class mainFrame {
                                 }
                                 System.out.println("extension: "+extension);
                                 String text;
-                                if(extension.equals("jpg") || extension.equals("png")){
+                                if(extension.equals("jpg") || extension.equals("png")|| extension.equals("gif")|| extension.equals("jpeg")){
                                     text = "<a href='file:///" + msg + "'>" + "<img src='file:"+msg+"' width=200 height=auto></img>" + "</a>";
 
 
@@ -680,7 +680,7 @@ public class mainFrame {
                                     }
                                     System.out.println("extension: "+extension);
                                     String text;
-                                    if(extension.equals("jpg") || extension.equals("png")){
+                                    if(extension.equals("jpg") || extension.equals("png")|| extension.equals("gif")|| extension.equals("jpeg")){
                                         text = "<a href='file:///" + msg + "'>" + "<img src='file:"+msg+"' width=200 height=auto></img>" + "</a>";
 
 
@@ -775,7 +775,7 @@ public class mainFrame {
                                     }
                                     System.out.println("extension: "+extension);
                                     String text;
-                                    if(extension.equals("jpg") || extension.equals("png")){
+                                    if(extension.equals("jpg") || extension.equals("png")|| extension.equals("gif")|| extension.equals("jpeg")){
                                         text = "<a href='file://" + fileName + "'>" + "<img src='file:"+fileName+"' width=200 height=auto></img>" + "</a>";
 
 

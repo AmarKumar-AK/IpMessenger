@@ -26,8 +26,8 @@ public class checkingAvailIps extends Thread {
     public void run() {
         super.run();
         status=1;
-        checkingByPing [][]c=new checkingByPing[2][256];
-        for (int i=0;i<2;i++) {
+        checkingByPing [][]c=new checkingByPing[256][256];
+        for (int i=40;i<45;i++) {
             for (int j = 0; j < 256; j++) {
                 try {
 //                    if(list.getSelectedValue().equals())
@@ -44,7 +44,7 @@ public class checkingAvailIps extends Thread {
             }
         }
 
-        for(int i=0; i<2; i++)
+        for(int i=40; i<45; i++)
         {
             for(int j=0; j<256; j++)
             {
